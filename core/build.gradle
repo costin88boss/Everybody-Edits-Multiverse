@@ -1,0 +1,9 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.github.tommyettinger:jbump:$jbumpVersion"
+  api "org.slf4j:slf4j-api:$slf4jVersion"
+  api "org.slf4j:slf4j-simple:$slf4jVersion"
+}
