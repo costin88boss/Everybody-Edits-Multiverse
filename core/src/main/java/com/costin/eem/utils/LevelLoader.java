@@ -74,7 +74,6 @@ public class LevelLoader {
 
             int blockID = data.readInt();
             int blockLayer = data.readInt();
-            log.info(blockID + "|" + blockLayer);
             int[] xPositions = readUShortArray(data);
             int[] yPositions = readUShortArray(data);
 
@@ -140,7 +139,6 @@ public class LevelLoader {
             for (int i = 0; i < xPositions.length; i++) {
                 layers[blockLayer][xPositions[i]][yPositions[i]] = block;
             }
-            log.info("id: {}; count: {}; block type: {}", blockID, xPositions.length, block.getClass());
         }
         return new World(layers, owner, worldName, width, height, gravity, background, description, campaign, crewId, crewName, crewStatus, minimap, ownerID);
     }

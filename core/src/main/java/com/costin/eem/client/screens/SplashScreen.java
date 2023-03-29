@@ -1,5 +1,6 @@
 package com.costin.eem.client.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
@@ -10,17 +11,29 @@ import org.slf4j.LoggerFactory;
 
 public class SplashScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(SplashScreen.class);
-    SpriteBatch batch;
-    Texture titlescreen;
-    boolean invert = false;
+    private final Texture titlescreen;
+    private boolean invert = false;
+    private float waitTime;
+    private static SplashScreen singleton;
+
+    private SplashScreen() {
+        titlescreen = new Texture("media/titlescreen.png");
+        ItemManager.initialize(true);
+    }
+
+    public static SplashScreen instance() {
+        if (singleton == null) {
+            singleton = new SplashScreen();
+        }
+        return singleton;
+    }
 
     @Override
     public void start() {
-        batch = MainClient.mainBatch();
+        Gdx.input.setInputProcessor(this);
         batch.setColor(1, 1, 1, 0.0001f);
-        titlescreen = new Texture("media/titlescreen.png");
         invert = false;
-        ItemManager.initialize(true);
+        waitTime = 2;
     }
 
     @Override
@@ -30,17 +43,23 @@ public class SplashScreen extends Screen {
 
     @Override
     public boolean keyDown(int keycode) {
-        MainClient.setScreen(new MenuScreen());
+        MainClient.setScreen(MenuScreen.instance());
         return false;
     }
 
     @Override
     public void render(double elapsedTime) {
         batch.begin();
-        batch.setColor(1, 1, 1, MathUtils.lerp(0, 1, invert ? batch.getColor().a - 0.005f : batch.getColor().a + 0.025f));
+        if(!invert || waitTime <= 0) {
+            batch.setColor(1, 1, 1, MathUtils.lerp(0, 1, invert ? batch.getColor().a - 0.025f : batch.getColor().a + 0.025f));
+        } else {
+            waitTime -= Gdx.graphics.getDeltaTime();
+        }
         batch.draw(titlescreen, 0, 0);
         batch.end();
-        if (batch.getColor().a >= 1) invert = true;
-        if (batch.getColor().a <= 0) MainClient.setScreen(new MenuScreen());
+        if (batch.getColor().a >= 1) {
+            invert = true;
+        }
+        if (batch.getColor().a <= 0) MainClient.setScreen(MenuScreen.instance());
     }
 }

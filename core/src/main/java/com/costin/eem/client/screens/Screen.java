@@ -1,12 +1,13 @@
 package com.costin.eem.client.screens;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
-public abstract class Screen implements InputProcessor {
-    protected Screen() {
-
-    }
-    public boolean init;
+public class Screen implements InputProcessor {
+    public SpriteBatch batch;
+    public Viewport viewport;
+    Screen() {}
 
     public void start() {
 

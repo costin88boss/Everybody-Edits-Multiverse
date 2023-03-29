@@ -2,6 +2,7 @@ package com.costin.eem.game.level;
 
 import com.badlogic.gdx.graphics.Color;
 import com.costin.eem.Config;
+import com.costin.eem.game.items.ItemLayer;
 import com.costin.eem.net.protocol.world.server.SetBlockPacket;
 import com.costin.eem.server.MainServer;
 import org.slf4j.Logger;
@@ -27,7 +28,14 @@ public class World {
     public void clearWorld() {
         layers = new Block[Config.LAYERS][width][height];
 
-        // TODO: 3/29/2023 clear world thing
+        for (int i = 0; i < width; i++) {
+            layers[ItemLayer.FORGROUND][i][0] = new Block(9);
+            layers[ItemLayer.FORGROUND][i][height - 1] = new Block(9);
+        }
+        for (int i = 0; i < height; i++) {
+            layers[ItemLayer.FORGROUND][0][i] = new Block(9);
+            layers[ItemLayer.FORGROUND][width - 1][i] = new Block(9);
+        }
     }
     private Block[][] getLayer(int layer) {
         return layers[layer];
@@ -132,23 +140,6 @@ public class World {
     }
     public String getOwnerID() {
         return ownerID;
-    }
-    public void printWorldInfo() {
-        log.info("=== World Info ===");
-        log.info("owner => " + owner);
-        log.info("worldName => " + worldName);
-        log.info("width => " + width);
-        log.info("height => " + height);
-        log.info("gravity => " + gravity);
-        log.info("background => " + background);
-        log.info("description => " + description);
-        log.info("campaign => " + campaign);
-        log.info("crewId => " + crewId);
-        log.info("crewName => " + crewName);
-        log.info("crewStatus => " + crewStatus);
-        log.info("minimap => " + minimap);
-        log.info("ownerID => " + ownerID);
-        log.info("=== World Info ===");
     }
 
 }

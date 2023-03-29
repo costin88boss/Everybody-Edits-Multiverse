@@ -17,7 +17,7 @@ public class MainServer implements Runnable {
     private static int port;
     private static String worldName;
     private static World world;
-    private static boolean running;
+    private volatile static boolean running;
     private static ServerSocket server;
     private static ArrayList<ServerConnection> players;
     public static World getWorld() {
@@ -27,7 +27,6 @@ public class MainServer implements Runnable {
     public MainServer(int port, String worldName) {
         MainServer.port = port;
         MainServer.worldName = worldName;
-        log.info("1");
         new Thread(this).start();
     }
     private MainServer() {}
@@ -46,23 +45,18 @@ public class MainServer implements Runnable {
         return false;
     }
 
-    public static ArrayList<ServerConnection> getPlayers() {
-        if (players == null) players = new ArrayList<>();
-        return players;
-    }
-
     public static boolean isRunning() {
         return running;
     }
 
-    public static void setRunning(boolean running) {
-        MainServer.running = running;
+    public static void stopServer() {
+        if(!running) return;
+        running = false;
         try {
             server.close();
-        } catch (Exception ignored) {
+        } catch (IOException ignored) {
 
         }
-        server = null;
     }
 
     @Override
@@ -83,23 +77,27 @@ public class MainServer implements Runnable {
 
         log.info("Server initialized on port {}.", port);
 
-        log.info(world.getWorldName());
         while (running) {
             try {
                 Socket client = server.accept();
-                new Thread(new ServerConnection(client), "Client-Thread").start();
+                new Thread(new ServerConnection(client)).start();
             } catch (IOException ignored) {
 
             }
         }
-    }
+        try {
+            server.close();
+        } catch (IOException ignored) {}
+        for (ServerConnection player :
+            players) {
+            player.closeConnection();
+        }
 
-    public static void addPlayer(ServerConnection serverConnection) {
-        if(players.contains(serverConnection)) return;
-        players.add(serverConnection);
+        log.info("Closed Server.");
+
     }
-    public static void removePlayer(ServerConnection serverConnection) {
-        if(!players.contains(serverConnection)) return;
-        players.remove(serverConnection);
+    public static ArrayList<ServerConnection> getPlayers() {
+        if (players == null) players = new ArrayList<>();
+        return players;
     }
 }

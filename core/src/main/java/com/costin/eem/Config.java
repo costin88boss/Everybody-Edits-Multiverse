@@ -10,5 +10,20 @@ public class Config {
     public static final int VERSION = 1;
 
     public static final float TIMERATE = 1f / 10;
+    private static float currWidth, currHeight;
+
+    public static float width() {
+        return currWidth;
+    }
+
+    public static float height() {
+        return currHeight;
+    }
+
+    public static void setCurrentSize(float width, float height) {
+        Config.currWidth = width;
+        Config.currHeight = height;
+    }
+
     public static final int WIDTH = 850, HEIGHT = 500;
 }

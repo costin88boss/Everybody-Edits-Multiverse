@@ -19,15 +19,28 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.net.SocketTimeoutException;
 
 public class ServerConnection implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(ServerConnection.class);
     private Player player;
+    private boolean closeConnection;
+    private Thread thisThread;
+    public Thread getThread() {
+        return thisThread;
+    }
 
     public Player getPlayer() {
         return player;
     }
+    public void closeConnection() {
+        closeConnection = true;
+        try {
+            client.close();
+        } catch (IOException ignored) {
 
+        }
+    }
     private final Socket client;
     private NetHandler currentHandler;
     private ObjectInputStream in;
@@ -47,11 +60,13 @@ public class ServerConnection implements Runnable {
     }
     @Override
     public void run() {
+        thisThread = this.getThread();
         try {
+            client.setSoTimeout(10000);
             in = new ObjectInputStream(client.getInputStream());
             HelloPacket receivedPacket = (HelloPacket) in.readObject();
             boolean accepted = true;
-            String kickReason = "";
+            String kickReason = "No reason";
 
             if(receivedPacket.clientVersion < Config.VERSION) {
                 accepted = false;
@@ -61,10 +76,6 @@ public class ServerConnection implements Runnable {
                 accepted = false;
                 kickReason = "Outdated server";
             }
-
-            accepted = false;
-            kickReason = "El Bozo";
-
 
             out = new ObjectOutputStream(client.getOutputStream());
             HelloBackPacket sendPacket = new HelloBackPacket(accepted, kickReason);
@@ -88,7 +99,7 @@ public class ServerConnection implements Runnable {
 
             player = new Player();
             player.setNickname(nickname);
-            MainServer.addPlayer(this);
+            MainServer.getPlayers().add(this);
 
             PlayerInfoPacket playerInfoPacket = new PlayerInfoPacket(nickname, 0, 0, smileyID, auraID, false);
             sendPacket(playerInfoPacket);
@@ -98,11 +109,27 @@ public class ServerConnection implements Runnable {
 
             setHandler(new LoginHandler());
             while (!client.isClosed()) {
+                if(closeConnection) {
+                    client.close();
+                    break;
+                }
                 currentHandler.serverHandle((Packet) in.readObject(), this);
             }
-            MainServer.removePlayer(this);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            log.info("Closing client");
+            MainServer.getPlayers().remove(this);
+        } catch (ClassNotFoundException e) {
+            log.error("Client sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");
+        } catch (SocketTimeoutException e) {
+            log.info("Client {}:{} is not responding. We have to close the connection!" , client.getInetAddress().getHostAddress(), client.getPort());
+            try {
+                client.close();
+            } catch (IOException e2) {
+                log.error(e2.getMessage());
+            }
+        } catch (IOException e) {
+            log.error(e.getMessage());
         }
+
+        log.info("Closed client connection.");
     }
 }

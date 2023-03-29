@@ -12,6 +12,7 @@ import java.io.IOException;
 public class LoginHandler extends NetHandler {
     private static final Logger log = LoggerFactory.getLogger(LoginHandler.class);
 
+    // TODO: 3/29/2023 login procedure
     @Override
     public void clientHandle(Packet packet, LocalConnection client) throws IOException {
         log.info("A");
@@ -19,7 +20,7 @@ public class LoginHandler extends NetHandler {
 
     @Override
     public void serverHandle(Packet packet, ServerConnection server) throws IOException {
-
+        log.info("B");
     }
 }
 

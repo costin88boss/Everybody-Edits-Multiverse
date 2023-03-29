@@ -1,6 +1,9 @@
 package com.costin.eem.client.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -19,9 +22,25 @@ import java.net.UnknownHostException;
 
 public class MenuScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(MenuScreen.class);
-    ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
-    private Stage stage;
-    private Skin skin;
+
+    private ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
+    private final Window infoWindow;
+    private final Label infoWindowLabel;
+    private final Stage stage;
+    private final Skin skin;
+    private final TextureRegion bg1,bg2,bg3;
+    private int bgIndex;
+    private float bgTimer;
+    private float bgAlpha;
+    private final Texture backgroundVignette;
+
+    public void showWindow(String title, String message) {
+        infoWindow.getTitleLabel().setText(title);
+        infoWindowLabel.setText(message);
+        infoWindow.pack();
+        infoWindow.setPosition((Config.width() - infoWindow.getWidth()) / 2f, (Config.height() - infoWindow.getHeight()) / 2f);
+        infoWindow.setVisible(true);
+    }
 
     private void refreshSaves() {
         VerticalGroup saveStack = (VerticalGroup) savedWorldsTab.getActor();
@@ -56,36 +75,98 @@ public class MenuScreen extends Screen {
 
     @Override
     public void start() {
-        if(init) return;
-        init = true;
-        stage = new Stage();
+        bgTimer = 7;
+        bgAlpha = 1;
+        bgIndex = MathUtils.random(1, 3);
         Gdx.input.setInputProcessor(stage);
+        stage.setViewport(viewport);
+        refreshSaves();
+    }
+    @Override
+    public void tick() {
+
+    }
+
+    @Override
+    public void render(double elapsedTime) {
+        stage.act(Gdx.graphics.getDeltaTime());
+
+        bgTimer -= Gdx.graphics.getDeltaTime();
+        if(bgTimer <= 2f) {
+            bgAlpha = bgTimer / 2;
+        }
+        if(bgTimer >= 5f) {
+            bgAlpha = 1 - (bgTimer - 5f) / 2;
+        }
+        if(bgTimer <= 0) {
+            bgIndex++;
+            if(bgIndex == 4) bgIndex = 1;
+            bgTimer = 7;
+        }
+
+        batch.begin();
+        batch.setColor(1, 1, 1, bgAlpha);
+        switch (bgIndex) {
+            case 1:
+                batch.draw(bg1, 0, 0);
+                break;
+            case 2:
+                batch.draw(bg2, 0 ,0);
+                break;
+
+            case 3:
+                batch.draw(bg3, 0, 0);
+                break;
+        }
+        batch.setColor(1,1,1,1);
+        batch.draw(backgroundVignette, 0, 0);
+        batch.end();
+
+        stage.draw();
+    }
+
+    private static MenuScreen singleton;
+    public static MenuScreen instance() {
+        if (singleton == null) {
+            singleton = new MenuScreen();
+        }
+        return singleton;
+    }
+
+    private MenuScreen() {
+        stage = new Stage();
 
         skin = new Skin(Gdx.files.internal("skin/cloud-form-ui.json"));
+
+        backgroundVignette = new Texture("media/lobby/bg_overlay.png");
+        Texture bg = new Texture("media/lobby/bg_new.png");
+        bg1 = new TextureRegion(bg, 0, 0, bg.getWidth() / 3, bg.getHeight());
+        bg2 = new TextureRegion(bg, bg.getWidth() / 3, 0, bg.getWidth() / 3, bg.getHeight());
+        bg3 = new TextureRegion(bg, bg.getWidth() / 3 * 2, 0, bg.getWidth() / 3, bg.getHeight());
 
         HorizontalGroup tabButtons = new HorizontalGroup();
 
         Label currentTabName = new Label("Saved worlds", skin);
-        currentTabName.setPosition(35, Config.HEIGHT - 100);
+        currentTabName.setPosition(35, Config.height() - 100);
 
         favoritedServersTab = new ScrollPane(new VerticalGroup());
         favoritedServersTab.setPosition(35, 25);
         favoritedServersTab.setVisible(true);
-        favoritedServersTab.setSize(235, Config.HEIGHT - 130);
+        favoritedServersTab.setSize(235, Config.height() - 130);
 
         historyServerTab = new ScrollPane(new VerticalGroup());
         historyServerTab.setPosition(35, 25);
         historyServerTab.setVisible(true);
-        historyServerTab.setSize(235, Config.HEIGHT - 130);
+        historyServerTab.setSize(235, Config.height() - 130);
 
         savedWorldsTab = new ScrollPane(new VerticalGroup());
         savedWorldsTab.setPosition(35, 25);
         savedWorldsTab.setVisible(true);
-        savedWorldsTab.setSize(235, Config.HEIGHT - 130);
+        savedWorldsTab.setSize(235, Config.height() - 130);
 
-        List tabsBackground = new List(skin);
+        List tabsBackground = new List<>(skin);
         tabsBackground.setPosition(25, 25);
-        tabsBackground.setSize(250, Config.HEIGHT - 100);
+        tabsBackground.setSize(250, Config.height() - 100);
         tabsBackground.setColor(0.65f, 0.65f, 0.65f, 1);
 
         Button savedTabButton = new Button(skin);
@@ -132,13 +213,13 @@ public class MenuScreen extends Screen {
         tabButtons.addActor(savedTabButton);
         tabButtons.addActor(historyTabButton);
         tabButtons.addActor(favTabButton);
-        tabButtons.setPosition(25, (25 + Config.HEIGHT) - 100);
+        tabButtons.setPosition(25, (25 + Config.height()) - 100);
         tabButtons.setSize(250, 25);
         tabButtons.center();
 
         Window joinServerWindow = new Window("Join server..", skin);
         joinServerWindow.setSize(350, 350);
-        joinServerWindow.setPosition((Config.WIDTH - joinServerWindow.getWidth()) / 2f, (Config.HEIGHT - joinServerWindow.getHeight()) / 2f);
+        joinServerWindow.setPosition((Config.width() - joinServerWindow.getWidth()) / 2f, (Config.height() - joinServerWindow.getHeight()) / 2f);
         joinServerWindow.setResizable(false);
         joinServerWindow.setVisible(false);
         joinServerWindow.setModal(true);
@@ -225,7 +306,7 @@ public class MenuScreen extends Screen {
 
         Button joinServerButton = new Button(skin);
         joinServerButton.add(new Label("Join server", skin));
-        joinServerButton.setPosition(275, (25 + Config.HEIGHT) - 130);
+        joinServerButton.setPosition(275, (25 + Config.height()) - 130);
         joinServerButton.setSize(100, 25);
         joinServerButton.addListener(new ClickListener() {
             @Override
@@ -233,6 +314,22 @@ public class MenuScreen extends Screen {
                 joinServerWindow.setVisible(true);
             }
         });
+
+        infoWindow = new Window("Example Title", skin);
+        Button infoWindowButton = new Button(skin);
+        infoWindowLabel = new Label("Example Label", skin);
+        infoWindowButton.add(new Label("Close", skin));
+        infoWindowButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                infoWindow.setVisible(false);
+            }
+        });
+        infoWindow.add(infoWindowButton).bottom();
+        infoWindow.add(infoWindowLabel).top();
+        infoWindow.setMovable(false);
+        infoWindow.setModal(true);
+        infoWindow.setVisible(false);
 
         stage.addActor(tabsBackground);
 
@@ -248,27 +345,13 @@ public class MenuScreen extends Screen {
 
         stage.addActor(joinServerButton);
         stage.addActor(joinServerWindow);
+        stage.addActor(infoWindow);
 
         refreshSaves();
     }
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
-    }
 
-    @Override
-    public void tick() {
-
-    }
-
-    @Override
-    public void render(double elapsedTime) {
-        stage.act(Gdx.graphics.getDeltaTime());
-        stage.draw();
-
-        MainClient.mainBatch().begin();
-
-        MainClient.mainBatch().end();
     }
 }

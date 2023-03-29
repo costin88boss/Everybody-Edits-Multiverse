@@ -1,6 +1,8 @@
 package com.costin.eem.net.protocol.login.client;
 
-public class PlayerDesirePacket {
+import com.costin.eem.net.protocol.Packet;
+
+public class PlayerDesirePacket extends Packet {
     public String nickname;
     public int smileyID;
     public int auraID;

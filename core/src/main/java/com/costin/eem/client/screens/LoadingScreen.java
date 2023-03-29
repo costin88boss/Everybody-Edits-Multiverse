@@ -1,5 +1,6 @@
 package com.costin.eem.client.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.costin.eem.client.MainClient;
@@ -9,12 +10,24 @@ import org.slf4j.LoggerFactory;
 public class LoadingScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(LoadingScreen.class);
     private Texture loadingTexture;
-    private SpriteBatch batch;
+
+    private static LoadingScreen singleton;
+
+    private LoadingScreen() {
+        loadingTexture = new Texture("media/loading.png");
+    }
+
+    public static LoadingScreen instance() {
+        if (singleton == null) {
+            singleton = new LoadingScreen();
+        }
+        return singleton;
+    }
+
 
     @Override
     public void start() {
-        loadingTexture = new Texture("media/loading.png");
-        batch = MainClient.mainBatch();
+        Gdx.input.setInputProcessor(this);
     }
 
     @Override
