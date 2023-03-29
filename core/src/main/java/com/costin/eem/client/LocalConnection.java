@@ -43,7 +43,7 @@ public class LocalConnection implements Runnable {
     }
 
     public void startLocalServer(int port, String worldName) throws IOException {
-        if (!MainServer.instance().isRunning()) new Thread(new MainServer(port, worldName), "Server-Thread").start();
+        if (!MainServer.isRunning()) new Thread(new MainServer(port, worldName), "Server-Thread").start();
     }
 
     public void connectTo(String ip, int port) throws IOException {
@@ -74,7 +74,7 @@ public class LocalConnection implements Runnable {
                 return;
             }
 
-            currentHandler = new LoginHandler();
+            setHandler(new LoginHandler());
             while (!client.isClosed()) {
                 if (stopClient) {
                     client.close();

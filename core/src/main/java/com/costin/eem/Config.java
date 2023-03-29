@@ -5,6 +5,8 @@ public class Config {
     public static final String GameData = "EEM_data/";
     public static final String GameSaves = "saves/";
 
+    public static final int LAYERS = 4;
+
     public static final int VERSION = 1;
 
     public static final float TIMERATE = 1f / 10;

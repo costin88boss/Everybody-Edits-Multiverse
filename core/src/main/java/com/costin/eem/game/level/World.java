@@ -1,31 +1,58 @@
 package com.costin.eem.game.level;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Vector2;
+import com.costin.eem.Config;
+import com.costin.eem.net.protocol.world.server.SetBlockPacket;
+import com.costin.eem.server.MainServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 public class World {
     private static final Logger log = LoggerFactory.getLogger(World.class);
-    private final ArrayList<HashMap<Integer, ArrayList<Vector2>>> layers = new ArrayList<>();
-    String owner;
-    String worldName;
-    int width;
-    int height;
-    Float gravity;
-    Color background;
-    String description;
-    boolean campaign;
-    String crewId;
-    String crewName;
-    int crewStatus;
-    boolean minimap;
-    String ownerID;
+    private Block[][][] layers;
+    private final String owner;
+    private final String worldName;
+    private final int width;
+    private final int height;
+    private final Float gravity;
+    private final Color background;
+    private final String description;
+    private final boolean campaign;
+    private final String crewId;
+    private final String crewName;
+    private final int crewStatus;
+    private final boolean minimap;
+    private final String ownerID;
 
+    public void clearWorld() {
+        layers = new Block[Config.LAYERS][width][height];
 
+        // TODO: 3/29/2023 clear world thing
+    }
+    private Block[][] getLayer(int layer) {
+        return layers[layer];
+    }
+    public boolean setBlock(int layer, int x, int y, Block newBlock, String placedBy) {
+        // false = didn't set block; true = set block
+        if(x >= width || y >= height || x < 0 || y < 0) {
+            log.error("Out of bounds position at {} {}. max world size is 0-{} 0-{}", x, y, width-1, height-1);
+            return false;
+        }
+        if(layer > layers.length || layer < 0) {
+            log.error("Out of bounds layer {}. max layer size is {}", layer, layers.length);
+            return false;
+        }
+        if(newBlock == null) {
+            log.error("null block argument. cannot proceed.");
+            return false;
+        }
+        if(layers[layer][x][y] != newBlock) {
+            layers[layer][x][y] = newBlock;
+            MainServer.broadcast(new SetBlockPacket(newBlock, layer, x, y, placedBy));
+            return true;
+        }
+        else return false;
+    }
     public World() {
         owner = "Null";
         worldName = "Null";
@@ -42,110 +69,70 @@ public class World {
         ownerID = "Everybody Edits Multiverse";
     }
 
+    public World(Block[][][] layers, String owner, String worldName, int width, int height, Float gravity, Color background, String description, boolean campaign, String crewId, String crewName, int crewStatus, boolean minimap, String ownerID) {
+        this.layers = layers;
+        this.owner = owner;
+        this.worldName = worldName;
+        this.width = width;
+        this.height = height;
+        this.gravity = gravity;
+        this.background = background;
+        this.description = description;
+        this.campaign = campaign;
+        this.crewId = crewId;
+        this.crewName = crewName;
+        this.crewStatus = crewStatus;
+        this.minimap = minimap;
+        this.ownerID = ownerID;
+    }
+    public Block[][][] getBlockData() {
+        return layers;
+    }
+
     public String getOwner() {
         return owner;
     }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
-    }
-
     public String getWorldName() {
         return worldName;
-    }
-
-    public void setWorldName(String worldName) {
-        this.worldName = worldName;
     }
 
     public int getWidth() {
         return width;
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
     public int getHeight() {
         return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
     }
 
     public Float getGravity() {
         return gravity;
     }
 
-    public void setGravity(Float gravity) {
-        this.gravity = gravity;
-    }
-
     public Color getBackground() {
         return background;
-    }
-
-    public void setBackground(Color background) {
-        this.background = background;
     }
 
     public String getDescription() {
         return description;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public boolean getCampaign() {
         return campaign;
     }
-
-    public void setCampaign(boolean campaign) {
-        this.campaign = campaign;
-    }
-
     public String getCrewId() {
         return crewId;
     }
-
-    public void setCrewId(String crewId) {
-        this.crewId = crewId;
-    }
-
     public String getCrewName() {
         return crewName;
     }
-
-    public void setCrewName(String crewName) {
-        this.crewName = crewName;
-    }
-
     public int getCrewStatus() {
         return crewStatus;
     }
-
-    public void setCrewStatus(int crewStatus) {
-        this.crewStatus = crewStatus;
-    }
-
     public boolean getMinimap() {
         return minimap;
     }
-
-    public void setMinimap(boolean minimap) {
-        this.minimap = minimap;
-    }
-
     public String getOwnerID() {
         return ownerID;
     }
-
-    public void setOwnerID(String ownerID) {
-        this.ownerID = ownerID;
-    }
-
     public void printWorldInfo() {
         log.info("=== World Info ===");
         log.info("owner => " + owner);

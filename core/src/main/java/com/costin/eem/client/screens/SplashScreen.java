@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.costin.eem.client.MainClient;
+import com.costin.eem.game.items.ItemManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +20,7 @@ public class SplashScreen extends Screen {
         batch.setColor(1, 1, 1, 0.0001f);
         titlescreen = new Texture("media/titlescreen.png");
         invert = false;
+        ItemManager.initialize(true);
     }
 
     @Override

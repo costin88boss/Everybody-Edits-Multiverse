@@ -9,15 +9,15 @@ public class ItemTab {
     public static String[] toNamesArray(int id) {
         switch (id) {
             case BLOCK:
-                return new String[] {"foreground", "block", "fg"};
+                return new String[]{"foreground", "block", "fg"};
             case ACTION:
-                return new String[] {"action"};
+                return new String[]{"action"};
             case DECORATIVE:
-                return new String[] {"decoration", "decorative"};
+                return new String[]{"decoration", "decorative"};
             case BACKGROUND:
-                return new String[] {"background", "bg"};
+                return new String[]{"background", "bg"};
             default:
-                return new String[] {};
+                return new String[]{};
         }
     }
 }

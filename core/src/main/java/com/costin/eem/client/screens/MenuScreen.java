@@ -39,7 +39,7 @@ public class MenuScreen extends Screen {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
                     try {
-                        LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName);
+                        LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName + ".eelvl");
                         LocalConnection.instance().connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -56,6 +56,8 @@ public class MenuScreen extends Screen {
 
     @Override
     public void start() {
+        if(init) return;
+        init = true;
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
 

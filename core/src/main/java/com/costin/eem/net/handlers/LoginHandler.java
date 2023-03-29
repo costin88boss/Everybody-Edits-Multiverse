@@ -19,7 +19,6 @@ public class LoginHandler extends NetHandler {
 
     @Override
     public void serverHandle(Packet packet, ServerConnection server) throws IOException {
-        log.info("B");
 
     }
 }

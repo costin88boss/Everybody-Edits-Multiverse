@@ -1,9 +1,8 @@
 package com.costin.eem.game.items;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +11,7 @@ public class ItemBrick {
     private final int id;
     private final String payvaultid;
     private final int layer;
-    private final Texture texture;
+    private final TextureRegion texture;
     private final int tab;
     private final boolean requiresOwnership;
     private final boolean requiresAdmin;
@@ -24,13 +23,14 @@ public class ItemBrick {
     private final int selectorBG;
     private final int minimapColor;
 
-    public ItemBrick(int id, int layer, Pixmap bmd, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor, String[] tags, int selectorBG) {
+    public ItemBrick(int id, int layer, TextureRegion base, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor, String[] tags, int selectorBG) {
         this.id = id;
         this.layer = layer;
 
-        this.minimapColor = minimapColor == -1 ? generateThumbColor(bmd) : minimapColor;
+        // TODO: 3/28/2023 generate thumbnail color. don't forget to remove on texturesLoaded false.
+        this.minimapColor = minimapColor == -1 ? generateThumbColor(base) : minimapColor;
 
-        this.texture = new Texture(bmd);
+        this.texture = base;
         this.payvaultid = payvaultid;
         this.description = description;
         this.tab = tab;
@@ -43,20 +43,21 @@ public class ItemBrick {
         this.selectorBG = selectorBG;
     }
 
-    public ItemBrick(int id, int layer, Pixmap bmd, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor, String[] tags) {
-        this(id, layer, bmd, payvaultid, description, tab, requiresOwnership, requiresAdmin, requiresPurchase, shadow, minimapColor, tags, 0);
+    public ItemBrick(int id, int layer, TextureRegion base, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor, String[] tags) {
+        this(id, layer, base, payvaultid, description, tab, requiresOwnership, requiresAdmin, requiresPurchase, shadow, minimapColor, tags, 0);
     }
 
-    public ItemBrick(int id, int layer, Pixmap bmd, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor) {
-        this(id, layer, bmd, payvaultid, description, tab, requiresOwnership, requiresAdmin, requiresPurchase, shadow, minimapColor, new String[]{});
+    public ItemBrick(int id, int layer, TextureRegion base, String payvaultid, String description, int tab, boolean requiresOwnership, boolean requiresAdmin, boolean requiresPurchase, boolean shadow, int minimapColor) {
+        this(id, layer, base, payvaultid, description, tab, requiresOwnership, requiresAdmin, requiresPurchase, shadow, minimapColor, new String[]{});
     }
 
-    private static int generateThumbColor(Pixmap bmd) {
+    private static int generateThumbColor(TextureRegion base) {
+        /*
         int r = 0;
         int g = 0;
         int b = 0;
-        for (int y = 0; y < bmd.getHeight(); y++) {
-            for (int x = 0; x < bmd.getWidth(); x++) {
+        for (int y = 0; y < base.getRegionHeight(); y++) {
+            for (int x = 0; x < base.getRegionWidth(); x++) {
                 int c = bmd.getPixel(x, y);
 
                 r += (c & 0xff0000) >> 16;
@@ -67,12 +68,13 @@ public class ItemBrick {
         }
 
 
-        r /= (bmd.getWidth() * bmd.getHeight());
-        g /= (bmd.getWidth() * bmd.getHeight());
-        b /= (bmd.getWidth() * bmd.getHeight());
+        r /= (base.getRegionWidth() * base.getRegionHeight());
+        g /= (base.getRegionWidth() * base.getRegionHeight());
+        b /= (base.getRegionWidth() * base.getRegionHeight());
 
 
-        return 0xff000000 | (r << 16) | (g << 8) | (b);
+        return 0xff000000 | (r << 16) | (g << 8) | (b);*/
+        return Color.argb8888(Color.WHITE);
     }
 
     public int getId() {

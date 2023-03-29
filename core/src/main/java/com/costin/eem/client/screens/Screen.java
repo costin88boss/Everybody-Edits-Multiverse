@@ -2,10 +2,11 @@ package com.costin.eem.client.screens;
 
 import com.badlogic.gdx.InputProcessor;
 
-public class Screen implements InputProcessor {
+public abstract class Screen implements InputProcessor {
     protected Screen() {
 
     }
+    public boolean init;
 
     public void start() {
 

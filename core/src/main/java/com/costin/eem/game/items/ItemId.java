@@ -1,5 +1,7 @@
 package com.costin.eem.game.items;
 
+import java.util.Arrays;
+
 public class ItemId {
     public static final int LABEL = 1000;
 
@@ -679,7 +681,7 @@ public class ItemId {
 
     public static boolean isNPC(int id) {
         try {
-            return NpcArray[id] > -1;
+            return Arrays.stream(NpcArray).anyMatch(value -> value == id);
         } catch (ArrayIndexOutOfBoundsException ex) {
             return false;
         }
