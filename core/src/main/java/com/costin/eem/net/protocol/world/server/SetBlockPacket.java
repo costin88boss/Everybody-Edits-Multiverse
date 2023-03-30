@@ -1,7 +1,7 @@
 package com.costin.eem.net.protocol.world.server;
 
 import com.costin.eem.game.level.Block;
-import com.costin.eem.net.protocol.Packet;
+import com.costin.eem.net.Packet;
 
 public class SetBlockPacket extends Packet {
     public Block newBlock;

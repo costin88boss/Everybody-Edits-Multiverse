@@ -2,7 +2,7 @@ package com.costin.eem.server;
 
 import com.costin.eem.game.items.ItemManager;
 import com.costin.eem.game.level.World;
-import com.costin.eem.net.protocol.Packet;
+import com.costin.eem.net.Packet;
 import com.costin.eem.utils.LevelLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

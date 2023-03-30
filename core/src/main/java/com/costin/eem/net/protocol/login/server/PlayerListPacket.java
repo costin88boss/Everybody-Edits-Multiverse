@@ -1,6 +1,6 @@
 package com.costin.eem.net.protocol.login.server;
 
-import com.costin.eem.net.protocol.Packet;
+import com.costin.eem.net.Packet;
 
 public class PlayerListPacket extends Packet {
     public String[] nicknames;

@@ -1,4 +1,4 @@
-package com.costin.eem.net.protocol;
+package com.costin.eem.net;
 
 import java.io.Serializable;
 

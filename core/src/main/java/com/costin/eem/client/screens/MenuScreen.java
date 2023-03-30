@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.costin.eem.Config;
 import com.costin.eem.client.LocalConnection;
-import com.costin.eem.client.MainClient;
 import com.costin.eem.utils.LevelLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,24 +22,28 @@ import java.net.UnknownHostException;
 public class MenuScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(MenuScreen.class);
 
-    private ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
-    private final Window infoWindow;
+    private final ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
+    private final Window infoWindow, joinServerWindow;
     private final Label infoWindowLabel;
     private final Stage stage;
     private final Skin skin;
-    private final TextureRegion bg1,bg2,bg3;
+    private final TextureRegion bg1, bg2, bg3;
     private int bgIndex;
-    private float bgTimer;
-    private float bgAlpha;
-    private float bgOffsetX;
+    private float bgTimer, bgAlpha, bgOffsetX;
     private final Texture backgroundVignette;
 
-    public void showWindow(String title, String message) {
+    public boolean isInfoWindowShown() {
+        return infoWindow.isVisible();
+    }
+    public void showInfoWindow(String title, String message) {
         infoWindow.getTitleLabel().setText(title);
         infoWindowLabel.setText(message);
         infoWindow.pack();
         infoWindow.setPosition((Config.width() - infoWindow.getWidth()) / 2f, (Config.height() - infoWindow.getHeight()) / 2f);
         infoWindow.setVisible(true);
+
+        // just in case it was visible
+        joinServerWindow.setVisible(false);
     }
 
     private void refreshSaves() {
@@ -232,7 +235,7 @@ public class MenuScreen extends Screen {
         tabButtons.setSize(bgWidthGap, 25);
         tabButtons.center();
 
-        Window joinServerWindow = new Window("Join server..", skin);
+        joinServerWindow = new Window("Join server..", skin);
         joinServerWindow.setSize(350, 350);
         joinServerWindow.setPosition((Config.width() - joinServerWindow.getWidth()) / 2f, (Config.height() - joinServerWindow.getHeight()) / 2f);
         joinServerWindow.setResizable(false);

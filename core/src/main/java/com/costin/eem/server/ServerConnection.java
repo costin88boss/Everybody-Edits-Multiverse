@@ -6,7 +6,7 @@ import com.costin.eem.game.items.ItemManager;
 import com.costin.eem.game.level.World;
 import com.costin.eem.net.NetHandler;
 import com.costin.eem.net.handlers.LoginHandler;
-import com.costin.eem.net.protocol.Packet;
+import com.costin.eem.net.Packet;
 import com.costin.eem.net.protocol.begin.client.HelloPacket;
 import com.costin.eem.net.protocol.begin.server.HelloBackPacket;
 import com.costin.eem.net.protocol.login.client.PlayerDesirePacket;

@@ -5,7 +5,7 @@ import com.costin.eem.client.screens.LoadingScreen;
 import com.costin.eem.client.screens.MenuScreen;
 import com.costin.eem.net.NetHandler;
 import com.costin.eem.net.handlers.LoginHandler;
-import com.costin.eem.net.protocol.Packet;
+import com.costin.eem.net.Packet;
 import com.costin.eem.net.protocol.begin.client.HelloPacket;
 import com.costin.eem.net.protocol.begin.server.HelloBackPacket;
 import com.costin.eem.net.protocol.login.client.PlayerDesirePacket;
@@ -79,7 +79,7 @@ public class LocalConnection implements Runnable {
             in = new ObjectInputStream(client.getInputStream());
             HelloBackPacket receivedPacket = (HelloBackPacket) in.readObject();
             if (!receivedPacket.accepted) {
-                MenuScreen.instance().showWindow("Kicked!","Kick reason: \"" + receivedPacket.kickReason + "\"");
+                MenuScreen.instance().showInfoWindow("Kicked!","Kick reason: \"" + receivedPacket.kickReason + "\"");
                 MainClient.setScreen(MenuScreen.instance());
                 client.close();
                 return;
@@ -95,21 +95,26 @@ public class LocalConnection implements Runnable {
                 }
 
                 currentHandler.clientHandle((Packet) in.readObject(), this);
+
+                //currentHandler.clientHandle((Packet) in.readObject(), this);
             }
 
         } catch (ConnectException e) {
-            MenuScreen.instance().showWindow("Could not connect!", "There is no server.");
+            MenuScreen.instance().showInfoWindow("Could not connect!", "Connection refused.");
             MainClient.setScreen(MenuScreen.instance());
             throw new RuntimeException(e);
         } catch (SocketTimeoutException e) {
             log.info("Server {}:{} is not responding. We have to close the connection!" , client.getInetAddress().getHostAddress(), client.getPort());
-            MenuScreen.instance().showWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
+            MenuScreen.instance().showInfoWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
             MainClient.setScreen(MenuScreen.instance());
         } catch (EOFException e) {
-            MenuScreen.instance().showWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
-            MainClient.setScreen(MenuScreen.instance());
+            if(!MenuScreen.instance().isInfoWindowShown()) {
+                MenuScreen.instance().showInfoWindow("Hit the roadblock!", "The server didn't send data so we've hit the roadblock!");
+                MainClient.setScreen(MenuScreen.instance());
+            }
         } catch (IOException e) {
-            MenuScreen.instance().showWindow("IOException Error!", e.toString());
+            e.printStackTrace();
+            MenuScreen.instance().showInfoWindow("IOException Error!", e.toString());
             MainClient.setScreen(MenuScreen.instance());
         } catch (ClassNotFoundException e) {
             log.error("Server sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");
