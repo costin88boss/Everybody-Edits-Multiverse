@@ -9,7 +9,6 @@ that draws libGDX logo.
 
 - `core`: Main module with the application logic shared by all platforms.
 - `lwjgl3`: Primary desktop platform using LWJGL3.
-- `server`: A separate application without access to the `core` module.
 
 ## Gradle
 
