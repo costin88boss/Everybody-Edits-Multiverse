@@ -13,6 +13,7 @@ import com.costin.eem.server.MainServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -47,7 +48,7 @@ public class LocalConnection implements Runnable {
     }
 
     public void startLocalServer(int port, String worldName) throws IOException {
-        if (!MainServer.isRunning()) new Thread(new MainServer(port, worldName), "Server-Thread").start();
+        if (!MainServer.isRunning()) new Thread(new MainServer(port, worldName)).start();
     }
 
     public void connectTo(String ip, int port) throws IOException {
@@ -102,17 +103,13 @@ public class LocalConnection implements Runnable {
             throw new RuntimeException(e);
         } catch (SocketTimeoutException e) {
             log.info("Server {}:{} is not responding. We have to close the connection!" , client.getInetAddress().getHostAddress(), client.getPort());
-            try {
-                client.close();
-                if(MainClient.isRunning()) {
-                    MenuScreen.instance().showWindow("Server not responding!", "The server might be dead.");
-                    MainClient.setScreen(MenuScreen.instance());
-                }
-            } catch (IOException e2) {
-                log.error(e2.getMessage());
-            }
+            MenuScreen.instance().showWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
+            MainClient.setScreen(MenuScreen.instance());
+        } catch (EOFException e) {
+            MenuScreen.instance().showWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
+            MainClient.setScreen(MenuScreen.instance());
         } catch (IOException e) {
-            MenuScreen.instance().showWindow("Could not connect!", e.getMessage());
+            MenuScreen.instance().showWindow("IOException Error!", e.toString());
             MainClient.setScreen(MenuScreen.instance());
         } catch (ClassNotFoundException e) {
             log.error("Server sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");

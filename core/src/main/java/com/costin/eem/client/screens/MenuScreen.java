@@ -32,6 +32,7 @@ public class MenuScreen extends Screen {
     private int bgIndex;
     private float bgTimer;
     private float bgAlpha;
+    private float bgOffsetX;
     private final Texture backgroundVignette;
 
     public void showWindow(String title, String message) {
@@ -50,7 +51,7 @@ public class MenuScreen extends Screen {
             HorizontalGroup horizontalGroup = new HorizontalGroup();
 
             Label text = new Label(saveName, skin);
-            text.setAlignment(Align.top);
+            text.setAlignment(Align.topLeft);
 
             Button joinBtn = new Button(skin);
             joinBtn.add("Join");
@@ -66,11 +67,17 @@ public class MenuScreen extends Screen {
                 }
             });
 
+            horizontalGroup.setSize(50, 25);
             horizontalGroup.addActor(text);
             horizontalGroup.addActor(joinBtn);
+            horizontalGroup.align(Align.left);
+            horizontalGroup.rowAlign(Align.left);
 
             saveStack.addActor(horizontalGroup);
+            saveStack.columnAlign(Align.left);
         }
+        saveStack.left();
+        saveStack.setWidth(50);
     }
 
     @Override
@@ -108,14 +115,14 @@ public class MenuScreen extends Screen {
         batch.setColor(1, 1, 1, bgAlpha);
         switch (bgIndex) {
             case 1:
-                batch.draw(bg1, 0, 0);
+                batch.draw(bg1, bgOffsetX, 0);
                 break;
             case 2:
-                batch.draw(bg2, 0 ,0);
+                batch.draw(bg2, bgOffsetX ,0);
                 break;
 
             case 3:
-                batch.draw(bg3, 0, 0);
+                batch.draw(bg3, bgOffsetX, 0);
                 break;
         }
         batch.setColor(1,1,1,1);
@@ -143,31 +150,37 @@ public class MenuScreen extends Screen {
         bg1 = new TextureRegion(bg, 0, 0, bg.getWidth() / 3, bg.getHeight());
         bg2 = new TextureRegion(bg, bg.getWidth() / 3, 0, bg.getWidth() / 3, bg.getHeight());
         bg3 = new TextureRegion(bg, bg.getWidth() / 3 * 2, 0, bg.getWidth() / 3, bg.getHeight());
+        float bgWidthGap = Config.width() - bg1.getRegionWidth();
+        bgOffsetX = bgWidthGap;
+        log.info(String.valueOf(bgOffsetX));
 
         HorizontalGroup tabButtons = new HorizontalGroup();
 
         Label currentTabName = new Label("Saved worlds", skin);
-        currentTabName.setPosition(35, Config.height() - 100);
+        currentTabName.setPosition(0, Config.height() - 50);
+        currentTabName.setSize(bgWidthGap, 20);
+        currentTabName.setAlignment(Align.center);
 
         favoritedServersTab = new ScrollPane(new VerticalGroup());
-        favoritedServersTab.setPosition(35, 25);
+        favoritedServersTab.setPosition(0, 25);
         favoritedServersTab.setVisible(true);
-        favoritedServersTab.setSize(235, Config.height() - 130);
+        favoritedServersTab.setSize(200, Config.height() - 130);
 
         historyServerTab = new ScrollPane(new VerticalGroup());
-        historyServerTab.setPosition(35, 25);
+        historyServerTab.setPosition(0, 25);
         historyServerTab.setVisible(true);
-        historyServerTab.setSize(235, Config.height() - 130);
+        historyServerTab.setSize(200, Config.height() - 130);
 
         savedWorldsTab = new ScrollPane(new VerticalGroup());
-        savedWorldsTab.setPosition(35, 25);
+        savedWorldsTab.setPosition(0, 25);
         savedWorldsTab.setVisible(true);
-        savedWorldsTab.setSize(235, Config.height() - 130);
+        savedWorldsTab.setSize(bgWidthGap, Config.height() - 100);
 
-        List tabsBackground = new List<>(skin);
-        tabsBackground.setPosition(25, 25);
-        tabsBackground.setSize(250, Config.height() - 100);
-        tabsBackground.setColor(0.65f, 0.65f, 0.65f, 1);
+        Image tabsBackground = new Image(new Texture("pixel.png"));
+        tabsBackground.setPosition(0, 0);
+        tabsBackground.setSize(bgWidthGap, Config.height());
+        float colorVal = 0.8f;
+        tabsBackground.setColor(colorVal, colorVal, colorVal, 1);
 
         Button savedTabButton = new Button(skin);
         savedTabButton.add(new Label("Saves", skin));
@@ -213,8 +226,8 @@ public class MenuScreen extends Screen {
         tabButtons.addActor(savedTabButton);
         tabButtons.addActor(historyTabButton);
         tabButtons.addActor(favTabButton);
-        tabButtons.setPosition(25, (25 + Config.height()) - 100);
-        tabButtons.setSize(250, 25);
+        tabButtons.setPosition(0, (Config.height()) - 30);
+        tabButtons.setSize(bgWidthGap, 25);
         tabButtons.center();
 
         Window joinServerWindow = new Window("Join server..", skin);
@@ -271,12 +284,12 @@ public class MenuScreen extends Screen {
                 errorMessage.setText("");
                 String text = serverIPField.getText().trim();
                 if (text.length() == 0) {
-                    text = "localhost";
-                    //errorMessage.setText("IP can't be empty!");
-                    //return;
+                    //text = "localhost";
+                    errorMessage.setText("IP can't be empty!");
+                    return;
                 }
                 try {
-                    InetAddress.getByName(text);
+                    InetAddress.getByName(text); // used to check if it's a valid IP address in the first place
                 } catch (UnknownHostException e) {
                     errorMessage.setText("Couldn't find IP Address");
                     return;
@@ -348,6 +361,8 @@ public class MenuScreen extends Screen {
         stage.addActor(infoWindow);
 
         refreshSaves();
+
+        stage.setDebugAll(true);
     }
 
     @Override
