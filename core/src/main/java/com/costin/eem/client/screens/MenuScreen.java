@@ -51,27 +51,25 @@ public class MenuScreen extends Screen {
             HorizontalGroup horizontalGroup = new HorizontalGroup();
 
             Label text = new Label(saveName, skin);
-            text.setAlignment(Align.topLeft);
 
             Button joinBtn = new Button(skin);
             joinBtn.add("Join");
             joinBtn.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    try {
-                        LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName + ".eelvl");
-                        LocalConnection.instance().connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            });
+                                    @Override
+                                    public void clicked(InputEvent event, float x, float y) {
+                                        try {
+                                            LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName + ".eelvl");
+                                            LocalConnection.instance().connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466);
+                                        } catch (IOException e) {
+                                            throw new RuntimeException(e);
+                                        }
+                                    }
+                                });
 
             horizontalGroup.setSize(50, 25);
-            horizontalGroup.addActor(text);
             horizontalGroup.addActor(joinBtn);
-            horizontalGroup.align(Align.left);
-            horizontalGroup.rowAlign(Align.left);
+            horizontalGroup.addActor(text);
+            horizontalGroup.pack();
 
             saveStack.addActor(horizontalGroup);
             saveStack.columnAlign(Align.left);
@@ -152,7 +150,6 @@ public class MenuScreen extends Screen {
         bg3 = new TextureRegion(bg, bg.getWidth() / 3 * 2, 0, bg.getWidth() / 3, bg.getHeight());
         float bgWidthGap = Config.width() - bg1.getRegionWidth();
         bgOffsetX = bgWidthGap;
-        log.info(String.valueOf(bgOffsetX));
 
         HorizontalGroup tabButtons = new HorizontalGroup();
 
@@ -161,18 +158,23 @@ public class MenuScreen extends Screen {
         currentTabName.setSize(bgWidthGap, 20);
         currentTabName.setAlignment(Align.center);
 
+        Label dragTip = new Label("Tip: you can drag the list below", skin);
+        dragTip.setPosition(0, Config.height() - 80);
+        dragTip.setSize(bgWidthGap, 20);
+        dragTip.setAlignment(Align.center);
+
         favoritedServersTab = new ScrollPane(new VerticalGroup());
-        favoritedServersTab.setPosition(0, 25);
+        favoritedServersTab.setPosition(0, 0);
         favoritedServersTab.setVisible(true);
-        favoritedServersTab.setSize(200, Config.height() - 130);
+        favoritedServersTab.setSize(bgWidthGap, Config.height() - 100);
 
         historyServerTab = new ScrollPane(new VerticalGroup());
-        historyServerTab.setPosition(0, 25);
+        historyServerTab.setPosition(0, 0);
         historyServerTab.setVisible(true);
-        historyServerTab.setSize(200, Config.height() - 130);
+        historyServerTab.setSize(bgWidthGap, Config.height() - 100);
 
         savedWorldsTab = new ScrollPane(new VerticalGroup());
-        savedWorldsTab.setPosition(0, 25);
+        savedWorldsTab.setPosition(0, 0);
         savedWorldsTab.setVisible(true);
         savedWorldsTab.setSize(bgWidthGap, Config.height() - 100);
 
@@ -319,7 +321,7 @@ public class MenuScreen extends Screen {
 
         Button joinServerButton = new Button(skin);
         joinServerButton.add(new Label("Join server", skin));
-        joinServerButton.setPosition(275, (25 + Config.height()) - 130);
+        joinServerButton.setPosition(bgOffsetX, 0);
         joinServerButton.setSize(100, 25);
         joinServerButton.addListener(new ClickListener() {
             @Override
@@ -356,13 +358,13 @@ public class MenuScreen extends Screen {
         stage.addActor(historyServerTab);
         stage.addActor(savedWorldsTab);
 
+        stage.addActor(dragTip);
+
         stage.addActor(joinServerButton);
         stage.addActor(joinServerWindow);
         stage.addActor(infoWindow);
 
         refreshSaves();
-
-        stage.setDebugAll(true);
     }
 
     @Override

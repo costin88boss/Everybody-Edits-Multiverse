@@ -11,6 +11,7 @@ import com.costin.eem.net.protocol.begin.client.HelloPacket;
 import com.costin.eem.net.protocol.begin.server.HelloBackPacket;
 import com.costin.eem.net.protocol.login.client.PlayerDesirePacket;
 import com.costin.eem.net.protocol.login.server.PlayerInfoPacket;
+import com.costin.eem.net.protocol.login.server.PlayerListPacket;
 import com.costin.eem.net.protocol.login.server.WorldDataPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -106,6 +107,33 @@ public class ServerConnection implements Runnable {
             World world = MainServer.getWorld();
             WorldDataPacket worldDataPacket = new WorldDataPacket(world.getBlockData(), world.getOwner(), world.getWorldName(), world.getWidth(), world.getHeight(), world.getGravity(), world.getBackground(), world.getDescription(), world.getCampaign(), world.getCrewId(), world.getCrewName(), world.getCrewStatus(), world.getMinimap(), world.getOwnerID());
             sendPacket(worldDataPacket);
+
+            int plySize = MainServer.getPlayers().size();
+            String[] nicknames = new String[plySize];
+            float[] xPositions = new float[plySize];
+            float[] yPositions = new float[plySize];
+            float[] xVelocities = new float[plySize];
+            float[] yVelocities = new float[plySize];
+            int[] smileyIDs =  new int[plySize];
+            int[] auraIDs =  new int[plySize];
+            boolean[] golden = new boolean[plySize];
+            boolean[] godMode = new boolean[plySize];
+
+            for (int i = 0; i < MainServer.getPlayers().size(); i++) {
+                ServerConnection ply = MainServer.getPlayers().get(i);
+                nicknames[i] = ply.player.getNickname();
+                xPositions[i] = ply.player.getX();
+                yPositions[i] = ply.player.getY();
+                xVelocities[i] = ply.player.getVelX();
+                yVelocities[i] = ply.player.getVelY();
+                smileyIDs[i] = ply.player.getSmileyID();
+                auraIDs[i] = ply.player.getAuraID();
+                golden[i] = ply.player.isGolden();
+                godMode[i] = ply.player.isGodMode();
+            }
+
+            PlayerListPacket playerListPacket = new PlayerListPacket(nicknames, xPositions, yPositions, xVelocities, yVelocities, smileyIDs, auraIDs, golden, godMode);
+            sendPacket(playerListPacket);
 
             setHandler(new LoginHandler());
             while (!client.isClosed()) {

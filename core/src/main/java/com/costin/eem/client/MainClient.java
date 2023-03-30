@@ -23,6 +23,10 @@ public class MainClient extends ApplicationAdapter {
 
     public static void setScreen(Screen screen) {
         if (currentScreen != null) currentScreen.dispose();
+        String screenClassName = screen.getClass().getName();
+        int index = screenClassName.split("\\.").length;
+        screenClassName = screenClassName.split("\\.")[index-1];
+        log.info("Transitioning current screen to {}", screenClassName);
         mainBatch.setColor(1, 1, 1, 1);
         currentScreen = screen;
         currentScreen.batch = mainBatch;
@@ -36,12 +40,12 @@ public class MainClient extends ApplicationAdapter {
 
     @Override
     public void create() {
-        log.info("Client initializing.");
         mainBatch = new SpriteBatch();
         setScreen(SplashScreen.instance());
         viewport = new FitViewport(Config.WIDTH, Config.HEIGHT);
         Config.setCurrentSize(viewport.getWorldWidth(), viewport.getWorldHeight());
         time = System.currentTimeMillis();
+        log.info("Client started");
     }
 
     @Override

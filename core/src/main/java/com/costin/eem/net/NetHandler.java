@@ -7,7 +7,7 @@ import com.costin.eem.server.ServerConnection;
 import java.io.IOException;
 
 public abstract class NetHandler {
-    public abstract void clientHandle(Packet packet, LocalConnection client) throws IOException;
+    public abstract void clientHandle(Packet packet, LocalConnection client);
 
-    public abstract void serverHandle(Packet packet, ServerConnection server) throws IOException;
+    public abstract void serverHandle(Packet packet, ServerConnection server);
 }
