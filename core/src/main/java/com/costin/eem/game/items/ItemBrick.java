@@ -1,8 +1,10 @@
 package com.costin.eem.game.items;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.costin.eem.client.screens.WorldScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,13 +54,20 @@ public class ItemBrick {
     }
 
     private static int generateThumbColor(TextureRegion base) {
-        /*
+        // might be a very bad idea to do what I did below, but since it only freezes for 2 seconds, I don't care.
+        if(!base.getTexture().getTextureData().isPrepared()) {
+            base.getTexture().getTextureData().prepare();
+        }
+
+        Pixmap pixmap = new Pixmap(base.getRegionWidth(), base.getRegionHeight(), Pixmap.Format.RGB888);
+        pixmap.drawPixmap(base.getTexture().getTextureData().consumePixmap(), 0, 0, base.getRegionX(), base.getRegionY(), base.getRegionWidth(), base.getRegionHeight());
+
         int r = 0;
         int g = 0;
         int b = 0;
         for (int y = 0; y < base.getRegionHeight(); y++) {
             for (int x = 0; x < base.getRegionWidth(); x++) {
-                int c = bmd.getPixel(x, y);
+                int c = pixmap.getPixel(x, y);
 
                 r += (c & 0xff0000) >> 16;
                 g += (c & 0x00ff00) >> 8;
@@ -67,14 +76,12 @@ public class ItemBrick {
             }
         }
 
-
         r /= (base.getRegionWidth() * base.getRegionHeight());
         g /= (base.getRegionWidth() * base.getRegionHeight());
         b /= (base.getRegionWidth() * base.getRegionHeight());
 
-
-        return 0xff000000 | (r << 16) | (g << 8) | (b);*/
-        return Color.argb8888(Color.WHITE);
+        pixmap.dispose();
+        return 0xff000000 | (r << 16) | (g << 8) | (b);
     }
 
     public int getId() {
@@ -125,13 +132,13 @@ public class ItemBrick {
         return minimapColor;
     }
 
-    public void draw(SpriteBatch batch, float x, float y) {
+    public void draw(SpriteBatch batch, int rotation, float x, float y) {
         if (hasShadow) {
-            Color buff = batch.getColor().cpy();
-            batch.setColor(0, 0, 0, 0.3f);
-            batch.draw(texture, x + 2, y - 2);
-            batch.setColor(buff);
+            // TODO: 3/31/2023 shadow
+            //batch.setColor(0, 0, 0, 0.3f);
+            //batch.draw(texture, x+2, y+2, 8, 8, 2, 2, 1, 1, rotation);
+            //batch.setColor(1,1,1,1);
         }
-        batch.draw(texture, x, y);
+        batch.draw(ItemManager.instance().getBrickTextureById(id), x, y, 8, 8, 16, 16, 1, 1, rotation);
     }
 }

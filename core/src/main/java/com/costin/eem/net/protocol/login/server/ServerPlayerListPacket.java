@@ -2,7 +2,7 @@ package com.costin.eem.net.protocol.login.server;
 
 import com.costin.eem.net.Packet;
 
-public class PlayerListPacket extends Packet {
+public class ServerPlayerListPacket extends Packet {
     public String[] nicknames;
     public float[] xPositions;
     public float[] yPositions;
@@ -13,7 +13,7 @@ public class PlayerListPacket extends Packet {
     public boolean[] golden;
     public boolean[] godMode;
 
-    public PlayerListPacket(String[] nicknames, float[] xPositions, float[] yPositions, float[] xVelocities, float[] yVelocities, int[] smileyIDs, int[] auraIDs, boolean[] golden, boolean[] godMode) {
+    public ServerPlayerListPacket(String[] nicknames, float[] xPositions, float[] yPositions, float[] xVelocities, float[] yVelocities, int[] smileyIDs, int[] auraIDs, boolean[] golden, boolean[] godMode) {
         this.nicknames = nicknames;
         this.xPositions = xPositions;
         this.yPositions = yPositions;

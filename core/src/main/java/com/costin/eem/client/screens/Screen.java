@@ -7,7 +7,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class Screen implements InputProcessor {
     public SpriteBatch batch;
     public Viewport viewport;
-    Screen() {}
+
+    Screen() {
+    }
 
     public void start() {
 

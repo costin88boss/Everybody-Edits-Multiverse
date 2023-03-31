@@ -43,7 +43,11 @@ public class ItemSmiley {
     }
 
     public void draw(SpriteBatch batch, float x, float y, boolean gold) {
-        if (!gold) batch.draw(texture, x, y); // TODO: 3/27/2023  fix x and y as they WILL be offset
+        // TextureRegion region, float x, float y, float originX, float originY, float width, float height,
+        //		float scaleX, float scaleY, float rotation
+        x -= 5;
+        y -= 5;
+        if (!gold) batch.draw(texture, x, y);
         else batch.draw(textureGold, x, y);
     }
 }

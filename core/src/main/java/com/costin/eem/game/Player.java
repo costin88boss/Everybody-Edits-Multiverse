@@ -1,13 +1,30 @@
 package com.costin.eem.game;
 
-import com.costin.eem.server.ServerConnection;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
+import com.costin.eem.Config;
+import com.costin.eem.game.items.ItemManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Player {
+    private static final Logger log = LoggerFactory.getLogger(Player.class);
     private String nickname;
     private float x, y, velX, velY;
     private int smileyID, auraID;
     private boolean golden, godMode;
+    private Color auraColor;
+    private float auraAnimationTime;
 
+    public Color getAuraColor() {
+        return auraColor;
+    }
+
+    public void setAuraColor(Color auraColor) {
+        this.auraColor = auraColor;
+    }
 
     public String getNickname() {
         return nickname;
@@ -79,5 +96,25 @@ public class Player {
 
     public void setGodMode(boolean godMode) {
         this.godMode = godMode;
+    }
+
+    public void act() {
+
+    }
+    public Player() {
+        auraColor = Color.WHITE.cpy();
+    }
+
+    public void draw(SpriteBatch batch) {
+        auraAnimationTime += Gdx.graphics.getDeltaTime() * 2;
+
+        auraID = 12;
+        //if(godMode) {
+            if(ItemManager.instance().getAuraShapeById(auraID).draw(batch, x, y, golden, auraAnimationTime, auraColor)) {
+                auraAnimationTime = 0;
+            }
+        //}
+        ItemManager.instance().getSmileyById(smileyID).draw(batch, x, y, golden);
+
     }
 }

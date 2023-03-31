@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.costin.eem.game.level.Block;
 import com.costin.eem.net.Packet;
 
-public class WorldDataPacket extends Packet {
+public class ServerWorldDataPacket extends Packet {
     public Block[][][] layers;
     public String owner;
     public String worldName;
@@ -20,7 +20,7 @@ public class WorldDataPacket extends Packet {
     public boolean minimap;
     public String ownerID;
 
-    public WorldDataPacket(Block[][][] layers, String owner, String worldName, int width, int height, Float gravity, Color background, String description, boolean campaign, String crewId, String crewName, int crewStatus, boolean minimap, String ownerID) {
+    public ServerWorldDataPacket(Block[][][] layers, String owner, String worldName, int width, int height, Float gravity, Color background, String description, boolean campaign, String crewId, String crewName, int crewStatus, boolean minimap, String ownerID) {
         this.layers = layers;
         this.owner = owner;
         this.worldName = worldName;

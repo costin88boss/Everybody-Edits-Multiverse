@@ -1,5 +1,6 @@
 package com.costin.eem.game.items;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -37,8 +38,19 @@ public class ItemAura {
         return payvaultid;
     }
 
-    public void draw(SpriteBatch batch, int x, int y, boolean gold, float animTime) {
-        if (gold && animGold != null) batch.draw(animGold.getKeyFrame(animTime), x, y);
-        else if (anim != null) batch.draw(anim.getKeyFrame(animTime), x, y);
+    public boolean draw(SpriteBatch batch, float x, float y, boolean gold, float animTime, Color color) {
+        x -= 64/2f - 8;
+        y -= 64/2f - 8;
+        batch.setColor(color);
+        if (gold && animGold != null) {
+            batch.draw(animGold.getKeyFrame(animTime), x, y);
+            return animTime >= animGold.getAnimationDuration();
+        }
+        else if (anim != null) {
+            batch.draw(anim.getKeyFrame(animTime), x, y);
+            return animTime >= anim.getAnimationDuration();
+        }
+        batch.setColor(1,1,1,1);
+        return true;
     }
 }

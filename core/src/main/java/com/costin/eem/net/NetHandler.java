@@ -6,5 +6,5 @@ import com.costin.eem.server.ServerConnection;
 public abstract class NetHandler {
     public abstract void clientHandle(Packet packet, LocalConnection client);
 
-    public abstract void serverHandle(Packet packet, ServerConnection server);
+    public abstract void serverHandle(Packet packet, ServerConnection client);
 }

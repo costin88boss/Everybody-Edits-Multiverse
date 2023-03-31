@@ -21,125 +21,16 @@ import java.net.UnknownHostException;
 
 public class MenuScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(MenuScreen.class);
-
+    private static MenuScreen singleton;
     private final ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
     private final Window infoWindow, joinServerWindow;
     private final Label infoWindowLabel;
     private final Stage stage;
     private final Skin skin;
     private final TextureRegion bg1, bg2, bg3;
+    private final Texture backgroundVignette;
     private int bgIndex;
     private float bgTimer, bgAlpha, bgOffsetX;
-    private final Texture backgroundVignette;
-
-    public boolean isInfoWindowShown() {
-        return infoWindow.isVisible();
-    }
-    public void showInfoWindow(String title, String message) {
-        infoWindow.getTitleLabel().setText(title);
-        infoWindowLabel.setText(message);
-        infoWindow.pack();
-        infoWindow.setPosition((Config.width() - infoWindow.getWidth()) / 2f, (Config.height() - infoWindow.getHeight()) / 2f);
-        infoWindow.setVisible(true);
-
-        // just in case it was visible
-        joinServerWindow.setVisible(false);
-    }
-
-    private void refreshSaves() {
-        VerticalGroup saveStack = (VerticalGroup) savedWorldsTab.getActor();
-        saveStack.clearChildren();
-        String[] saveNames = LevelLoader.listSaves();
-        for (String saveName : saveNames) {
-            HorizontalGroup horizontalGroup = new HorizontalGroup();
-
-            Label text = new Label(saveName, skin);
-
-            Button joinBtn = new Button(skin);
-            joinBtn.add("Join");
-            joinBtn.addListener(new ClickListener() {
-                                    @Override
-                                    public void clicked(InputEvent event, float x, float y) {
-                                        try {
-                                            LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName + ".eelvl");
-                                            LocalConnection.instance().connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466);
-                                        } catch (IOException e) {
-                                            throw new RuntimeException(e);
-                                        }
-                                    }
-                                });
-
-            horizontalGroup.setSize(50, 25);
-            horizontalGroup.addActor(joinBtn);
-            horizontalGroup.addActor(text);
-            horizontalGroup.pack();
-
-            saveStack.addActor(horizontalGroup);
-            saveStack.columnAlign(Align.left);
-        }
-        saveStack.left();
-        saveStack.setWidth(50);
-    }
-
-    @Override
-    public void start() {
-        bgTimer = 7;
-        bgAlpha = 1;
-        bgIndex = MathUtils.random(1, 3);
-        Gdx.input.setInputProcessor(stage);
-        stage.setViewport(viewport);
-        refreshSaves();
-    }
-    @Override
-    public void tick() {
-
-    }
-
-    @Override
-    public void render(double elapsedTime) {
-        stage.act(Gdx.graphics.getDeltaTime());
-
-        bgTimer -= Gdx.graphics.getDeltaTime();
-        if(bgTimer <= 2f) {
-            bgAlpha = bgTimer / 2;
-        }
-        if(bgTimer >= 5f) {
-            bgAlpha = 1 - (bgTimer - 5f) / 2;
-        }
-        if(bgTimer <= 0) {
-            bgIndex++;
-            if(bgIndex == 4) bgIndex = 1;
-            bgTimer = 7;
-        }
-
-        batch.begin();
-        batch.setColor(1, 1, 1, bgAlpha);
-        switch (bgIndex) {
-            case 1:
-                batch.draw(bg1, bgOffsetX, 0);
-                break;
-            case 2:
-                batch.draw(bg2, bgOffsetX ,0);
-                break;
-
-            case 3:
-                batch.draw(bg3, bgOffsetX, 0);
-                break;
-        }
-        batch.setColor(1,1,1,1);
-        batch.draw(backgroundVignette, 0, 0);
-        batch.end();
-
-        stage.draw();
-    }
-
-    private static MenuScreen singleton;
-    public static MenuScreen instance() {
-        if (singleton == null) {
-            singleton = new MenuScreen();
-        }
-        return singleton;
-    }
 
     private MenuScreen() {
         stage = new Stage();
@@ -368,6 +259,119 @@ public class MenuScreen extends Screen {
         stage.addActor(infoWindow);
 
         refreshSaves();
+    }
+
+    public static MenuScreen instance() {
+        if (singleton == null) {
+            singleton = new MenuScreen();
+        }
+        return singleton;
+    }
+
+    public boolean isInfoWindowShown() {
+        return infoWindow.isVisible();
+    }
+
+    public void showInfoWindow(String title, String message) {
+        infoWindow.getTitleLabel().setText(title);
+        infoWindowLabel.setText(message);
+        infoWindow.pack();
+        infoWindow.setPosition((Config.width() - infoWindow.getWidth()) / 2f, (Config.height() - infoWindow.getHeight()) / 2f);
+        infoWindow.setVisible(true);
+
+        // just in case it was visible
+        joinServerWindow.setVisible(false);
+    }
+
+    private void refreshSaves() {
+        VerticalGroup saveStack = (VerticalGroup) savedWorldsTab.getActor();
+        saveStack.clearChildren();
+        String[] saveNames = LevelLoader.listSaves();
+        for (String saveName : saveNames) {
+            HorizontalGroup horizontalGroup = new HorizontalGroup();
+
+            Label text = new Label(saveName, skin);
+
+            Button joinBtn = new Button(skin);
+            joinBtn.add("Join");
+            joinBtn.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    try {
+                        LocalConnection.instance().startLocalServer(33466, Config.GameData + Config.GameSaves + saveName + ".eelvl");
+                        LocalConnection.instance().connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            });
+
+            horizontalGroup.setSize(50, 25);
+            horizontalGroup.addActor(joinBtn);
+            horizontalGroup.addActor(text);
+            horizontalGroup.pack();
+
+            saveStack.addActor(horizontalGroup);
+            saveStack.columnAlign(Align.left);
+        }
+        saveStack.left();
+        saveStack.setWidth(50);
+    }
+
+    @Override
+    public void start() {
+        bgTimer = 7;
+        bgAlpha = 1;
+        bgIndex = MathUtils.random(1, 3);
+        Gdx.input.setInputProcessor(stage);
+        stage.setViewport(viewport);
+        refreshSaves();
+    }
+
+    @Override
+    public void tick() {
+
+    }
+
+    @Override
+    public void render(double elapsedTime) {
+        stage.act(Gdx.graphics.getDeltaTime());
+
+        bgTimer -= Gdx.graphics.getDeltaTime();
+        if (bgTimer <= 2f) {
+            bgAlpha = bgTimer / 2;
+        }
+        if (bgTimer >= 5f) {
+            bgAlpha = 1 - (bgTimer - 5f) / 2;
+        }
+        if (bgTimer <= 0) {
+            bgIndex++;
+            if (bgIndex == 4) bgIndex = 1;
+            bgTimer = 7;
+        }
+
+        batch.begin();
+        batch.setColor(1, 1, 1, bgAlpha);
+        switch (bgIndex) {
+            case 1:
+                batch.draw(bg1, bgOffsetX, 0);
+                break;
+            case 2:
+                batch.draw(bg2, bgOffsetX, 0);
+                break;
+
+            case 3:
+                batch.draw(bg3, bgOffsetX, 0);
+                break;
+        }
+        batch.end();
+
+        stage.draw();
+
+        batch.begin();
+        batch.setColor(1, 1, 1, 1);
+        batch.draw(backgroundVignette, 0, 0);
+        batch.end();
     }
 
     @Override

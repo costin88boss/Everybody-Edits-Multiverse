@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.zip.Inflater;
 import java.util.zip.InflaterInputStream;
 
@@ -23,7 +22,7 @@ public class LevelLoader {
 
     private static int[] readUShortArray(DataInputStream data) throws IOException {
         int count = data.readInt();
-        int[] arr2 = new int[count/2];
+        int[] arr2 = new int[count / 2];
 
         for (int i = 0; i < count / 2; i++) {
             arr2[i] = data.readUnsignedShort();
@@ -79,12 +78,12 @@ public class LevelLoader {
 
             int rotation = 0; // portal and spikes
 
-            int portalID = 0;		 // portal, world portal spawn and music
-            int portalTarget = 0;	 // portal and world portal
+            int portalID = 0;         // portal, world portal spawn and music
+            int portalTarget = 0;     // portal and world portal
 
-            String labelText;	// label
-            String labelTextColor;	// label color
-            int labelWrapLength;	// label wrap
+            String labelText;    // label
+            String labelTextColor;    // label color
+            int labelWrapLength;    // label wrap
 
             String targetWorld; // world portal
 
@@ -106,7 +105,7 @@ public class LevelLoader {
                 || blockID == ItemId.SPIKE || blockID == ItemId.SPIKE_SILVER || blockID == ItemId.SPIKE_BLACK
                 || blockID == ItemId.SPIKE_RED || blockID == ItemId.SPIKE_GOLD || blockID == ItemId.SPIKE_GREEN || blockID == ItemId.SPIKE_BLUE) {
                 rotation = data.readInt();
-                block = new RotateableBlock(blockID, rotation);
+                block = new NumberedBlock(blockID, rotation);
             } else if (blockID == ItemId.PORTAL || blockID == ItemId.PORTAL_INVISIBLE) {
                 rotation = data.readInt();
                 portalID = data.readInt();
@@ -133,7 +132,7 @@ public class LevelLoader {
                 block = new NpcBlock(blockID, npcName, npcMessage1, npcMessage2, npcMessage3);
             }
 
-            if(xPositions.length != yPositions.length) {
+            if (xPositions.length != yPositions.length) {
                 throw new RuntimeException("Corrupt world data");
             }
             for (int i = 0; i < xPositions.length; i++) {

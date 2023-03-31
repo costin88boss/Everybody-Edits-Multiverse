@@ -20,18 +20,24 @@ public class MainServer implements Runnable {
     private volatile static boolean running;
     private static ServerSocket server;
     private static ArrayList<ServerConnection> players;
-    public static World getWorld() {
-        return world;
-    }
+    private static Thread thread;
 
     public MainServer(int port, String worldName) {
         MainServer.port = port;
         MainServer.worldName = worldName;
-        new Thread(this).start();
+        thread = new Thread(this);
+        thread.start();
     }
-    private MainServer() {}
+
+    private MainServer() {
+    }
+
+    public static World getWorld() {
+        return world;
+    }
+
     public static boolean broadcast(Packet packet) {
-        if(server != null && running) {
+        if (server != null && running) {
             for (ServerConnection playerConnection :
                 players) {
                 try {
@@ -50,13 +56,19 @@ public class MainServer implements Runnable {
     }
 
     public static void stopServer() {
-        if(!running) return;
+        if (!running) return;
         running = false;
+        thread.interrupt();
         try {
             server.close();
-        } catch (IOException ignored) {
-
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public static ArrayList<ServerConnection> getPlayers() {
+        if (players == null) players = new ArrayList<>();
+        return players;
     }
 
     @Override
@@ -74,6 +86,7 @@ public class MainServer implements Runnable {
             e.printStackTrace();
             return;
         }
+        ServerGameplayController.instance().start();
 
         log.info("Server initialized on port {}.", port);
 
@@ -87,17 +100,14 @@ public class MainServer implements Runnable {
         }
         try {
             server.close();
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+        }
         for (ServerConnection player :
             players) {
             player.closeConnection();
         }
-
+        ServerGameplayController.instance().stop();
         log.info("Closed Server.");
 
-    }
-    public static ArrayList<ServerConnection> getPlayers() {
-        if (players == null) players = new ArrayList<>();
-        return players;
     }
 }

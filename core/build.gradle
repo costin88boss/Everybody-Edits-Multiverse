@@ -6,4 +6,5 @@ dependencies {
   api "com.github.tommyettinger:jbump:$jbumpVersion"
   api "org.slf4j:slf4j-api:$slf4jVersion"
   api "org.slf4j:slf4j-simple:$slf4jVersion"
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
 }

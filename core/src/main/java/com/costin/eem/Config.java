@@ -10,6 +10,8 @@ public class Config {
     public static final int VERSION = 1;
 
     public static final float TIMERATE = 1f / 10;
+    public static final int WIDTH = 850, HEIGHT = 500;
+    public static final float camera_lag = 1/16f;
     private static float currWidth, currHeight;
 
     public static float width() {
@@ -24,6 +26,4 @@ public class Config {
         Config.currWidth = width;
         Config.currHeight = height;
     }
-
-    public static final int WIDTH = 850, HEIGHT = 500;
 }

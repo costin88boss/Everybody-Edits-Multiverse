@@ -46,7 +46,7 @@ public class ItemManager {
     private Texture blockNumbersBMD;
     private Texture blocksFireworksBMD;
     private Texture blocksGoldenEasterEggBMD;
-    private int animatedAuraCount;
+    private int normalAuraCount;
 
     private ItemManager() {
     }
@@ -314,53 +314,53 @@ public class ItemManager {
         /* Define and declare bricks */
         //BRICKs
         ItemBrickPackage basic = new ItemBrickPackage("basic", "Basic Blocks", new String[]{"Primary", "Simple", "Standard", "Default"});
-        basic.addBrick(createBrick(1088, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 260, -1, new String[]{"White", "Light"}));
-        basic.addBrick(createBrick(9, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 9, 0xFF6E6E6E, new String[]{"Grey", "Gray", "Taupe"}));
-        basic.addBrick(createBrick(182, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 156, 0xFF282828, new String[]{"Black", "Dark", "Coal", "Road"}));
-        basic.addBrick(createBrick(12, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 12, 0xFFA83554, new String[]{"Red", "Magenta", "Vermillion", "Ruby"}));
-        basic.addBrick(createBrick(1018, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 205, -1, new String[]{"Orange", "Persimmon", "Copper"}));
-        basic.addBrick(createBrick(13, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 13, 0xFF93A835, new String[]{"Yellow", "Lime", "Chartreuse", "Light green", "Citrine", "Citrus"}));
-        basic.addBrick(createBrick(14, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 14, 0xFF42A836, new String[]{"Green", "Kelly", "Emerald", "Grass"}));
-        basic.addBrick(createBrick(15, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 15, 0xFF359EA6, new String[]{"Blue", "Cyan", "Light Blue", "Aquamarine", "Sky Blue"}));
-        basic.addBrick(createBrick(10, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 10, 0xFF3552A8, new String[]{"Blue", "Dark Blue", "Cobalt"}));
-        basic.addBrick(createBrick(11, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 11, 0xFF9735A7, new String[]{"Purple", "Pink", "Plum", "Violet"}));
+        basic.addBrick(createBrick(1088, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 260, -1, new String[]{"White", "Light"}));
+        basic.addBrick(createBrick(9, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 9, 0xFF6E6E6E, new String[]{"Grey", "Gray", "Taupe"}));
+        basic.addBrick(createBrick(182, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 156, 0xFF282828, new String[]{"Black", "Dark", "Coal", "Road"}));
+        basic.addBrick(createBrick(12, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 12, 0xFFA83554, new String[]{"Red", "Magenta", "Vermillion", "Ruby"}));
+        basic.addBrick(createBrick(1018, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 205, -1, new String[]{"Orange", "Persimmon", "Copper"}));
+        basic.addBrick(createBrick(13, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 13, 0xFF93A835, new String[]{"Yellow", "Lime", "Chartreuse", "Light green", "Citrine", "Citrus"}));
+        basic.addBrick(createBrick(14, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 14, 0xFF42A836, new String[]{"Green", "Kelly", "Emerald", "Grass"}));
+        basic.addBrick(createBrick(15, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 15, 0xFF359EA6, new String[]{"Blue", "Cyan", "Light Blue", "Aquamarine", "Sky Blue"}));
+        basic.addBrick(createBrick(10, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 10, 0xFF3552A8, new String[]{"Blue", "Dark Blue", "Cobalt"}));
+        basic.addBrick(createBrick(11, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 11, 0xFF9735A7, new String[]{"Purple", "Pink", "Plum", "Violet"}));
         brickPackages.add(basic);
 
         ItemBrickPackage beta = new ItemBrickPackage("beta", "Beta Access", new String[]{"Exclusive"});
-        beta.addBrick(createBrick(1089, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 261, 0xFFE5E5E5, new String[]{"White", "Light"}));
-        beta.addBrick(createBrick(42, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 42, 0xFF999999, new String[]{"Grey", "Gray", "Taupe"}));
-        beta.addBrick(createBrick(1021, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 208, 0xFF474747, new String[]{"Black", "Dark", "Onyx"}));
-        beta.addBrick(createBrick(40, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 40, 0xFFCF6650, new String[]{"Red", "Ruby", "Garnet"}));
-        beta.addBrick(createBrick(1020, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 207, 0xFFCE7E50, new String[]{"Orange", "Copper"}));
-        beta.addBrick(createBrick(41, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 41, 0xFFD2A945, new String[]{"Yellow", "Gold", "Jasmine"}));
-        beta.addBrick(createBrick(38, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 38, 0xFF4AC882, new String[]{"Green", "Emerald", "Malachite"}));
-        beta.addBrick(createBrick(1019, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 206, 0xFF49C2C6, new String[]{"Blue", "Cyan", "Light blue", "Aquamarine", "Turquoise"}));
-        beta.addBrick(createBrick(39, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 39, 0xFF4D84C6, new String[]{"Blue", "Sapphire"}));
-        beta.addBrick(createBrick(37, ItemLayer.FORGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 37, 0xFFCE62CF, new String[]{"Purple", "Pink", "Magenta", "Violet", "Amethyst"}));
+        beta.addBrick(createBrick(1089, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 261, 0xFFE5E5E5, new String[]{"White", "Light"}));
+        beta.addBrick(createBrick(42, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 42, 0xFF999999, new String[]{"Grey", "Gray", "Taupe"}));
+        beta.addBrick(createBrick(1021, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 208, 0xFF474747, new String[]{"Black", "Dark", "Onyx"}));
+        beta.addBrick(createBrick(40, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 40, 0xFFCF6650, new String[]{"Red", "Ruby", "Garnet"}));
+        beta.addBrick(createBrick(1020, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 207, 0xFFCE7E50, new String[]{"Orange", "Copper"}));
+        beta.addBrick(createBrick(41, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 41, 0xFFD2A945, new String[]{"Yellow", "Gold", "Jasmine"}));
+        beta.addBrick(createBrick(38, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 38, 0xFF4AC882, new String[]{"Green", "Emerald", "Malachite"}));
+        beta.addBrick(createBrick(1019, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 206, 0xFF49C2C6, new String[]{"Blue", "Cyan", "Light blue", "Aquamarine", "Turquoise"}));
+        beta.addBrick(createBrick(39, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 39, 0xFF4D84C6, new String[]{"Blue", "Sapphire"}));
+        beta.addBrick(createBrick(37, ItemLayer.FOREGROUND, blocksBMD, "pro", "", ItemTab.BLOCK, false, true, 37, 0xFFCE62CF, new String[]{"Purple", "Pink", "Magenta", "Violet", "Amethyst"}));
         brickPackages.add(beta);
 
         ItemBrickPackage brick = new ItemBrickPackage("brick", "Brick Blocks", new String[]{"Standard", "Wall"});
-        brick.addBrick(createBrick(1090, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 262, 0xFF888888, new String[]{"White", "Light"}));
-        brick.addBrick(createBrick(1022, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 209, 0xFF4C4C4C, new String[]{"Gray", "Grey", "Concrete", "Stone"}));
-        brick.addBrick(createBrick(1024, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 211, -1, new String[]{"Black", "Dark", "Coal"}));
-        brick.addBrick(createBrick(20, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 20, 0xFF6F2429, new String[]{"Red", "Maroon", "Hell"}));
-        brick.addBrick(createBrick(16, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 16, 0xFF8B3E09, new String[]{"Brown", "Orange", "Soil", "Dirt", "Mahogany"}));
-        brick.addBrick(createBrick(21, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 21, 0xFF6F5D24, new String[]{"Beige", "Tan", "Olive", "Brown", "Ecru", "Yellow"}));
-        brick.addBrick(createBrick(19, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 19, 0xFF438310, new String[]{"Green", "Grass"}));
-        brick.addBrick(createBrick(17, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 17, 0xFF246F4D, new String[]{"Blue", "Cyan", "Turquoise", "Teal", "Skobeloff", "Dark Green"}));
-        brick.addBrick(createBrick(1023, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 210, -1, new String[]{"Blue", "Dark", "Zaffre"}));
-        brick.addBrick(createBrick(18, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 18, 0xFF4E246F, new String[]{"Purple", "Dark", "Violet"}));
+        brick.addBrick(createBrick(1090, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 262, 0xFF888888, new String[]{"White", "Light"}));
+        brick.addBrick(createBrick(1022, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 209, 0xFF4C4C4C, new String[]{"Gray", "Grey", "Concrete", "Stone"}));
+        brick.addBrick(createBrick(1024, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 211, -1, new String[]{"Black", "Dark", "Coal"}));
+        brick.addBrick(createBrick(20, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 20, 0xFF6F2429, new String[]{"Red", "Maroon", "Hell"}));
+        brick.addBrick(createBrick(16, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 16, 0xFF8B3E09, new String[]{"Brown", "Orange", "Soil", "Dirt", "Mahogany"}));
+        brick.addBrick(createBrick(21, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 21, 0xFF6F5D24, new String[]{"Beige", "Tan", "Olive", "Brown", "Ecru", "Yellow"}));
+        brick.addBrick(createBrick(19, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 19, 0xFF438310, new String[]{"Green", "Grass"}));
+        brick.addBrick(createBrick(17, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 17, 0xFF246F4D, new String[]{"Blue", "Cyan", "Turquoise", "Teal", "Skobeloff", "Dark Green"}));
+        brick.addBrick(createBrick(1023, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 210, -1, new String[]{"Blue", "Dark", "Zaffre"}));
+        brick.addBrick(createBrick(18, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 18, 0xFF4E246F, new String[]{"Purple", "Dark", "Violet"}));
         brickPackages.add(brick);
 
         ItemBrickPackage metal = new ItemBrickPackage("metal", "Metal Blocks", new String[]{"Ore", "Standard"});
-        metal.addBrick(createBrick(29, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 29, 0xFFA1A3A5, new String[]{"Silver", "White", "Iron", "Platinum"}));
-        metal.addBrick(createBrick(30, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 30, 0xFFDF7A41, new String[]{"Orange", "Bronze", "Amber"}));
-        metal.addBrick(createBrick(31, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 31, 0xFFF0A927, new String[]{"Yellow", "Gold", "Jasmine"}));
+        metal.addBrick(createBrick(29, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 29, 0xFFA1A3A5, new String[]{"Silver", "White", "Iron", "Platinum"}));
+        metal.addBrick(createBrick(30, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 30, 0xFFDF7A41, new String[]{"Orange", "Bronze", "Amber"}));
+        metal.addBrick(createBrick(31, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 31, 0xFFF0A927, new String[]{"Yellow", "Gold", "Jasmine"}));
         brickPackages.add(metal);
 
         ItemBrickPackage grass = new ItemBrickPackage("grass", "Grass Blocks", new String[]{"Environment", "Nature", "Standard", "Soil", "Ground", "Dirt", "Flora"});
         grass.addBrick(createBrick(34, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 34, 0xFF456313, new String[]{"Left", "Soil"}));
-        grass.addBrick(createBrick(35, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 35, 0xFF456313, new String[]{"Middle", "Soil"}));
+        grass.addBrick(createBrick(35, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 35, 0xFF456313, new String[]{"Middle", "Soil"}));
         grass.addBrick(createBrick(36, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 36, 0xFF456313, new String[]{"Right", "Soil"}));
         brickPackages.add(grass);
 
@@ -373,47 +373,47 @@ public class ItemManager {
         brickPackages.add(generic);
 
         ItemBrickPackage brickfactorypack = new ItemBrickPackage("factory", "Factory Package");
-        brickfactorypack.addBrick(createBrick(45, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 45, 0xFF72614B, new String[]{"X", "Crate", "Metal", "Box", "Wood"}));
-        brickfactorypack.addBrick(createBrick(46, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 46, 0xFF6E6B60, new String[]{"Concrete", "Grey", "Gray", "Stone", "Slate", "X"}));
-        brickfactorypack.addBrick(createBrick(47, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 47, 0xFF8E734F, new String[]{"Wood", "Tree", "Wooden", "House", "Planks", "Flooring", "Parquet"}));
-        brickfactorypack.addBrick(createBrick(48, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 48, 0xFF7F4F2B, new String[]{"X", "Crate", "Wooden", "Box", "Wood", "Storage"}));
-        brickfactorypack.addBrick(createBrick(49, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 49, 0xFF757575, new String[]{"Silver", "Metal", "Scales"}));
+        brickfactorypack.addBrick(createBrick(45, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 45, 0xFF72614B, new String[]{"X", "Crate", "Metal", "Box", "Wood"}));
+        brickfactorypack.addBrick(createBrick(46, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 46, 0xFF6E6B60, new String[]{"Concrete", "Grey", "Gray", "Stone", "Slate", "X"}));
+        brickfactorypack.addBrick(createBrick(47, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 47, 0xFF8E734F, new String[]{"Wood", "Tree", "Wooden", "House", "Planks", "Flooring", "Parquet"}));
+        brickfactorypack.addBrick(createBrick(48, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 48, 0xFF7F4F2B, new String[]{"X", "Crate", "Wooden", "Box", "Wood", "Storage"}));
+        brickfactorypack.addBrick(createBrick(49, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 49, 0xFF757575, new String[]{"Silver", "Metal", "Scales"}));
         brickPackages.add(brickfactorypack);
 
         ItemBrickPackage secret = new ItemBrickPackage("secrets", "Secret Bricks", new String[]{"Hidden", "Invisible"});
-        secret.addBrick(createBrick(44, ItemLayer.FORGROUND, blocksBMD, "", "completely black, makes minimap invisible", ItemTab.BLOCK, false, true, 44, 0x01000000, new String[]{"Black", "Pure", "Old", "Solid"})); //Black block is in the special range
+        secret.addBrick(createBrick(44, ItemLayer.FOREGROUND, blocksBMD, "", "completely black, makes minimap invisible", ItemTab.BLOCK, false, true, 44, 0x01000000, new String[]{"Black", "Pure", "Old", "Solid"})); //Black block is in the special range
         secret.addBrick(createBrick(50, ItemLayer.DECORATION, specialBlocksBMD, "", "", ItemTab.BLOCK, false, true, 139, 0x0, new String[]{"Appear"}));
         secret.addBrick(createBrick(243, ItemLayer.DECORATION, specialBlocksBMD, "", "", ItemTab.BLOCK, false, true, 140, 0x01000000, new String[]{"Blank", "Hidden"}));
         secret.addBrick(createBrick(136, ItemLayer.DECORATION, specialBlocksBMD, "", "", ItemTab.BLOCK, false, false, 141, 0x0, new String[]{"Disappear"}));
         brickPackages.add(secret);
 
         ItemBrickPackage glass = new ItemBrickPackage("glass", "Glass bricks", new String[]{"Bright", "Light", "Shine", "Polish", "Neon"});
-        glass.addBrick(createBrick(51, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 51, 0xFFF89299, new String[]{"Red", "Light red", "Pink", "Ruby"}));
-        glass.addBrick(createBrick(58, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 58, 0xFFF6BA94, new String[]{"Orange", "Light orange", "Topaz"}));
-        glass.addBrick(createBrick(57, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 57, 0xFFF8DA8C, new String[]{"Yellow", "Light yellow", "Jasmine"}));
-        glass.addBrick(createBrick(56, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 56, 0xFF92FBAA, new String[]{"Green", "Light green", "Emerald"}));
-        glass.addBrick(createBrick(55, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 55, 0xFF95DCF6, new String[]{"Cyan", "Light blue", "Diamond"}));
-        glass.addBrick(createBrick(54, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 54, 0xFF7E99F6, new String[]{"Blue", "Sapphire"}));
-        glass.addBrick(createBrick(53, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 53, 0xFFA789F6, new String[]{"Purple", "Violet", "Amethyst"}));
-        glass.addBrick(createBrick(52, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 52, 0xFFE98BF6, new String[]{"Pink", "Magenta", "Purple", "Quartz"}));
+        glass.addBrick(createBrick(51, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 51, 0xFFF89299, new String[]{"Red", "Light red", "Pink", "Ruby"}));
+        glass.addBrick(createBrick(58, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 58, 0xFFF6BA94, new String[]{"Orange", "Light orange", "Topaz"}));
+        glass.addBrick(createBrick(57, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 57, 0xFFF8DA8C, new String[]{"Yellow", "Light yellow", "Jasmine"}));
+        glass.addBrick(createBrick(56, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 56, 0xFF92FBAA, new String[]{"Green", "Light green", "Emerald"}));
+        glass.addBrick(createBrick(55, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 55, 0xFF95DCF6, new String[]{"Cyan", "Light blue", "Diamond"}));
+        glass.addBrick(createBrick(54, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 54, 0xFF7E99F6, new String[]{"Blue", "Sapphire"}));
+        glass.addBrick(createBrick(53, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 53, 0xFFA789F6, new String[]{"Purple", "Violet", "Amethyst"}));
+        glass.addBrick(createBrick(52, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 52, 0xFFE98BF6, new String[]{"Pink", "Magenta", "Purple", "Quartz"}));
         brickPackages.add(glass);
 
         ItemBrickPackage mineral = new ItemBrickPackage("minerals", "Minerals", new String[]{"Neon", "Pure", "Bright"});
-        mineral.addBrick(createBrick(70, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 70, 0xFFEE0000, new String[]{"Red", "Ruby"}));
-        mineral.addBrick(createBrick(76, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 76, 0xFFEE7700, new String[]{"Orange", "Topaz"}));
-        mineral.addBrick(createBrick(75, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 75, 0xFFEEEE00, new String[]{"Yellow", "Jasmine"}));
-        mineral.addBrick(createBrick(74, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 74, 0xFF00EE00, new String[]{"Green", "Lime", "Emerald", "Peridot"}));
-        mineral.addBrick(createBrick(73, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 73, 0xFF00EEEE, new String[]{"Cyan", "Light blue", "Aquamarine", "Turquoise"}));
-        mineral.addBrick(createBrick(72, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 72, 0xFF0000EE, new String[]{"Blue", "Indigo", "Sapphire", "Lapis"}));
-        mineral.addBrick(createBrick(71, ItemLayer.FORGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 71, 0xFFEE00EE, new String[]{"Pink", "Magenta", "Purple", "Amethyst"}));
+        mineral.addBrick(createBrick(70, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 70, 0xFFEE0000, new String[]{"Red", "Ruby"}));
+        mineral.addBrick(createBrick(76, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 76, 0xFFEE7700, new String[]{"Orange", "Topaz"}));
+        mineral.addBrick(createBrick(75, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 75, 0xFFEEEE00, new String[]{"Yellow", "Jasmine"}));
+        mineral.addBrick(createBrick(74, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 74, 0xFF00EE00, new String[]{"Green", "Lime", "Emerald", "Peridot"}));
+        mineral.addBrick(createBrick(73, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 73, 0xFF00EEEE, new String[]{"Cyan", "Light blue", "Aquamarine", "Turquoise"}));
+        mineral.addBrick(createBrick(72, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 72, 0xFF0000EE, new String[]{"Blue", "Indigo", "Sapphire", "Lapis"}));
+        mineral.addBrick(createBrick(71, ItemLayer.FOREGROUND, blocksBMD, "brickminiral", "", ItemTab.BLOCK, false, true, 71, 0xFFEE00EE, new String[]{"Pink", "Magenta", "Purple", "Amethyst"}));
         brickPackages.add(mineral);
 
         ItemBrickPackage xmas2011 = new ItemBrickPackage("christmas 2011", "Christmas 2011 bricks", new String[]{"Holiday", "Wrapping Paper", "Gift", "Present"});
-        xmas2011.addBrick(createBrick(78, ItemLayer.FORGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 78, -1, new String[]{"Yellow"}));
-        xmas2011.addBrick(createBrick(79, ItemLayer.FORGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 79, -1, new String[]{"White"}));
-        xmas2011.addBrick(createBrick(80, ItemLayer.FORGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 80, -1, new String[]{"Red"}));
-        xmas2011.addBrick(createBrick(81, ItemLayer.FORGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 81, -1, new String[]{"Blue"}));
-        xmas2011.addBrick(createBrick(82, ItemLayer.FORGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 82, -1, new String[]{"Green"}));
+        xmas2011.addBrick(createBrick(78, ItemLayer.FOREGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 78, -1, new String[]{"Yellow"}));
+        xmas2011.addBrick(createBrick(79, ItemLayer.FOREGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 79, -1, new String[]{"White"}));
+        xmas2011.addBrick(createBrick(80, ItemLayer.FOREGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 80, -1, new String[]{"Red"}));
+        xmas2011.addBrick(createBrick(81, ItemLayer.FOREGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 81, -1, new String[]{"Blue"}));
+        xmas2011.addBrick(createBrick(82, ItemLayer.FOREGROUND, blocksBMD, "brickxmas2011", "", ItemTab.BLOCK, false, true, 82, -1, new String[]{"Green"}));
         brickPackages.add(xmas2011);
 
         //ACTIONs
@@ -758,8 +758,8 @@ public class ItemManager {
         brickPackages.add(carnival);
 
         ItemBrickPackage candy = new ItemBrickPackage("candy", "CandyLand", new String[]{"Sweet", "Sugar", "Food"});
-        candy.addBrick(createBrick(60, ItemLayer.FORGROUND, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 60, -1, new String[]{"Pink", "Cotton Candy", "Fairy Floss", "Stripes", "Pastel"}));
-        candy.addBrick(createBrick(1154, ItemLayer.FORGROUND, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 310, -1, new String[]{"Blue", "Cotton Candy", "Fairy Floss", "Stripes", "Pastel"}));
+        candy.addBrick(createBrick(60, ItemLayer.FOREGROUND, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 60, -1, new String[]{"Pink", "Cotton Candy", "Fairy Floss", "Stripes", "Pastel"}));
+        candy.addBrick(createBrick(1154, ItemLayer.FOREGROUND, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 310, -1, new String[]{"Blue", "Cotton Candy", "Fairy Floss", "Stripes", "Pastel"}));
         candy.addBrick(createBrick(61, ItemLayer.DECORATION, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 61, -1, new String[]{"Platform", "Magenta", "Pink", "One-Way"}));
         candy.addBrick(createBrick(62, ItemLayer.DECORATION, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 62, -1, new String[]{"Platform", "Red", "One-Way", "One way"}));
         candy.addBrick(createBrick(63, ItemLayer.DECORATION, blocksBMD, "brickcandy", "", ItemTab.BLOCK, false, true, 63, -1, new String[]{"Platform", "Cyan", "One-Way", "One way"}));
@@ -777,7 +777,7 @@ public class ItemManager {
         brickPackages.add(candy);
 
         ItemBrickPackage summer2011 = new ItemBrickPackage("summer 2011", "Summer package 2011", new String[]{"Season", "Hot", "Beach"});
-        summer2011.addBrick(createBrick(59, ItemLayer.FORGROUND, blocksBMD, "bricksummer2011", "", ItemTab.BLOCK, false, true, 59, -1, new String[]{"Sand", "Environment"}));
+        summer2011.addBrick(createBrick(59, ItemLayer.FOREGROUND, blocksBMD, "bricksummer2011", "", ItemTab.BLOCK, false, true, 59, -1, new String[]{"Sand", "Environment"}));
         summer2011.addBrick(createBrick(228, ItemLayer.ABOVE, decoBlocksBMD, "bricksummer2011", "", ItemTab.DECORATIVE, false, false, 228 - 128, 0x0, new String[]{"Umbrella", "Parasol", "Beach", "Sun"}));
         summer2011.addBrick(createBrick(229, ItemLayer.ABOVE, decoBlocksBMD, "bricksummer2011", "", ItemTab.DECORATIVE, false, false, 229 - 128, 0x0, new String[]{"Left", "Sand", "Corner", "Dune", "Environment"}));
         summer2011.addBrick(createBrick(230, ItemLayer.ABOVE, decoBlocksBMD, "bricksummer2011", "", ItemTab.DECORATIVE, false, false, 230 - 128, 0x0, new String[]{"Right", "Sand", "Corner", "Dune", "Environment"}));
@@ -787,8 +787,8 @@ public class ItemManager {
 
 
         ItemBrickPackage halloween2011 = new ItemBrickPackage("halloween 2011", "Halloween pack", new String[]{"Scary", "Holiday", "Creepy"});
-        halloween2011.addBrick(createBrick(68, ItemLayer.FORGROUND, blocksBMD, "brickhw2011", "", ItemTab.BLOCK, false, true, 68, -1, new String[]{"Brick", "Gray", "Grey", "Bloody", "Wall", "House"}));
-        halloween2011.addBrick(createBrick(69, ItemLayer.FORGROUND, blocksBMD, "brickhw2011", "", ItemTab.BLOCK, false, true, 69, -1, new String[]{"Basic", "Gray", "Grey"}));
+        halloween2011.addBrick(createBrick(68, ItemLayer.FOREGROUND, blocksBMD, "brickhw2011", "", ItemTab.BLOCK, false, true, 68, -1, new String[]{"Brick", "Gray", "Grey", "Bloody", "Wall", "House"}));
+        halloween2011.addBrick(createBrick(69, ItemLayer.FOREGROUND, blocksBMD, "brickhw2011", "", ItemTab.BLOCK, false, true, 69, -1, new String[]{"Basic", "Gray", "Grey"}));
         halloween2011.addBrick(createBrick(224, ItemLayer.ABOVE, decoBlocksBMD, "brickhw2011", "", ItemTab.DECORATIVE, false, false, 224 - 128, 0x0, new String[]{"Grave", "Tombstone", "Headstone", "Marker", "Dead"}));
         halloween2011.addBrick(createBrick(225, ItemLayer.ABOVE, decoBlocksBMD, "brickhw2011", "", ItemTab.DECORATIVE, false, true, 225 - 128, 0x0, new String[]{"Cobweb", "Spider Web", "Right", "Corner"}));
         halloween2011.addBrick(createBrick(226, ItemLayer.ABOVE, decoBlocksBMD, "brickhw2011", "", ItemTab.DECORATIVE, false, true, 226 - 128, 0x0, new String[]{"Cobweb", "Spider Web", "Left", "Corner"}));
@@ -808,15 +808,15 @@ public class ItemManager {
         brickPackages.add(christmas2011);
 
         ItemBrickPackage scifi = new ItemBrickPackage("sci-fi", "Sci-Fi Package", new String[]{"Future", "Science Fiction", "Alien", "UFO"});
-        scifi.addBrick(createBrick(84, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 84, -1, new String[]{"Red", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(85, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 85, -1, new String[]{"Blue", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(1150, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 308, -1, new String[]{"Green", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(1151, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 309, -1, new String[]{"Yellow", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(1162, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 317, -1, new String[]{"Magenta", "Pink", "Purple", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(1163, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 318, -1, new String[]{"Cyan", "Screen", "Panel"}));
-        scifi.addBrick(createBrick(86, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 86, -1, new String[]{"Metal", "Gray", "Bumpy", "Grey"}));
-        scifi.addBrick(createBrick(87, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 87, 0xFFFFFFFF, new String[]{"Metal", "White", "Grey", "Gray"}));
-        scifi.addBrick(createBrick(88, ItemLayer.FORGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 88, -1, new String[]{"Brown", "Camouflauge", "Leopard", "Carpet"}));
+        scifi.addBrick(createBrick(84, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 84, -1, new String[]{"Red", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(85, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 85, -1, new String[]{"Blue", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(1150, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 308, -1, new String[]{"Green", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(1151, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 309, -1, new String[]{"Yellow", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(1162, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 317, -1, new String[]{"Magenta", "Pink", "Purple", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(1163, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 318, -1, new String[]{"Cyan", "Screen", "Panel"}));
+        scifi.addBrick(createBrick(86, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 86, -1, new String[]{"Metal", "Gray", "Bumpy", "Grey"}));
+        scifi.addBrick(createBrick(87, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 87, 0xFFFFFFFF, new String[]{"Metal", "White", "Grey", "Gray"}));
+        scifi.addBrick(createBrick(88, ItemLayer.FOREGROUND, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 88, -1, new String[]{"Brown", "Camouflauge", "Leopard", "Carpet"}));
         scifi.addBrick(createBrick(89, ItemLayer.DECORATION, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 89, -1, new String[]{"Platform", "Red", "One-way", "One way"}));
         scifi.addBrick(createBrick(90, ItemLayer.DECORATION, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 90, -1, new String[]{"Platform", "Blue", "One-way", "One way"}));
         scifi.addBrick(createBrick(91, ItemLayer.DECORATION, blocksBMD, "brickscifi", "", ItemTab.BLOCK, false, true, 91, -1, new String[]{"Platform", "Green", "One-way", "One way"}));
@@ -836,7 +836,7 @@ public class ItemManager {
 
         ItemBrickPackage prison = new ItemBrickPackage("prison", "Prison", new String[]{"Cell", "Jail"});
         prison.addBrick(createBrick(261, ItemLayer.ABOVE, decoBlocksBMD, "brickprison", "", ItemTab.DECORATIVE, false, false, 261 - 128, 0x0, new String[]{"Bars", "Metal"}));
-        prison.addBrick(createBrick(92, ItemLayer.FORGROUND, blocksBMD, "brickprison", "", ItemTab.BLOCK, false, true, 92, -1, new String[]{"Wall", "Brick", "Grey", "Gray", "House"}));
+        prison.addBrick(createBrick(92, ItemLayer.FOREGROUND, blocksBMD, "brickprison", "", ItemTab.BLOCK, false, true, 92, -1, new String[]{"Wall", "Brick", "Grey", "Gray", "House"}));
         prison.addBrick(createBrick(550, ItemLayer.BACKGROUND, bgBlocksBMD, "brickprison", "", ItemTab.BACKGROUND, false, true, 50, -1, new String[]{"Wall", "Brick", "Background", "Grey", "Gray", "House"}));
         prison.addBrick(createBrick(551, ItemLayer.BACKGROUND, bgBlocksBMD, "brickprison", "", ItemTab.BACKGROUND, false, true, 51, -1, new String[]{"Window", "Light", "Orange", "Brick"}));
         prison.addBrick(createBrick(552, ItemLayer.BACKGROUND, bgBlocksBMD, "brickprison", "", ItemTab.BACKGROUND, false, true, 52, -1, new String[]{"Window", "Light", "Blue", "Brick"}));
@@ -856,8 +856,8 @@ public class ItemManager {
         brickPackages.add(windows);
 
         ItemBrickPackage pirate = new ItemBrickPackage("pirate", "Pirate Pack");
-        pirate.addBrick(createBrick(93, ItemLayer.FORGROUND, blocksBMD, "brickpirate", "", ItemTab.BLOCK, false, true, 93, -1, new String[]{"Wood", "Planks", "Board", "Siding", "Navy", "House"}));
-        pirate.addBrick(createBrick(94, ItemLayer.FORGROUND, blocksBMD, "brickpirate", "", ItemTab.BLOCK, false, true, 94, -1, new String[]{"Chest", "Treasure", "Loot", "Booty", "Navy"}));
+        pirate.addBrick(createBrick(93, ItemLayer.FOREGROUND, blocksBMD, "brickpirate", "", ItemTab.BLOCK, false, true, 93, -1, new String[]{"Wood", "Planks", "Board", "Siding", "Navy", "House"}));
+        pirate.addBrick(createBrick(94, ItemLayer.FOREGROUND, blocksBMD, "brickpirate", "", ItemTab.BLOCK, false, true, 94, -1, new String[]{"Chest", "Treasure", "Loot", "Booty", "Navy"}));
         pirate.addBrick(createBrick(154, ItemLayer.DECORATION, blocksBMD, "brickpirate", "", ItemTab.BLOCK, false, true, 131, 0x0, new String[]{"Platform", "Wood", "Ship", "Navy", "One Way", "One-Way"}));
         pirate.addBrick(createBrick(271, ItemLayer.DECORATION, decoBlocksBMD, "brickpirate", "", ItemTab.DECORATIVE, false, true, 143, 0x0, new String[]{"Wood", "Decoration", "Navy"}));
         pirate.addBrick(createBrick(272, ItemLayer.ABOVE, decoBlocksBMD, "brickpirate", "", ItemTab.DECORATIVE, false, true, 144, 0x0, new String[]{"Skull", "Head", "Skeleton", "Creepy", "Death"}));
@@ -870,10 +870,10 @@ public class ItemManager {
         brickPackages.add(pirate);
 
         ItemBrickPackage stone = new ItemBrickPackage("stone", "Stone Pack", new String[]{"Cave", "Rocks", "Environment", "House"});
-        stone.addBrick(createBrick(95, ItemLayer.FORGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 95, -1, new String[]{"Gray", "Grey"}));
-        stone.addBrick(createBrick(1044, ItemLayer.FORGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 226, -1, new String[]{"Green", "Limestone"}));
-        stone.addBrick(createBrick(1045, ItemLayer.FORGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 227, -1, new String[]{"Brown", "Dirt"}));
-        stone.addBrick(createBrick(1046, ItemLayer.FORGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 228, -1, new String[]{"Blue"}));
+        stone.addBrick(createBrick(95, ItemLayer.FOREGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 95, -1, new String[]{"Gray", "Grey"}));
+        stone.addBrick(createBrick(1044, ItemLayer.FOREGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 226, -1, new String[]{"Green", "Limestone"}));
+        stone.addBrick(createBrick(1045, ItemLayer.FOREGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 227, -1, new String[]{"Brown", "Dirt"}));
+        stone.addBrick(createBrick(1046, ItemLayer.FOREGROUND, blocksBMD, "brickstone", "", ItemTab.BLOCK, false, true, 228, -1, new String[]{"Blue"}));
         stone.addBrick(createBrick(561, ItemLayer.BACKGROUND, bgBlocksBMD, "brickstone", "", ItemTab.BACKGROUND, false, false, 61, -1, new String[]{"Dark", "Gray", "Grey"}));
         stone.addBrick(createBrick(562, ItemLayer.BACKGROUND, bgBlocksBMD, "brickstone", "", ItemTab.BACKGROUND, false, false, 62, -1, new String[]{"Half", "Dark", "Gray", "Grey"}));
         stone.addBrick(createBrick(688, ItemLayer.BACKGROUND, bgBlocksBMD, "brickstone", "", ItemTab.BACKGROUND, false, false, 182, -1, new String[]{"Green", "Limestone"}));
@@ -961,12 +961,12 @@ public class ItemManager {
         brickPackages.add(water);
 
         ItemBrickPackage sand = new ItemBrickPackage("sand", "Sand Pack", new String[]{"Desert", "Beach", "Environment", "Soil"});
-        sand.addBrick(createBrick(137, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 114, -1, new String[]{"White", "Beige"}));
-        sand.addBrick(createBrick(138, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 115, -1, new String[]{"Grey", "Gray"}));
-        sand.addBrick(createBrick(139, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 116, -1, new String[]{"Yellow"}));
-        sand.addBrick(createBrick(140, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 117, -1, new String[]{"Yellow", "Orange"}));
-        sand.addBrick(createBrick(141, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 118, -1, new String[]{"Brown", "Light"}));
-        sand.addBrick(createBrick(142, ItemLayer.FORGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 119, -1, new String[]{"Brown", "Dark", "Dirt"}));
+        sand.addBrick(createBrick(137, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 114, -1, new String[]{"White", "Beige"}));
+        sand.addBrick(createBrick(138, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 115, -1, new String[]{"Grey", "Gray"}));
+        sand.addBrick(createBrick(139, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 116, -1, new String[]{"Yellow"}));
+        sand.addBrick(createBrick(140, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 117, -1, new String[]{"Yellow", "Orange"}));
+        sand.addBrick(createBrick(141, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 118, -1, new String[]{"Brown", "Light"}));
+        sand.addBrick(createBrick(142, ItemLayer.FOREGROUND, blocksBMD, "bricksand", "", ItemTab.BLOCK, false, true, 119, -1, new String[]{"Brown", "Dark", "Dirt"}));
         sand.addBrick(createBrick(579, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksand", "", ItemTab.BACKGROUND, false, false, 79, -1, new String[]{"Off-white"}));
         sand.addBrick(createBrick(580, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksand", "", ItemTab.BACKGROUND, false, false, 80, -1, new String[]{"Gray", "Grey"}));
         sand.addBrick(createBrick(581, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksand", "", ItemTab.BACKGROUND, false, false, 81, -1, new String[]{"Yellow"}));
@@ -989,7 +989,7 @@ public class ItemManager {
         brickPackages.add(summer2012);
 
         ItemBrickPackage cloud = new ItemBrickPackage("cloud", "Cloud Pack", new String[]{"Sky", "Environment"});
-        cloud.addBrick(createBrick(143, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, false, 120, -1, new String[]{"Center", "Middle", "White"}));
+        cloud.addBrick(createBrick(143, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, false, 120, -1, new String[]{"Center", "Middle", "White"}));
         cloud.addBrick(createBrick(311, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 310 - 128, 0x0, new String[]{"Top", "Side", "White"}));
         cloud.addBrick(createBrick(312, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 311 - 128, 0x0, new String[]{"Bottom", "Side", "White"}));
         cloud.addBrick(createBrick(313, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 312 - 128, 0x0, new String[]{"Left", "Side", "White"}));
@@ -999,7 +999,7 @@ public class ItemManager {
         cloud.addBrick(createBrick(317, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 316 - 128, 0x0, new String[]{"Bottom left", "Corner", "White"}));
         cloud.addBrick(createBrick(318, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 317 - 128, 0x0, new String[]{"Bottom right", "Corner", "White"}));
 
-        cloud.addBrick(createBrick(1126, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, false, 287, -1, new String[]{"Center", "Middle", "Dark", "Grey", "Gray", "Storm"}));
+        cloud.addBrick(createBrick(1126, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, false, 287, -1, new String[]{"Center", "Middle", "Dark", "Grey", "Gray", "Storm"}));
         cloud.addBrick(createBrick(1523, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 323, 0x0, new String[]{"Top", "Side", "Dark", "Grey", "Gray", "Storm"}));
         cloud.addBrick(createBrick(1524, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 324, 0x0, new String[]{"Bottom", "Side", "Dark", "Grey", "Gray", "Storm"}));
         cloud.addBrick(createBrick(1525, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 325, 0x0, new String[]{"Left", "Side", "Dark", "Grey", "Gray", "Storm"}));
@@ -1011,8 +1011,8 @@ public class ItemManager {
         brickPackages.add(cloud);
 
         ItemBrickPackage industrial = new ItemBrickPackage("industrial", "Industrial Package", new String[]{"Factory"});
-        industrial.addBrick(createBrick(144, ItemLayer.FORGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 121, -1, new String[]{"Diamond plating", "Plate", "Metal"}));
-        industrial.addBrick(createBrick(145, ItemLayer.FORGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 122, -1, new String[]{"Wiring", "Wires", "Metal"}));
+        industrial.addBrick(createBrick(144, ItemLayer.FOREGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 121, -1, new String[]{"Diamond plating", "Plate", "Metal"}));
+        industrial.addBrick(createBrick(145, ItemLayer.FOREGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 122, -1, new String[]{"Wiring", "Wires", "Metal"}));
         industrial.addBrick(createBrick(585, ItemLayer.BACKGROUND, bgBlocksBMD, "brickindustrial", "", ItemTab.BACKGROUND, false, false, 85, -1, new String[]{"Plate", "Metal"}));
         industrial.addBrick(createBrick(586, ItemLayer.BACKGROUND, bgBlocksBMD, "brickindustrial", "", ItemTab.BACKGROUND, false, false, 86, -1, new String[]{"Gray", "Steel", "Plate", "Metal"}));
         industrial.addBrick(createBrick(587, ItemLayer.BACKGROUND, bgBlocksBMD, "brickindustrial", "", ItemTab.BACKGROUND, false, false, 87, -1, new String[]{"Blue", "Cyan", "Plate", "Metal"}));
@@ -1023,8 +1023,8 @@ public class ItemManager {
         industrial.addBrick(createBrick(1133, ItemLayer.DECORATION, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 294, 0x0, new String[]{"Scissor", "Scaffolding", "X", "Metal"}));
         industrial.addBrick(createBrick(148, ItemLayer.DECORATION, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 125, 0x0, new String[]{"Lift", "Table", "Piston", "Metal"}));
         industrial.addBrick(createBrick(ItemId.INDUSTRIAL_TABLE, ItemLayer.DECORATION, specialBlocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 712, 0x0, new String[]{"Lift", "Table", "Piston", "Metal", "Morphable"}));
-        industrial.addBrick(createBrick(149, ItemLayer.FORGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 126, -1, new String[]{"Tube", "Plate", "Piston", "Metal"}));
-        industrial.addBrick(createBrick(1127, ItemLayer.FORGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 288, -1, new String[]{"Tube", "Plate", "Piston", "Metal"}));
+        industrial.addBrick(createBrick(149, ItemLayer.FOREGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 126, -1, new String[]{"Tube", "Plate", "Piston", "Metal"}));
+        industrial.addBrick(createBrick(1127, ItemLayer.FOREGROUND, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 288, -1, new String[]{"Tube", "Plate", "Piston", "Metal"}));
         industrial.addBrick(createBrick(ItemId.INDUSTRIAL_PIPE_THICK, ItemLayer.DECORATION, specialBlocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 710, 0x0, new String[]{"Thick", "Pipe", "Metal", "Morphable"}));
         industrial.addBrick(createBrick(150, ItemLayer.DECORATION, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 127, -1, new String[]{"Conveyor belt", "Left", "Metal"}));
         industrial.addBrick(createBrick(151, ItemLayer.DECORATION, blocksBMD, "brickindustrial", "", ItemTab.BLOCK, false, true, 128, -1, new String[]{"Conveyor belt", "Middle", "Metal"}));
@@ -1050,8 +1050,8 @@ public class ItemManager {
 
         ItemBrickPackage medieval = new ItemBrickPackage("medieval", "Medieval", new String[]{"Castle"});
         medieval.addBrick(createBrick(158, ItemLayer.DECORATION, blocksBMD, "brickmedieval", "", ItemTab.BLOCK, false, true, 132, 0x0, new String[]{"Platform", "Stone"}));
-        medieval.addBrick(createBrick(159, ItemLayer.FORGROUND, blocksBMD, "brickmedieval", "", ItemTab.BLOCK, false, true, 133, -1, new String[]{"Brick", "Stone"}));
-        medieval.addBrick(createBrick(160, ItemLayer.FORGROUND, blocksBMD, "brickmedieval", "", ItemTab.BLOCK, false, true, 134, -1, new String[]{"Brick", "Arrow slit", "Stone", "Window"}));
+        medieval.addBrick(createBrick(159, ItemLayer.FOREGROUND, blocksBMD, "brickmedieval", "", ItemTab.BLOCK, false, true, 133, -1, new String[]{"Brick", "Stone"}));
+        medieval.addBrick(createBrick(160, ItemLayer.FOREGROUND, blocksBMD, "brickmedieval", "", ItemTab.BLOCK, false, true, 134, -1, new String[]{"Brick", "Arrow slit", "Stone", "Window"}));
         medieval.addBrick(createBrick(599, ItemLayer.BACKGROUND, bgBlocksBMD, "brickmedieval", "", ItemTab.BACKGROUND, false, false, 99, -1, new String[]{"Anvil", "Blacksmith"}));
         medieval.addBrick(createBrick(325, ItemLayer.ABOVE, decoBlocksBMD, "brickmedieval", "", ItemTab.DECORATIVE, false, true, 196, 0x0, new String[]{"Brick", "Stone", "House"}));
         medieval.addBrick(createBrick(326, ItemLayer.ABOVE, decoBlocksBMD, "brickmedieval", "", ItemTab.DECORATIVE, false, false, 197, -1, new String[]{"Top", "Display", "Stone"}));
@@ -1074,21 +1074,21 @@ public class ItemManager {
         brickPackages.add(medieval);
 
         ItemBrickPackage plasticpipes = new ItemBrickPackage("pipes", "Pipes", new String[]{"Orange"});
-        plasticpipes.addBrick(createBrick(166, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 140, -1, new String[]{"Left"}));
-        plasticpipes.addBrick(createBrick(167, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 141, -1, new String[]{"Horizontal"}));
-        plasticpipes.addBrick(createBrick(168, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 142, -1, new String[]{"Right"}));
-        plasticpipes.addBrick(createBrick(169, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 143, -1, new String[]{"Up"}));
-        plasticpipes.addBrick(createBrick(170, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 144, -1, new String[]{"Vertical"}));
-        plasticpipes.addBrick(createBrick(171, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 145, -1, new String[]{"Down"}));
+        plasticpipes.addBrick(createBrick(166, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 140, -1, new String[]{"Left"}));
+        plasticpipes.addBrick(createBrick(167, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 141, -1, new String[]{"Horizontal"}));
+        plasticpipes.addBrick(createBrick(168, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 142, -1, new String[]{"Right"}));
+        plasticpipes.addBrick(createBrick(169, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 143, -1, new String[]{"Up"}));
+        plasticpipes.addBrick(createBrick(170, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 144, -1, new String[]{"Vertical"}));
+        plasticpipes.addBrick(createBrick(171, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 145, -1, new String[]{"Down"}));
         brickPackages.add(plasticpipes);
 
         ItemBrickPackage outerSpace = new ItemBrickPackage("outer space", "Outer Space", new String[]{"Ship", "Aliens", "UFO", "Sci-Fi", "Science Fiction", "Void"});
-        outerSpace.addBrick(createBrick(172, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 146, -1, new String[]{"White", "Metal", "Plate"}));
-        outerSpace.addBrick(createBrick(173, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 147, -1, new String[]{"Blue", "Metal", "Plate"}));
-        outerSpace.addBrick(createBrick(174, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 148, -1, new String[]{"Green", "Metal", "Plate"}));
-        outerSpace.addBrick(createBrick(175, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 149, -1, new String[]{"Red", "Magenta", "Metal", "Plate", "Pink"}));
-        outerSpace.addBrick(createBrick(176, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 150, 0xFFFFAB44, new String[]{"Sand", "Mars", "Orange"}));
-        outerSpace.addBrick(createBrick(1029, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 214, -1, new String[]{"Moon", "Rock", "Stone", "Metal", "Grey", "Gray"}));
+        outerSpace.addBrick(createBrick(172, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 146, -1, new String[]{"White", "Metal", "Plate"}));
+        outerSpace.addBrick(createBrick(173, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 147, -1, new String[]{"Blue", "Metal", "Plate"}));
+        outerSpace.addBrick(createBrick(174, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 148, -1, new String[]{"Green", "Metal", "Plate"}));
+        outerSpace.addBrick(createBrick(175, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 149, -1, new String[]{"Red", "Magenta", "Metal", "Plate", "Pink"}));
+        outerSpace.addBrick(createBrick(176, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 150, 0xFFFFAB44, new String[]{"Sand", "Mars", "Orange"}));
+        outerSpace.addBrick(createBrick(1029, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 214, -1, new String[]{"Moon", "Rock", "Stone", "Metal", "Grey", "Gray"}));
         outerSpace.addBrick(createBrick(601, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 101, -1, new String[]{"White", "Grey", "Gray", "Metal"}));
         outerSpace.addBrick(createBrick(602, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 102, -1, new String[]{"Blue", "Metal"}));
         outerSpace.addBrick(createBrick(603, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 103, -1, new String[]{"Green", "Metal"}));
@@ -1108,11 +1108,11 @@ public class ItemManager {
         brickPackages.add(outerSpace);
 
         ItemBrickPackage desert = new ItemBrickPackage("desert", "Desert Pack", new String[]{"Environment"});
-        desert.addBrick(createBrick(177, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 151, 0xFFDD943B, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
-        desert.addBrick(createBrick(178, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 152, 0xFFC68534, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
-        desert.addBrick(createBrick(179, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 153, 0xFF916127, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
-        desert.addBrick(createBrick(180, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 154, -1, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
-        desert.addBrick(createBrick(181, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 155, -1, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
+        desert.addBrick(createBrick(177, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 151, 0xFFDD943B, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
+        desert.addBrick(createBrick(178, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 152, 0xFFC68534, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
+        desert.addBrick(createBrick(179, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 153, 0xFF916127, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
+        desert.addBrick(createBrick(180, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 154, -1, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
+        desert.addBrick(createBrick(181, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 155, -1, new String[]{"Mars", "Orange", "Sandstone", "Ground", "Soil", "Dirt", "Rocky", "Space"}));
         desert.addBrick(createBrick(336, ItemLayer.ABOVE, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 207, 0x0, new String[]{"Rock", "Orange", "Sandstone", "Boulder", "Space"}));
         desert.addBrick(createBrick(425, ItemLayer.ABOVE, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 267, 0x0, new String[]{"Cactus", "Nature", "Plant", "Western"}));
         desert.addBrick(createBrick(426, ItemLayer.ABOVE, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, false, 268, 0x0, new String[]{"Bush", "Cactus", "Nature", "Plant", "Western"}));
@@ -1182,10 +1182,10 @@ public class ItemManager {
         ItemBrickPackage jungle = new ItemBrickPackage("jungle", "Jungle");
         jungle.addBrick(createBrick(193, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 168, 0x0, new String[]{"Idol", "Face", "Brick", "No show", "Statue", "Totem", "Ruins"}));
         jungle.addBrick(createBrick(194, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 169, 0x0, new String[]{"Platform", "Old", "Mossy", "Ruins", "Stone"}));
-        jungle.addBrick(createBrick(195, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 170, 0xff99997A, new String[]{"Brick", "Grey", "Gray", "Ruins", "Stone"}));
-        jungle.addBrick(createBrick(196, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 171, 0xffAC7061, new String[]{"Brick", "Red", "Pink", "Ruins", "Stone"}));
-        jungle.addBrick(createBrick(197, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 172, 0xff62889A, new String[]{"Brick", "Blue", "Ruins", "Stone"}));
-        jungle.addBrick(createBrick(198, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 173, 0xff878441, new String[]{"Brick", "Yellow", "Olive", "Ruins", "Stone", "Green"}));
+        jungle.addBrick(createBrick(195, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 170, 0xff99997A, new String[]{"Brick", "Grey", "Gray", "Ruins", "Stone"}));
+        jungle.addBrick(createBrick(196, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 171, 0xffAC7061, new String[]{"Brick", "Red", "Pink", "Ruins", "Stone"}));
+        jungle.addBrick(createBrick(197, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 172, 0xff62889A, new String[]{"Brick", "Blue", "Ruins", "Stone"}));
+        jungle.addBrick(createBrick(198, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 173, 0xff878441, new String[]{"Brick", "Yellow", "Olive", "Ruins", "Stone", "Green"}));
         jungle.addBrick(createBrick(617, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 117, 0xff666651, new String[]{"Brick", "Grey", "Gray", "Ruins", "Stone"}));
         jungle.addBrick(createBrick(618, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 118, 0xff774E44, new String[]{"Brick", "Red", "Pink", "Ruins", "Stone"}));
         jungle.addBrick(createBrick(619, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, true, 119, 0xff415A66, new String[]{"Brick", "Blue", "Ruins", "Stone"}));
@@ -1212,9 +1212,9 @@ public class ItemManager {
         brickPackages.add(christmas2012);
 
         ItemBrickPackage lavaPackage = new ItemBrickPackage("lava", "Lava", new String[]{"Hell", "Hot", "Environment", "Heat"});
-        lavaPackage.addBrick(createBrick(202, ItemLayer.FORGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 177, 0xffFFCE3E, new String[]{"Yellow"}));
-        lavaPackage.addBrick(createBrick(203, ItemLayer.FORGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 178, 0xffFA970E, new String[]{"Orange"}));
-        lavaPackage.addBrick(createBrick(204, ItemLayer.FORGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 179, 0xffFF5F00, new String[]{"Orange", "Red"}));
+        lavaPackage.addBrick(createBrick(202, ItemLayer.FOREGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 177, 0xffFFCE3E, new String[]{"Yellow"}));
+        lavaPackage.addBrick(createBrick(203, ItemLayer.FOREGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 178, 0xffFA970E, new String[]{"Orange"}));
+        lavaPackage.addBrick(createBrick(204, ItemLayer.FOREGROUND, blocksBMD, "bricklava", "", ItemTab.BLOCK, false, true, 179, 0xffFF5F00, new String[]{"Orange", "Red"}));
         lavaPackage.addBrick(createBrick(627, ItemLayer.BACKGROUND, bgBlocksBMD, "bricklava", "", ItemTab.BACKGROUND, false, true, 127, 0xffCCA333, new String[]{"Yellow"}));
         lavaPackage.addBrick(createBrick(628, ItemLayer.BACKGROUND, bgBlocksBMD, "bricklava", "", ItemTab.BACKGROUND, false, true, 128, 0xffC6750B, new String[]{"Orange"}));
         lavaPackage.addBrick(createBrick(629, ItemLayer.BACKGROUND, bgBlocksBMD, "bricklava", "", ItemTab.BACKGROUND, false, true, 129, 0xffB73A00, new String[]{"Red", "Orange"}));
@@ -1234,9 +1234,9 @@ public class ItemManager {
         sparta.addBrick(createBrick(382, ItemLayer.DECORATION, decoBlocksBMD, "bricksparta", "", ItemTab.DECORATIVE, false, true, 239, 0x0, new String[]{"Column", "Top", "Ancient"}));
         sparta.addBrick(createBrick(383, ItemLayer.DECORATION, decoBlocksBMD, "bricksparta", "", ItemTab.DECORATIVE, false, true, 240, 0x0, new String[]{"Column", "Middle", "Ancient"}));
         sparta.addBrick(createBrick(384, ItemLayer.DECORATION, decoBlocksBMD, "bricksparta", "", ItemTab.DECORATIVE, false, true, 241, 0x0, new String[]{"Column", "Bottom", "Ancient"}));
-        sparta.addBrick(createBrick(208, ItemLayer.FORGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 180, 0xffCDD1D3, new String[]{"Brick", "White", "Ancient", "Grey", "Gray"}));
-        sparta.addBrick(createBrick(209, ItemLayer.FORGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 181, 0xffC1DCB9, new String[]{"Brick", "Green", "Ancient"}));
-        sparta.addBrick(createBrick(210, ItemLayer.FORGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 182, 0xffE5C6CF, new String[]{"Brick", "Red", "Pink", "Ancient"}));
+        sparta.addBrick(createBrick(208, ItemLayer.FOREGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 180, 0xffCDD1D3, new String[]{"Brick", "White", "Ancient", "Grey", "Gray"}));
+        sparta.addBrick(createBrick(209, ItemLayer.FOREGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 181, 0xffC1DCB9, new String[]{"Brick", "Green", "Ancient"}));
+        sparta.addBrick(createBrick(210, ItemLayer.FOREGROUND, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 182, 0xffE5C6CF, new String[]{"Brick", "Red", "Pink", "Ancient"}));
         sparta.addBrick(createBrick(211, ItemLayer.DECORATION, blocksBMD, "bricksparta", "", ItemTab.BLOCK, false, true, 183, 0x0, new String[]{"Column", "Platform", "Top", "Ancient", "One-Way", "One Way"}));
         sparta.addBrick(createBrick(638, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksparta", "", ItemTab.BACKGROUND, false, false, 132, 0xff777B7D, new String[]{"Brick", "White", "Ancient", "Grey", "Gray"}));
         sparta.addBrick(createBrick(639, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksparta", "", ItemTab.BACKGROUND, false, false, 133, 0xff70816F, new String[]{"Brick", "Green", "Ancient"}));
@@ -1276,7 +1276,7 @@ public class ItemManager {
         brickPackages.add(autumn2014);
 
         ItemBrickPackage christmas2014 = new ItemBrickPackage("christmas 2014", "Christmas 2014", new String[]{"Xmas", "Holiday"});
-        christmas2014.addBrick(createBrick(215, ItemLayer.FORGROUND, blocksBMD, "brickchristmas2014", "", ItemTab.BLOCK, false, true, 187, -1, new String[]{"Snow", "Environment"}));
+        christmas2014.addBrick(createBrick(215, ItemLayer.FOREGROUND, blocksBMD, "brickchristmas2014", "", ItemTab.BLOCK, false, true, 187, -1, new String[]{"Snow", "Environment"}));
         christmas2014.addBrick(createBrick(216, ItemLayer.DECORATION, blocksBMD, "brickchristmas2014", "", ItemTab.BLOCK, false, true, 188, -1, new String[]{"Ice", "Snow", "Platform", "Icicle", "Top", "Environment", "One-Way", "One Way"}));
         christmas2014.addBrick(createBrick(398, ItemLayer.ABOVE, decoBlocksBMD, "brickchristmas2014", "", ItemTab.DECORATIVE, false, false, 254, -1, new String[]{"Snow", "Fluff", "Left", "Snowdrift", "Environment"}));
         christmas2014.addBrick(createBrick(399, ItemLayer.ABOVE, decoBlocksBMD, "brickchristmas2014", "", ItemTab.DECORATIVE, false, false, 255, -1, new String[]{"Snow", "Fluff", "Middle", "Snowdrift", "Environment"}));
@@ -1307,14 +1307,14 @@ public class ItemManager {
         brickPackages.add(valentines2015);
 
         ItemBrickPackage magic = new ItemBrickPackage("magic", "Magic Blocks", new String[]{"Rare"});
-        magic.addBrick(createBrick(1013, ItemLayer.FORGROUND, blocksBMD, "brickmagic", "the first magic block", ItemTab.BLOCK, false, true, 200, -1, new String[]{"Green", "Emerald", "Peridot"}));
-        magic.addBrick(createBrick(1014, ItemLayer.FORGROUND, blocksBMD, "brickmagic2", "the second magic block", ItemTab.BLOCK, false, true, 201, -1, new String[]{"Purple", "Violet", "Amethyst"}));
-        magic.addBrick(createBrick(1015, ItemLayer.FORGROUND, blocksBMD, "brickmagic3", "the third magic block", ItemTab.BLOCK, false, true, 202, -1, new String[]{"Yellow", "Orange", "Amber", "Topaz"}));
-        magic.addBrick(createBrick(1016, ItemLayer.FORGROUND, blocksBMD, "brickmagic4", "the fourth magic block", ItemTab.BLOCK, false, true, 203, -1, new String[]{"Blue", "Sapphire"}));
-        magic.addBrick(createBrick(1017, ItemLayer.FORGROUND, blocksBMD, "brickmagic5", "the fifth magic block", ItemTab.BLOCK, false, true, 204, -1, new String[]{"Red", "Ruby", "Garnet"}));
-        magic.addBrick(createBrick(1132, ItemLayer.FORGROUND, blocksBMD, "brickmagic6", "the sixth magic block", ItemTab.BLOCK, false, true, 293, -1, new String[]{"Cyan", "Aquamarine", "Turquoise"}));
-        magic.addBrick(createBrick(1142, ItemLayer.FORGROUND, blocksBMD, "brickmagic7", "the seventh magic block", ItemTab.BLOCK, false, true, 299, -1, new String[]{"White", "Opal", "Pearl"}));
-        magic.addBrick(createBrick(1161, ItemLayer.FORGROUND, blocksBMD, "brickmagic8", "the eighth magic block", ItemTab.BLOCK, false, true, 316, -1, new String[]{"Black", "Onyx"}));
+        magic.addBrick(createBrick(1013, ItemLayer.FOREGROUND, blocksBMD, "brickmagic", "the first magic block", ItemTab.BLOCK, false, true, 200, -1, new String[]{"Green", "Emerald", "Peridot"}));
+        magic.addBrick(createBrick(1014, ItemLayer.FOREGROUND, blocksBMD, "brickmagic2", "the second magic block", ItemTab.BLOCK, false, true, 201, -1, new String[]{"Purple", "Violet", "Amethyst"}));
+        magic.addBrick(createBrick(1015, ItemLayer.FOREGROUND, blocksBMD, "brickmagic3", "the third magic block", ItemTab.BLOCK, false, true, 202, -1, new String[]{"Yellow", "Orange", "Amber", "Topaz"}));
+        magic.addBrick(createBrick(1016, ItemLayer.FOREGROUND, blocksBMD, "brickmagic4", "the fourth magic block", ItemTab.BLOCK, false, true, 203, -1, new String[]{"Blue", "Sapphire"}));
+        magic.addBrick(createBrick(1017, ItemLayer.FOREGROUND, blocksBMD, "brickmagic5", "the fifth magic block", ItemTab.BLOCK, false, true, 204, -1, new String[]{"Red", "Ruby", "Garnet"}));
+        magic.addBrick(createBrick(1132, ItemLayer.FOREGROUND, blocksBMD, "brickmagic6", "the sixth magic block", ItemTab.BLOCK, false, true, 293, -1, new String[]{"Cyan", "Aquamarine", "Turquoise"}));
+        magic.addBrick(createBrick(1142, ItemLayer.FOREGROUND, blocksBMD, "brickmagic7", "the seventh magic block", ItemTab.BLOCK, false, true, 299, -1, new String[]{"White", "Opal", "Pearl"}));
+        magic.addBrick(createBrick(1161, ItemLayer.FOREGROUND, blocksBMD, "brickmagic8", "the eighth magic block", ItemTab.BLOCK, false, true, 316, -1, new String[]{"Black", "Onyx"}));
         brickPackages.add(magic);
 
         ItemBrickPackage effect = new ItemBrickPackage("effect", "Effect Blocks", new String[]{"Powers", "Action", "Physics"});
@@ -1332,10 +1332,10 @@ public class ItemManager {
 
         // TODO: Add tags
         ItemBrickPackage gm = new ItemBrickPackage("gold", "Gold Membership Blocks", new String[]{"Shiny", "Yellow"});
-        gm.addBrick(createBrick(1065, ItemLayer.FORGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 242, -1, new String[]{}));
-        gm.addBrick(createBrick(1066, ItemLayer.FORGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 243, -1, new String[]{}));
-        gm.addBrick(createBrick(1067, ItemLayer.FORGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 244, -1, new String[]{}));
-        gm.addBrick(createBrick(1068, ItemLayer.FORGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 245, -1, new String[]{}));
+        gm.addBrick(createBrick(1065, ItemLayer.FOREGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 242, -1, new String[]{}));
+        gm.addBrick(createBrick(1066, ItemLayer.FOREGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 243, -1, new String[]{}));
+        gm.addBrick(createBrick(1067, ItemLayer.FOREGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 244, -1, new String[]{}));
+        gm.addBrick(createBrick(1068, ItemLayer.FOREGROUND, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 245, -1, new String[]{}));
         gm.addBrick(createBrick(1069, ItemLayer.DECORATION, blocksBMD, "goldmember", "", ItemTab.BLOCK, true, true, 246, 0x0, new String[]{}));
         gm.addBrick(createBrick(709, ItemLayer.BACKGROUND, bgBlocksBMD, "goldmember", "", ItemTab.BACKGROUND, true, false, 198, -1, new String[]{}));
         gm.addBrick(createBrick(710, ItemLayer.BACKGROUND, bgBlocksBMD, "goldmember", "", ItemTab.BACKGROUND, true, false, 199, -1, new String[]{}));
@@ -1367,11 +1367,11 @@ public class ItemManager {
         brickPackages.add(summer2015);
 
         ItemBrickPackage environment = new ItemBrickPackage("environment", "Environment", new String[]{"Nature"});
-        environment.addBrick(createBrick(1030, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 215, -1, new String[]{"Wood", "Tree", "Brown"}));
-        environment.addBrick(createBrick(1031, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 216, -1, new String[]{"Leaves", "Grass", "Green", "Plant"}));
-        environment.addBrick(createBrick(1032, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 217, -1, new String[]{"Bamboo", "Wood", "Yellow"}));
-        environment.addBrick(createBrick(1033, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 218, -1, new String[]{"Obsidian", "Rock", "Ice", "Grey", "Gray"}));
-        environment.addBrick(createBrick(1034, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 219, -1, new String[]{"Fire", "Lava", "Hot"}));
+        environment.addBrick(createBrick(1030, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 215, -1, new String[]{"Wood", "Tree", "Brown"}));
+        environment.addBrick(createBrick(1031, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 216, -1, new String[]{"Leaves", "Grass", "Green", "Plant"}));
+        environment.addBrick(createBrick(1032, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 217, -1, new String[]{"Bamboo", "Wood", "Yellow"}));
+        environment.addBrick(createBrick(1033, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 218, -1, new String[]{"Obsidian", "Rock", "Ice", "Grey", "Gray"}));
+        environment.addBrick(createBrick(1034, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 219, -1, new String[]{"Fire", "Lava", "Hot"}));
         environment.addBrick(createBrick(678, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, false, 172, -1, new String[]{"Wood", "Tree", "Brown"}));
         environment.addBrick(createBrick(679, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, false, 173, -1, new String[]{"Leaves", "Grass", "Green"}));
         environment.addBrick(createBrick(680, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, false, 174, -1, new String[]{"Bamboo", "Wood"}));
@@ -1380,12 +1380,12 @@ public class ItemManager {
         brickPackages.add(environment);
 
         ItemBrickPackage domestic = new ItemBrickPackage("domestic", "Domestic", new String[]{"House"});
-        domestic.addBrick(createBrick(1035, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 220, -1, new String[]{"Tile", "Double", "Floor", "Parquet", "Checkered"}));
-        domestic.addBrick(createBrick(1036, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 221, -1, new String[]{"Wood", "Brown", "Floor"}));
-        domestic.addBrick(createBrick(1037, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 222, -1, new String[]{"Red", "Carpet"}));
-        domestic.addBrick(createBrick(1038, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 223, -1, new String[]{"Blue", "Carpet"}));
-        domestic.addBrick(createBrick(1039, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 224, -1, new String[]{"Green", "Carpet", "Grass"}));
-        domestic.addBrick(createBrick(1040, ItemLayer.FORGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 225, -1, new String[]{"White", "Marble", "Box", "Square"}));
+        domestic.addBrick(createBrick(1035, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 220, -1, new String[]{"Tile", "Double", "Floor", "Parquet", "Checkered"}));
+        domestic.addBrick(createBrick(1036, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 221, -1, new String[]{"Wood", "Brown", "Floor"}));
+        domestic.addBrick(createBrick(1037, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 222, -1, new String[]{"Red", "Carpet"}));
+        domestic.addBrick(createBrick(1038, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 223, -1, new String[]{"Blue", "Carpet"}));
+        domestic.addBrick(createBrick(1039, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 224, -1, new String[]{"Green", "Carpet", "Grass"}));
+        domestic.addBrick(createBrick(1040, ItemLayer.FOREGROUND, blocksBMD, "brickdomestic", "", ItemTab.BLOCK, false, true, 225, -1, new String[]{"White", "Marble", "Box", "Square"}));
         domestic.addBrick(createBrick(683, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdomestic", "", ItemTab.BACKGROUND, false, false, 177, -1, new String[]{"Wallpaper", "Yellow", "Dark yellow", "Brown"}));
         domestic.addBrick(createBrick(684, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdomestic", "", ItemTab.BACKGROUND, false, false, 178, -1, new String[]{"Wallpaper", "Brown", "Dark brown"}));
         domestic.addBrick(createBrick(685, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdomestic", "", ItemTab.BACKGROUND, false, false, 179, -1, new String[]{"Wallpaper", "Red", "Dark red"}));
@@ -1408,9 +1408,9 @@ public class ItemManager {
         brickPackages.add(domestic);
 
         ItemBrickPackage halloween2015 = new ItemBrickPackage("halloween 2015", "Halloween 2015", new String[]{"Holiday", "House", "Scary", "Creepy"});
-        halloween2015.addBrick(createBrick(1047, ItemLayer.FORGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 229, -1, new String[]{"Mossy", "Green", "Brick", "Old", "Sewer", "Ghost"}));
-        halloween2015.addBrick(createBrick(1048, ItemLayer.FORGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 230, -1, new String[]{"Siding", "Light gray"}));
-        halloween2015.addBrick(createBrick(1049, ItemLayer.FORGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 231, -1, new String[]{"Mossy", "Gray", "Green", "Grey", "Roof", "Catacomb", "Brick", "Tomb"}));
+        halloween2015.addBrick(createBrick(1047, ItemLayer.FOREGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 229, -1, new String[]{"Mossy", "Green", "Brick", "Old", "Sewer", "Ghost"}));
+        halloween2015.addBrick(createBrick(1048, ItemLayer.FOREGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 230, -1, new String[]{"Siding", "Light gray"}));
+        halloween2015.addBrick(createBrick(1049, ItemLayer.FOREGROUND, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 231, -1, new String[]{"Mossy", "Gray", "Green", "Grey", "Roof", "Catacomb", "Brick", "Tomb"}));
         halloween2015.addBrick(createBrick(ItemId.HALLOWEEN_2015_ONEWAY, ItemLayer.DECORATION, blocksBMD, "brickhalloween2015", "", ItemTab.BLOCK, false, true, 232, 0x0, new String[]{"Platform", "Gray", "Grey", "Stone", "Corner", "One Way", "One-Way"}));
         halloween2015.addBrick(createBrick(454, ItemLayer.ABOVE, decoBlocksBMD, "brickhalloween2015", "", ItemTab.DECORATIVE, false, false, 286, 0x0, new String[]{"Bush", "Nature", "Plant", "Dead", "Shrub", "Environment"}));
         halloween2015.addBrick(createBrick(455, ItemLayer.ABOVE, decoBlocksBMD, "brickhalloween2015", "", ItemTab.DECORATIVE, false, false, 287, 0x0, new String[]{"Fence", "Spikes"}));
@@ -1423,10 +1423,10 @@ public class ItemManager {
         brickPackages.add(halloween2015);
 
         ItemBrickPackage arctic = new ItemBrickPackage("arctic", "Arctic", new String[]{"Snow", "Cold", "Blue", "Frozen", "Freeze"});
-        arctic.addBrick(createBrick(1059, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 237, -1, new String[]{"Ice"}));
-        arctic.addBrick(createBrick(1060, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 238, -1));
+        arctic.addBrick(createBrick(1059, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 237, -1, new String[]{"Ice"}));
+        arctic.addBrick(createBrick(1060, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 238, -1));
         arctic.addBrick(createBrick(1061, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 239, -1, new String[]{"Left"}));
-        arctic.addBrick(createBrick(1062, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 240, -1, new String[]{"Middle"}));
+        arctic.addBrick(createBrick(1062, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 240, -1, new String[]{"Middle"}));
         arctic.addBrick(createBrick(1063, ItemLayer.DECORATION, blocksBMD, "", "", ItemTab.BLOCK, false, true, 241, -1, new String[]{"Right"}));
         arctic.addBrick(createBrick(702, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, false, 196, -1));
         arctic.addBrick(createBrick(703, ItemLayer.BACKGROUND, bgBlocksBMD, "", "", ItemTab.BACKGROUND, false, false, 197, -1));
@@ -1444,9 +1444,9 @@ public class ItemManager {
         brickPackages.add(ice);
 
         ItemBrickPackage fairytale = new ItemBrickPackage("fairytale", "Fairytale", new String[]{"Mythical", "Fiction"});
-        fairytale.addBrick(createBrick(1070, ItemLayer.FORGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 247, -1, new String[]{"Cobblestone", "Pebbles"}));
-        fairytale.addBrick(createBrick(1071, ItemLayer.FORGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 248, -1, new String[]{"Orange", "Tree"}));
-        fairytale.addBrick(createBrick(1072, ItemLayer.FORGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 249, -1, new String[]{"Green", "Moss"}));
+        fairytale.addBrick(createBrick(1070, ItemLayer.FOREGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 247, -1, new String[]{"Cobblestone", "Pebbles"}));
+        fairytale.addBrick(createBrick(1071, ItemLayer.FOREGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 248, -1, new String[]{"Orange", "Tree"}));
+        fairytale.addBrick(createBrick(1072, ItemLayer.FOREGROUND, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 249, -1, new String[]{"Green", "Moss"}));
         fairytale.addBrick(createBrick(1073, ItemLayer.DECORATION, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 250, -1, new String[]{"Blue", "Cloud"}));
         fairytale.addBrick(createBrick(1074, ItemLayer.DECORATION, blocksBMD, "brickfairytale", "", ItemTab.BLOCK, false, true, 251, -1, new String[]{"Red", "Mushroom", "Spotted"}));
         fairytale.addBrick(createBrick(468, ItemLayer.DECORATION, decoBlocksBMD, "brickfairytale", "", ItemTab.DECORATIVE, false, true, 291, 0x0, new String[]{"Green", "Plant", "Vine"}));
@@ -1465,8 +1465,8 @@ public class ItemManager {
         brickPackages.add(fairytale);
 
         ItemBrickPackage spring2016 = new ItemBrickPackage("spring 2016", "Spring 2016");
-        spring2016.addBrick(createBrick(1081, ItemLayer.FORGROUND, blocksBMD, "brickspring2016", "", ItemTab.BLOCK, false, true, 253, -1, new String[]{"Dirt", "Brown", "Soil", "Nature"}));
-        spring2016.addBrick(createBrick(1082, ItemLayer.FORGROUND, blocksBMD, "brickspring2016", "", ItemTab.BLOCK, false, true, 254, -1, new String[]{"Hedge", "Green", "Leaf", "Nature", "Plant"}));
+        spring2016.addBrick(createBrick(1081, ItemLayer.FOREGROUND, blocksBMD, "brickspring2016", "", ItemTab.BLOCK, false, true, 253, -1, new String[]{"Dirt", "Brown", "Soil", "Nature"}));
+        spring2016.addBrick(createBrick(1082, ItemLayer.FOREGROUND, blocksBMD, "brickspring2016", "", ItemTab.BLOCK, false, true, 254, -1, new String[]{"Hedge", "Green", "Leaf", "Nature", "Plant"}));
         spring2016.addBrick(createBrick(473, ItemLayer.ABOVE, decoBlocksBMD, "brickspring2016", "", ItemTab.DECORATIVE, false, false, 294, 0x0, new String[]{"Dirt", "Brown", "Soil", "Slope", "Left"}));
         spring2016.addBrick(createBrick(474, ItemLayer.ABOVE, decoBlocksBMD, "brickspring2016", "", ItemTab.DECORATIVE, false, false, 295, 0x0, new String[]{"Dirt", "Brown", "Soil", "Slope", "Right"}));
         spring2016.addBrick(createBrick(ItemId.SPRING_DAISY, ItemLayer.DECORATION, specialBlocksBMD, "brickspring2016", "", ItemTab.DECORATIVE, false, false, 541, 0x0, new String[]{"Daisy", "Flower", "Plant", "Nature", "White", "Blue", "Pink"}));
@@ -1475,10 +1475,10 @@ public class ItemManager {
         brickPackages.add(spring2016);
 
         ItemBrickPackage summer2016 = new ItemBrickPackage("summer 2016", "Summer 2016");
-        summer2016.addBrick(createBrick(1083, ItemLayer.FORGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 255, -1, new String[]{"Thatched", "Straw", "Seasonal", "Beige", "Tan"}));
-        summer2016.addBrick(createBrick(1084, ItemLayer.FORGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 256, -1, new String[]{"Planks", "Wood", "Seasonal", "Purple"}));
-        summer2016.addBrick(createBrick(1085, ItemLayer.FORGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 257, -1, new String[]{"Planks", "Wood", "Seasonal", "Yellow"}));
-        summer2016.addBrick(createBrick(1086, ItemLayer.FORGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 258, -1, new String[]{"Planks", "Wood", "Seasonal", "Teal"}));
+        summer2016.addBrick(createBrick(1083, ItemLayer.FOREGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 255, -1, new String[]{"Thatched", "Straw", "Seasonal", "Beige", "Tan"}));
+        summer2016.addBrick(createBrick(1084, ItemLayer.FOREGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 256, -1, new String[]{"Planks", "Wood", "Seasonal", "Purple"}));
+        summer2016.addBrick(createBrick(1085, ItemLayer.FOREGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 257, -1, new String[]{"Planks", "Wood", "Seasonal", "Yellow"}));
+        summer2016.addBrick(createBrick(1086, ItemLayer.FOREGROUND, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 258, -1, new String[]{"Planks", "Wood", "Seasonal", "Teal"}));
         summer2016.addBrick(createBrick(1087, ItemLayer.DECORATION, blocksBMD, "bricksummer2016", "", ItemTab.BLOCK, false, true, 259, 0x0, new String[]{"Platform", "Dock", "Wood", "Seasonal", "One Way", "One-Way", "Brown"}));
         summer2016.addBrick(createBrick(708, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksummer2016", "", ItemTab.BACKGROUND, false, false, 205, -1, new String[]{"Thatched", "Straw", "Seasonal", "Beige", "Tan"}));
         summer2016.addBrick(createBrick(712, ItemLayer.BACKGROUND, bgBlocksBMD, "bricksummer2016", "", ItemTab.BACKGROUND, false, false, 206, -1, new String[]{"Planks", "Wood", "Seasonal", "Purple"}));
@@ -1490,7 +1490,7 @@ public class ItemManager {
         brickPackages.add(summer2016);
 
         ItemBrickPackage minepack = new ItemBrickPackage("mine", "Mine");
-        minepack.addBrick(createBrick(1093, ItemLayer.FORGROUND, blocksBMD, "brickmine", "", ItemTab.BLOCK, false, true, 264, -1, new String[]{"Stone", "Brown", "Tan", "Rock"}));
+        minepack.addBrick(createBrick(1093, ItemLayer.FOREGROUND, blocksBMD, "brickmine", "", ItemTab.BLOCK, false, true, 264, -1, new String[]{"Stone", "Brown", "Tan", "Rock"}));
         minepack.addBrick(createBrick(720, ItemLayer.BACKGROUND, bgBlocksBMD, "brickmine", "", ItemTab.BACKGROUND, false, true, 219, -1, new String[]{"Stone", "Brown", "Tan", "Rock", "Dark"}));
         minepack.addBrick(createBrick(495, ItemLayer.DECORATION, decoBlocksBMD, "brickmine", "", ItemTab.DECORATIVE, false, true, 307, 0x0, new String[]{"Stalagmite", "Stone", "Brown", "Tan", "Rock"}));
         minepack.addBrick(createBrick(496, ItemLayer.DECORATION, decoBlocksBMD, "brickmine", "", ItemTab.DECORATIVE, false, true, 308, 0x0, new String[]{"Stalagtite", "Stone", "Brown", "Tan", "Rock"}));
@@ -1527,15 +1527,15 @@ public class ItemManager {
         brickPackages.add(halloween2016);
 
         ItemBrickPackage construction = new ItemBrickPackage("construction", "Construction");
-        construction.addBrick(createBrick(1096, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 265, -1, new String[]{"Plywood", "Wood", "Brown", "Tan"}));
-        construction.addBrick(createBrick(1097, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 266, -1, new String[]{"Gravel", "Stone", "Gray", "Grey"}));
-        construction.addBrick(createBrick(1098, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 267, -1, new String[]{"Cement", "Stone", "Beige"}));
-        construction.addBrick(createBrick(1099, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 268, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
-        construction.addBrick(createBrick(1130, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 291, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
-        construction.addBrick(createBrick(1128, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 289, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
-        construction.addBrick(createBrick(1129, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 290, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
-        construction.addBrick(createBrick(1131, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 292, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
-        construction.addBrick(createBrick(1100, ItemLayer.FORGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 269, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
+        construction.addBrick(createBrick(1096, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 265, -1, new String[]{"Plywood", "Wood", "Brown", "Tan"}));
+        construction.addBrick(createBrick(1097, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 266, -1, new String[]{"Gravel", "Stone", "Gray", "Grey"}));
+        construction.addBrick(createBrick(1098, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 267, -1, new String[]{"Cement", "Stone", "Beige"}));
+        construction.addBrick(createBrick(1099, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 268, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
+        construction.addBrick(createBrick(1130, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 291, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
+        construction.addBrick(createBrick(1128, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 289, -1, new String[]{"Beam", "Metal", "Red", "Horizontal"}));
+        construction.addBrick(createBrick(1129, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 290, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
+        construction.addBrick(createBrick(1131, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 292, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
+        construction.addBrick(createBrick(1100, ItemLayer.FOREGROUND, blocksBMD, "", "", ItemTab.BLOCK, false, true, 269, -1, new String[]{"Beam", "Metal", "Red", "Vertical"}));
         construction.addBrick(createBrick(1503, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, true, 310, 0x0, new String[]{"Sawhorse", "Orange", "White", "Caution", "Sign", "Stripes", "Horizontal"}));
         construction.addBrick(createBrick(1504, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, true, 311, 0x0, new String[]{"Cone", "Orange", "White"}));
         construction.addBrick(createBrick(1505, ItemLayer.DECORATION, decoBlocksBMD, "", "", ItemTab.DECORATIVE, false, true, 312, 0x0, new String[]{"Sign", "Orange", "Caution", "Warning"}));
@@ -1566,16 +1566,16 @@ public class ItemManager {
         brickPackages.add(christmas2016);
 
         ItemBrickPackage tiles = new ItemBrickPackage("tiles", "Tiles", new String[]{"Tile"});
-        tiles.addBrick(createBrick(1106, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 275, -1, new String[]{"White"}));
-        tiles.addBrick(createBrick(1107, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 276, -1, new String[]{"Gray", "Grey"}));
-        tiles.addBrick(createBrick(1108, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 277, -1, new String[]{"Black", "Gray", "Grey"}));
-        tiles.addBrick(createBrick(1109, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 278, -1, new String[]{"Red"}));
-        tiles.addBrick(createBrick(1110, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 279, -1, new String[]{"Orange"}));
-        tiles.addBrick(createBrick(1111, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 280, -1, new String[]{"Yellow"}));
-        tiles.addBrick(createBrick(1112, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 281, -1, new String[]{"Green"}));
-        tiles.addBrick(createBrick(1113, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 282, -1, new String[]{"Cyan"}));
-        tiles.addBrick(createBrick(1114, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 283, -1, new String[]{"Blue"}));
-        tiles.addBrick(createBrick(1115, ItemLayer.FORGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 284, -1, new String[]{"Purple"}));
+        tiles.addBrick(createBrick(1106, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 275, -1, new String[]{"White"}));
+        tiles.addBrick(createBrick(1107, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 276, -1, new String[]{"Gray", "Grey"}));
+        tiles.addBrick(createBrick(1108, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 277, -1, new String[]{"Black", "Gray", "Grey"}));
+        tiles.addBrick(createBrick(1109, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 278, -1, new String[]{"Red"}));
+        tiles.addBrick(createBrick(1110, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 279, -1, new String[]{"Orange"}));
+        tiles.addBrick(createBrick(1111, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 280, -1, new String[]{"Yellow"}));
+        tiles.addBrick(createBrick(1112, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 281, -1, new String[]{"Green"}));
+        tiles.addBrick(createBrick(1113, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 282, -1, new String[]{"Cyan"}));
+        tiles.addBrick(createBrick(1114, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 283, -1, new String[]{"Blue"}));
+        tiles.addBrick(createBrick(1115, ItemLayer.FOREGROUND, blocksBMD, "bricktiles", "", ItemTab.BLOCK, false, true, 284, -1, new String[]{"Purple"}));
         tiles.addBrick(createBrick(733, ItemLayer.BACKGROUND, bgBlocksBMD, "bricktiles", "", ItemTab.BACKGROUND, false, true, 227, -1, new String[]{"White"}));
         tiles.addBrick(createBrick(734, ItemLayer.BACKGROUND, bgBlocksBMD, "bricktiles", "", ItemTab.BACKGROUND, false, true, 228, -1, new String[]{"Gray", "Grey"}));
         tiles.addBrick(createBrick(735, ItemLayer.BACKGROUND, bgBlocksBMD, "bricktiles", "", ItemTab.BACKGROUND, false, true, 229, -1, new String[]{"Black", "Gray", "Grey"}));
@@ -1610,10 +1610,10 @@ public class ItemManager {
         brickPackages.add(halfBlockPack);
 
         ItemBrickPackage winter2018 = new ItemBrickPackage("Winter 2018", "Winter 2018", new String[]{"Winter"});
-        winter2018.addBrick(createBrick(1136, ItemLayer.FORGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 295, -1, new String[]{"Ice", "Brick", "Cyan", "Snow"}));
-        winter2018.addBrick(createBrick(1137, ItemLayer.FORGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 296, -1, new String[]{"Snow", "Pile", "Grey", "Gray", "White"}));
-        winter2018.addBrick(createBrick(1138, ItemLayer.FORGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 297, -1, new String[]{"Glacier", "Snow", "Ice", "Cyan", "Blue"}));
-        winter2018.addBrick(createBrick(1139, ItemLayer.FORGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 298, -1, new String[]{"Slate", "Grey", "Gray"}));
+        winter2018.addBrick(createBrick(1136, ItemLayer.FOREGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 295, -1, new String[]{"Ice", "Brick", "Cyan", "Snow"}));
+        winter2018.addBrick(createBrick(1137, ItemLayer.FOREGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 296, -1, new String[]{"Snow", "Pile", "Grey", "Gray", "White"}));
+        winter2018.addBrick(createBrick(1138, ItemLayer.FOREGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 297, -1, new String[]{"Glacier", "Snow", "Ice", "Cyan", "Blue"}));
+        winter2018.addBrick(createBrick(1139, ItemLayer.FOREGROUND, blocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 298, -1, new String[]{"Slate", "Grey", "Gray"}));
         winter2018.addBrick(createBrick(ItemId.HALFBLOCK_WINTER2018_SNOW, ItemLayer.DECORATION, specialBlocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 732, -1, new String[]{"Half Block", "Morphable", "Snow", "Pile", "Grey", "Gray", "White"}));
         winter2018.addBrick(createBrick(ItemId.HALFBLOCK_WINTER2018_GLACIER, ItemLayer.DECORATION, specialBlocksBMD, "brickwinter2018", "", ItemTab.BLOCK, false, true, 736, -1, new String[]{"Half Block", "Morphable", "Glacier", "Snow", "Ice", "Cyan", "Blue"}));
         winter2018.addBrick(createBrick(1543, ItemLayer.ABOVE, decoBlocksBMD, "brickwinter2018", "", ItemTab.DECORATIVE, false, false, 339, 0x0, new String[]{"Snow", "Pile", "Small", "White", "Grey", "Gray"}));
@@ -1630,9 +1630,9 @@ public class ItemManager {
         brickPackages.add(winter2018);
 
         ItemBrickPackage garden = new ItemBrickPackage("Garden", "Garden", new String[]{"Garden"});
-        garden.addBrick(createBrick(1143, ItemLayer.FORGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 300, -1, new String[]{"Rock", "Environment", "Brown", "Soil", "Dark", "Dirt"}));
-        garden.addBrick(createBrick(1144, ItemLayer.FORGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 301, -1, new String[]{"Grass", "Moss", "Environment", "Brown", "Soil", "Dark", "Dirt"}));
-        garden.addBrick(createBrick(1145, ItemLayer.FORGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 302, -1, new String[]{"Leaves", "Green", "Leaf", "Nature", "Plant"}));
+        garden.addBrick(createBrick(1143, ItemLayer.FOREGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 300, -1, new String[]{"Rock", "Environment", "Brown", "Soil", "Dark", "Dirt"}));
+        garden.addBrick(createBrick(1144, ItemLayer.FOREGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 301, -1, new String[]{"Grass", "Moss", "Environment", "Brown", "Soil", "Dark", "Dirt"}));
+        garden.addBrick(createBrick(1145, ItemLayer.FOREGROUND, blocksBMD, "brickgarden", "", ItemTab.BLOCK, false, true, 302, -1, new String[]{"Leaves", "Green", "Leaf", "Nature", "Plant"}));
         garden.addBrick(createBrick(1560, ItemLayer.ABOVE, decoBlocksBMD, "brickgarden", "", ItemTab.DECORATIVE, false, false, 346, 0x0, new String[]{"Grass", "Green", "Nature", "Plant", "Short"}));
         garden.addBrick(createBrick(1561, ItemLayer.ABOVE, decoBlocksBMD, "brickgarden", "", ItemTab.DECORATIVE, false, false, 347, 0x0, new String[]{"Fence", "White", "Short", "Post"}));
         garden.addBrick(createBrick(1562, ItemLayer.DECORATION, decoBlocksBMD, "brickgarden", "", ItemTab.DECORATIVE, false, false, 348, 0x0, new String[]{"Fence", "Brown", "Lattice", "Wood"}));
@@ -1668,10 +1668,10 @@ public class ItemManager {
         brickPackages.add(special);
 
         ItemBrickPackage dungeon = new ItemBrickPackage("Dungeon", "Dungeon", new String[]{"Halloween", "Dungeon"});
-        dungeon.addBrick(createBrick(ItemId.GREY_DUNGEON_BRICK, ItemLayer.FORGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 311, -1, new String[]{"Grey", "Gray", "Dungeon", "Brick"}));
-        dungeon.addBrick(createBrick(ItemId.GREEN_DUNGEON_BRICK, ItemLayer.FORGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 312, -1, new String[]{"Green", "Dungeon", "Brick"}));
-        dungeon.addBrick(createBrick(ItemId.BLUE_DUNGEON_BRICK, ItemLayer.FORGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 313, -1, new String[]{"Blue", "Dungeon", "Brick"}));
-        dungeon.addBrick(createBrick(ItemId.PURPLE_DUNGEON_BRICK, ItemLayer.FORGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 314, -1, new String[]{"Purple", "Dungeon", "Brick"}));
+        dungeon.addBrick(createBrick(ItemId.GREY_DUNGEON_BRICK, ItemLayer.FOREGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 311, -1, new String[]{"Grey", "Gray", "Dungeon", "Brick"}));
+        dungeon.addBrick(createBrick(ItemId.GREEN_DUNGEON_BRICK, ItemLayer.FOREGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 312, -1, new String[]{"Green", "Dungeon", "Brick"}));
+        dungeon.addBrick(createBrick(ItemId.BLUE_DUNGEON_BRICK, ItemLayer.FOREGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 313, -1, new String[]{"Blue", "Dungeon", "Brick"}));
+        dungeon.addBrick(createBrick(ItemId.PURPLE_DUNGEON_BRICK, ItemLayer.FOREGROUND, blocksBMD, "brickdungeon", "", ItemTab.BLOCK, false, true, 314, -1, new String[]{"Purple", "Dungeon", "Brick"}));
         dungeon.addBrick(createBrick(ItemId.GREY_DUNGEON_BG, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdungeon", "", ItemTab.BACKGROUND, false, false, 262, -1, new String[]{"Grey", "Gray", "Dungeon", "Brick"}));
         dungeon.addBrick(createBrick(ItemId.GREEN_DUNGEON_BG, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdungeon", "", ItemTab.BACKGROUND, false, false, 263, -1, new String[]{"Green", "Dungeon", "Brick"}));
         dungeon.addBrick(createBrick(ItemId.BLUE_DUNGEON_BG, ItemLayer.BACKGROUND, bgBlocksBMD, "brickdungeon", "", ItemTab.BACKGROUND, false, false, 264, -1, new String[]{"Blue", "Dungeon", "Brick"}));
@@ -1722,7 +1722,7 @@ public class ItemManager {
         // Art offsets:
         // decorationsBMD: 358
         // backgroundBricksBMD: 259
-        // forgroundBricksBMD: 311
+        // foregroundBricksBMD: 311
         // specialBricksBMD: 797
     }
 
@@ -1781,14 +1781,21 @@ public class ItemManager {
         if (texturesLoaded) {
             TextureRegion auraTextureFrames;
             TextureRegion goldAuraTextureFrames;
+            boolean aurasPNG = false;
+            if(base.getHeight() == 128 && base.getWidth() == 3392) {
+                aurasPNG = true;
+                // fix this shitty thing
+            }
 
             if (generate) {
-                auraTextureFrames = new TextureRegion(base, 64 * animatedAuraCount, 0, 64 * frames, 64);
-                goldAuraTextureFrames = new TextureRegion(base, 64 * animatedAuraCount, 64, 64 * frames, 64);
-                animatedAuraCount++;
+                auraTextureFrames = new TextureRegion(base, aurasPNG ? 64 * normalAuraCount : 0, 0, 64 * frames, 64);
+                goldAuraTextureFrames = new TextureRegion(base, aurasPNG ? 64 * normalAuraCount : 64, 64, 64 * frames, 64);
             } else {
-                auraTextureFrames = new TextureRegion(base, 64 * frames, 64);
+                auraTextureFrames = new TextureRegion(base, aurasPNG ? 64 * normalAuraCount : 0, 0, 64 * frames, 64);
                 goldAuraTextureFrames = null;
+            }
+            if(aurasPNG) {
+                normalAuraCount += frames;
             }
 
             TextureRegion[] auraAnimation = new TextureRegion[frames];
@@ -1942,18 +1949,23 @@ public class ItemManager {
         }
         return bricks;
     }
+
     public int getBrickPackagesCount() {
         return brickPackages.size();
     }
+
     public int getAuraCount() {
         return auraShapes.size();
     }
+
     public int getNpcCount() {
         return npcs.size();
     }
+
     public int getSmileyCount() {
         return smilies.size();
     }
+
     public int getBrickCount() {
         return bricks.length;
     }

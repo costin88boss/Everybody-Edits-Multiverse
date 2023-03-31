@@ -1,6 +1,6 @@
 package com.costin.eem.game.level.blocks;
 
-public class PortalBlock extends RotateableBlock {
+public class PortalBlock extends NumberedBlock {
     public int portalId;
     public int targetId;
 

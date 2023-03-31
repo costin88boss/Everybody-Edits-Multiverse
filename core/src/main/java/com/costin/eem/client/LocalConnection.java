@@ -1,14 +1,15 @@
 package com.costin.eem.client;
 
 import com.costin.eem.Config;
-import com.costin.eem.client.screens.LoadingScreen;
 import com.costin.eem.client.screens.MenuScreen;
+import com.costin.eem.client.screens.WorldLoadingScreen;
+import com.costin.eem.client.screens.WorldScreen;
 import com.costin.eem.net.NetHandler;
-import com.costin.eem.net.handlers.LoginHandler;
 import com.costin.eem.net.Packet;
-import com.costin.eem.net.protocol.begin.client.HelloPacket;
-import com.costin.eem.net.protocol.begin.server.HelloBackPacket;
-import com.costin.eem.net.protocol.login.client.PlayerDesirePacket;
+import com.costin.eem.net.handlers.LoginHandler;
+import com.costin.eem.net.protocol.begin.client.ClientHelloPacket;
+import com.costin.eem.net.protocol.begin.server.ServerHelloBackPacket;
+import com.costin.eem.net.protocol.login.client.ClientPlayerDesirePacket;
 import com.costin.eem.server.MainServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,14 +34,19 @@ public class LocalConnection implements Runnable {
     private InetSocketAddress serverAddress;
     private volatile boolean stopClient;
 
+
     public static LocalConnection instance() {
         if (instance == null) instance = new LocalConnection();
         return instance;
     }
 
-    public void sendPacket(Packet packet) throws IOException {
-        out.writeObject(packet);
-        out.flush();
+    public void sendPacket(Packet packet) {
+        try {
+            out.writeObject(packet);
+            out.flush();
+        } catch (IOException e) {
+            log.error("IOException: {}", e.toString());
+        }
     }
 
     public void setHandler(NetHandler newHandler) {
@@ -53,7 +59,8 @@ public class LocalConnection implements Runnable {
 
     public void connectTo(String ip, int port) throws IOException {
         if (!client.isClosed()) client.close();
-        MainClient.setScreen(LoadingScreen.instance());
+        MainClient.setScreen(WorldLoadingScreen.instance());
+        float timer = 5000;
         serverAddress = new InetSocketAddress(ip, port);
         log.info("Connecting to {}:{}", ip, port);
         new Thread(this).start();
@@ -61,10 +68,6 @@ public class LocalConnection implements Runnable {
 
     public void stopClient() {
         stopClient = true;
-        try {
-            client.close();
-        } catch (IOException ignored) {
-        }
     }
 
     @Override
@@ -74,22 +77,23 @@ public class LocalConnection implements Runnable {
             client.connect(serverAddress);
             client.setSoTimeout(10000);
             out = new ObjectOutputStream(client.getOutputStream());
-            HelloPacket sentPacket = new HelloPacket(Config.VERSION);
+            ClientHelloPacket sentPacket = new ClientHelloPacket(Config.VERSION);
             sendPacket(sentPacket);
             in = new ObjectInputStream(client.getInputStream());
-            HelloBackPacket receivedPacket = (HelloBackPacket) in.readObject();
+            ServerHelloBackPacket receivedPacket = (ServerHelloBackPacket) in.readObject();
             if (!receivedPacket.accepted) {
-                MenuScreen.instance().showInfoWindow("Kicked!","Kick reason: \"" + receivedPacket.kickReason + "\"");
+                MenuScreen.instance().showInfoWindow("Kicked!", "Kick reason: \"" + receivedPacket.kickReason + "\"");
                 MainClient.setScreen(MenuScreen.instance());
                 client.close();
                 return;
             }
-            PlayerDesirePacket playerDesirePacket = new PlayerDesirePacket("Name", 0, 0, false);
-            sendPacket(playerDesirePacket);
+            ClientPlayerDesirePacket clientPlayerDesirePacket = new ClientPlayerDesirePacket("Name", 0, 0, false);
+            sendPacket(clientPlayerDesirePacket);
 
             setHandler(new LoginHandler());
             while (!client.isClosed()) {
                 if (stopClient) {
+                    WorldScreen.instance().clearData();
                     client.close();
                     break;
                 }
@@ -104,11 +108,11 @@ public class LocalConnection implements Runnable {
             MainClient.setScreen(MenuScreen.instance());
             throw new RuntimeException(e);
         } catch (SocketTimeoutException e) {
-            log.info("Server {}:{} is not responding. We have to close the connection!" , client.getInetAddress().getHostAddress(), client.getPort());
+            log.info("Server {}:{} is not responding. We have to close the connection!", client.getInetAddress().getHostAddress(), client.getPort());
             MenuScreen.instance().showInfoWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
             MainClient.setScreen(MenuScreen.instance());
         } catch (EOFException e) {
-            if(!MenuScreen.instance().isInfoWindowShown()) {
+            if (!MenuScreen.instance().isInfoWindowShown()) {
                 MenuScreen.instance().showInfoWindow("Hit the roadblock!", "The server didn't send data so we've hit the roadblock!");
                 MainClient.setScreen(MenuScreen.instance());
             }
@@ -119,7 +123,8 @@ public class LocalConnection implements Runnable {
         } catch (ClassNotFoundException e) {
             log.error("Server sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");
         }
-
+        LocalConnection.instance().stopClient(); // client's networking thread
+        MainServer.stopServer(); // client will start a local server when joining a world
         log.info("Closed local connection.");
     }
 }
