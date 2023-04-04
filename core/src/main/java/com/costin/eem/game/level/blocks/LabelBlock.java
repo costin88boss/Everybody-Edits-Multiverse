@@ -7,8 +7,8 @@ public class LabelBlock extends Block {
     public String textColor;
     public int wrapLength;
 
-    public LabelBlock(int id, String text, String textColor, int wrapLength) {
-        super(id);
+    public LabelBlock(int id, String placedBy, String text, String textColor, int wrapLength) {
+        super(id, placedBy);
         this.text = text;
         this.textColor = textColor;
         this.wrapLength = wrapLength;

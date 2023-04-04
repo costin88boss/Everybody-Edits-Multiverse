@@ -2,8 +2,9 @@ package com.costin.eem.game.level;
 
 import com.badlogic.gdx.graphics.Color;
 import com.costin.eem.Config;
+import com.costin.eem.client.LocalConnection;
 import com.costin.eem.game.items.ItemLayer;
-import com.costin.eem.net.protocol.world.server.level.ServerSetBlockPacket;
+import com.costin.eem.net.protocol.world.level.SetBlockPacket;
 import com.costin.eem.server.MainServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,13 +63,14 @@ public class World {
         layers = new Block[Config.LAYERS][width][height];
 
         if (generateEdges) {
+            String placedBy = "World";
             for (int i = 0; i < width; i++) {
-                layers[ItemLayer.FOREGROUND][i][0] = new Block(9);
-                layers[ItemLayer.FOREGROUND][i][height - 1] = new Block(9);
+                layers[ItemLayer.FOREGROUND][i][0] = new Block(9, placedBy);
+                layers[ItemLayer.FOREGROUND][i][height - 1] = new Block(9, placedBy);
             }
             for (int i = 0; i < height; i++) {
-                layers[ItemLayer.FOREGROUND][0][i] = new Block(9);
-                layers[ItemLayer.FOREGROUND][width - 1][i] = new Block(9);
+                layers[ItemLayer.FOREGROUND][0][i] = new Block(9, placedBy);
+                layers[ItemLayer.FOREGROUND][width - 1][i] = new Block(9, placedBy);
             }
         }
     }
@@ -93,7 +95,8 @@ public class World {
         }
         if (layers[layer][x][y] != newBlock) {
             layers[layer][x][y] = newBlock;
-            MainServer.broadcast(new ServerSetBlockPacket(newBlock, layer, x, y, placedBy));
+            // broadcast if this is server.
+            MainServer.broadcast(new SetBlockPacket(newBlock, layer, x, y, placedBy));
             return true;
         } else return false;
     }

@@ -37,7 +37,7 @@ public class WorldLoadingScreen extends Screen {
     }
 
     @Override
-    public void render(double elapsedTime) {
+    public void render(float elapsedTime) {
         batch.begin();
         batch.draw(loadingTexture, 0, 0);
         batch.end();

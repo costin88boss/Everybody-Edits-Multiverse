@@ -8,8 +8,8 @@ public class NpcBlock extends Block {
     String message2;
     String message3;
 
-    public NpcBlock(int id, String name, String message1, String message2, String message3) {
-        super(id);
+    public NpcBlock(int id, String placedBy, String name, String message1, String message2, String message3) {
+        super(id, placedBy);
         this.name = name;
         this.message1 = message1;
         this.message2 = message2;

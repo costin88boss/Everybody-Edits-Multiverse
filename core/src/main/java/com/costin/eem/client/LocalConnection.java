@@ -22,6 +22,7 @@ import java.net.ConnectException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
 public class LocalConnection implements Runnable {
     private static final Logger log = LoggerFactory.getLogger(LocalConnection.class);
@@ -29,28 +30,38 @@ public class LocalConnection implements Runnable {
     private static LocalConnection instance;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    private NetHandler currentHandler;
-    private Socket client = new Socket();
+    private final ArrayList<NetHandler> currentHandlers;
+    private Socket client;
     private InetSocketAddress serverAddress;
     private volatile boolean stopClient;
-
+    private LocalConnection() {
+        currentHandlers = new ArrayList<>();
+        client = new Socket();
+    }
 
     public static LocalConnection instance() {
         if (instance == null) instance = new LocalConnection();
         return instance;
     }
 
+    // similar to server's sendPacket and broadcast methods, this will not do anything when ran serverside.
     public void sendPacket(Packet packet) {
-        try {
-            out.writeObject(packet);
-            out.flush();
-        } catch (IOException e) {
-            log.error("IOException: {}", e.toString());
+        if(!client.isClosed() && !stopClient) {
+            try {
+                out.writeObject(packet);
+                out.flush();
+            } catch (IOException e) {
+                log.error("IOException: {}", e.toString());
+            }
         }
     }
 
-    public void setHandler(NetHandler newHandler) {
-        currentHandler = newHandler;
+    public void addHandler(NetHandler handler) {
+        // bad function since 2 instances of a class can be added
+        if(!currentHandlers.contains(handler)) currentHandlers.add(handler);
+    }
+    public void removeHandler(Class<? extends NetHandler> handler) {
+        currentHandlers.removeIf(netHandler -> netHandler.getClass() == handler);
     }
 
     public void startLocalServer(int port, String worldName) throws IOException {
@@ -90,7 +101,7 @@ public class LocalConnection implements Runnable {
             ClientPlayerDesirePacket clientPlayerDesirePacket = new ClientPlayerDesirePacket("Name", 0, 0, false);
             sendPacket(clientPlayerDesirePacket);
 
-            setHandler(new LoginHandler());
+            addHandler(new LoginHandler());
             while (!client.isClosed()) {
                 if (stopClient) {
                     WorldScreen.instance().clearData();
@@ -98,7 +109,17 @@ public class LocalConnection implements Runnable {
                     break;
                 }
 
-                currentHandler.clientHandle((Packet) in.readObject(), this);
+                Packet packet;
+                try {
+                    packet = (Packet) in.readObject();
+                } catch(IOException exc) {
+                    log.info("Malformed packet");
+                    continue;
+                }
+                for (NetHandler handler :
+                    currentHandlers) {
+                    if (handler.clientHandle(packet, this)) break;
+                }
 
                 //currentHandler.clientHandle((Packet) in.readObject(), this);
             }
@@ -109,17 +130,21 @@ public class LocalConnection implements Runnable {
             throw new RuntimeException(e);
         } catch (SocketTimeoutException e) {
             log.info("Server {}:{} is not responding. We have to close the connection!", client.getInetAddress().getHostAddress(), client.getPort());
-            MenuScreen.instance().showInfoWindow("Server not responding!", "The server didn't send data for a long time, did it die??");
-            MainClient.setScreen(MenuScreen.instance());
+            if (!MenuScreen.instance().isInfoWindowShown()) {
+                MenuScreen.instance().showInfoWindow("Server timeout!", "The server didn't send data for a long time, did it die??");
+                MainClient.setScreen(MenuScreen.instance());
+            }
         } catch (EOFException e) {
             if (!MenuScreen.instance().isInfoWindowShown()) {
-                MenuScreen.instance().showInfoWindow("Hit the roadblock!", "The server didn't send data so we've hit the roadblock!");
+                MenuScreen.instance().showInfoWindow("Server has stopped!", "The server closed!");
                 MainClient.setScreen(MenuScreen.instance());
             }
         } catch (IOException e) {
             e.printStackTrace();
-            MenuScreen.instance().showInfoWindow("IOException Error!", e.toString());
-            MainClient.setScreen(MenuScreen.instance());
+            if (!MenuScreen.instance().isInfoWindowShown()) {
+                MenuScreen.instance().showInfoWindow("Unexpected IOException Error!", e.toString());
+                MainClient.setScreen(MenuScreen.instance());
+            }
         } catch (ClassNotFoundException e) {
             log.error("Server sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");
         }

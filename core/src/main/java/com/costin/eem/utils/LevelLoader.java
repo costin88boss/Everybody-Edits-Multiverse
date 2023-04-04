@@ -69,6 +69,9 @@ public class LevelLoader {
         String ownerID = data.readUTF();
 
         Block[][][] layers = new Block[Config.LAYERS][width][height];
+
+        String placedBy = "World";
+
         while (data.available() > 0) {
 
             int blockID = data.readInt();
@@ -97,7 +100,7 @@ public class LevelLoader {
             String npcMessage2;
             String npcMessage3;
 
-            Block block = new Block(blockID);
+            Block block = new Block(blockID, placedBy);
 
             // check if its a rotateable block (note spikes and portals are not included in the decorations)
             if (ItemId.isBlockRotateable(blockID) || ItemId.isNonRotatableHalfBlock(blockID) || ItemId.isBlockNumbered(blockID)
@@ -105,31 +108,31 @@ public class LevelLoader {
                 || blockID == ItemId.SPIKE || blockID == ItemId.SPIKE_SILVER || blockID == ItemId.SPIKE_BLACK
                 || blockID == ItemId.SPIKE_RED || blockID == ItemId.SPIKE_GOLD || blockID == ItemId.SPIKE_GREEN || blockID == ItemId.SPIKE_BLUE) {
                 rotation = data.readInt();
-                block = new NumberedBlock(blockID, rotation);
+                block = new NumberedBlock(blockID, placedBy, rotation);
             } else if (blockID == ItemId.PORTAL || blockID == ItemId.PORTAL_INVISIBLE) {
                 rotation = data.readInt();
                 portalID = data.readInt();
                 portalTarget = data.readInt();
-                block = new PortalBlock(blockID, rotation, portalID, portalTarget);
+                block = new PortalBlock(blockID, placedBy, rotation, portalID, portalTarget);
             } else if (blockID == ItemId.TEXT_SIGN) {
                 signText = data.readUTF();
                 signType = data.readInt();
-                block = new SignBlock(blockID, signText, signType);
+                block = new SignBlock(blockID, placedBy, signText, signType);
             } else if (blockID == ItemId.WORLD_PORTAL) {
                 targetWorld = data.readUTF();
                 portalTarget = data.readInt();
-                block = new WorldPortalBlock(blockID, targetWorld, portalTarget);
+                block = new WorldPortalBlock(blockID, placedBy, targetWorld, portalTarget);
             } else if (blockID == ItemId.LABEL) {
                 labelText = data.readUTF();
                 labelTextColor = data.readUTF();
                 labelWrapLength = data.readInt();
-                block = new LabelBlock(blockID, labelText, labelTextColor, labelWrapLength);
+                block = new LabelBlock(blockID, placedBy, labelText, labelTextColor, labelWrapLength);
             } else if (ItemId.isNPC(blockID)) {
                 npcName = data.readUTF();
                 npcMessage1 = data.readUTF();
                 npcMessage2 = data.readUTF();
                 npcMessage3 = data.readUTF();
-                block = new NpcBlock(blockID, npcName, npcMessage1, npcMessage2, npcMessage3);
+                block = new NpcBlock(blockID, placedBy, npcName, npcMessage1, npcMessage2, npcMessage3);
             }
 
             if (xPositions.length != yPositions.length) {

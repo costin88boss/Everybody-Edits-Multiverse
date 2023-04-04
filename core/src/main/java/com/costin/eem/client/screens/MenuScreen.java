@@ -180,9 +180,9 @@ public class MenuScreen extends Screen {
                 errorMessage.setText("");
                 String text = serverIPField.getText().trim();
                 if (text.length() == 0) {
-                    //text = "localhost";
-                    errorMessage.setText("IP can't be empty!");
-                    return;
+                    text = "localhost";
+                    //errorMessage.setText("IP can't be empty!");
+                    //return;
                 }
                 try {
                     InetAddress.getByName(text); // used to check if it's a valid IP address in the first place
@@ -215,7 +215,7 @@ public class MenuScreen extends Screen {
 
         Button joinServerButton = new Button(skin);
         joinServerButton.add(new Label("Join server", skin));
-        joinServerButton.setPosition(bgOffsetX, 0);
+        joinServerButton.setPosition(bgOffsetX, Config.height() - 30);
         joinServerButton.setSize(100, 25);
         joinServerButton.addListener(new ClickListener() {
             @Override
@@ -334,7 +334,7 @@ public class MenuScreen extends Screen {
     }
 
     @Override
-    public void render(double elapsedTime) {
+    public void render(float elapsedTime) {
         stage.act(Gdx.graphics.getDeltaTime());
 
         bgTimer -= Gdx.graphics.getDeltaTime();
@@ -364,14 +364,13 @@ public class MenuScreen extends Screen {
                 batch.draw(bg3, bgOffsetX, 0);
                 break;
         }
+
+        batch.setColor(1, 1, 1, 1);
+        //batch.draw(backgroundVignette, 0, 0);
+        batch.draw(backgroundVignette, Config.width(), 0, 0,0, Config.height(), Config.width(), 1, 1, 90,  0, 0, backgroundVignette.getWidth(), backgroundVignette.getHeight(), false, false);
         batch.end();
 
         stage.draw();
-
-        batch.begin();
-        batch.setColor(1, 1, 1, 1);
-        batch.draw(backgroundVignette, 0, 0);
-        batch.end();
     }
 
     @Override

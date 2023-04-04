@@ -12,8 +12,8 @@ import com.costin.eem.utils.FontManager;
 public class NumberedBlock extends Block {
     public int rotation;
 
-    public NumberedBlock(int id, int rotation) {
-        super(id);
+    public NumberedBlock(int id, String placedBy, int rotation) {
+        super(id, placedBy);
         this.rotation = rotation;
     }
 

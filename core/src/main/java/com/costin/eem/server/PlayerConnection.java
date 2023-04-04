@@ -1,5 +1,6 @@
 package com.costin.eem.server;
 
+import com.badlogic.gdx.graphics.Color;
 import com.costin.eem.Config;
 import com.costin.eem.game.Player;
 import com.costin.eem.game.items.ItemManager;
@@ -14,6 +15,7 @@ import com.costin.eem.net.protocol.login.server.ServerLoginEndPacket;
 import com.costin.eem.net.protocol.login.server.ServerPlayerInfoPacket;
 import com.costin.eem.net.protocol.login.server.ServerPlayerListPacket;
 import com.costin.eem.net.protocol.login.server.ServerWorldDataPacket;
+import com.costin.eem.net.protocol.world.server.ServerPlayerLeftPacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,18 +24,20 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.SocketTimeoutException;
+import java.util.ArrayList;
 
-public class ServerConnection implements Runnable {
-    private static final Logger log = LoggerFactory.getLogger(ServerConnection.class);
+public class PlayerConnection implements Runnable {
+    private static final Logger log = LoggerFactory.getLogger(PlayerConnection.class);
     private final Socket client;
     private Player player;
     private boolean closeConnection;
     private Thread thisThread;
-    private NetHandler currentHandler;
+    private ArrayList<NetHandler> currentHandlers;
     private ObjectInputStream in;
     private ObjectOutputStream out;
-    public ServerConnection(Socket client) throws IOException {
+    public PlayerConnection(Socket client) throws IOException {
         this.client = client;
+        currentHandlers = new ArrayList<>();
     }
 
     public Thread getThread() {
@@ -54,12 +58,18 @@ public class ServerConnection implements Runnable {
     }
 
     public void sendPacket(Packet packet) throws IOException {
-        out.writeObject(packet);
-        out.flush();
+        if(!client.isClosed() && MainServer.isRunning()) {
+            out.writeObject(packet);
+            out.flush();
+        }
     }
 
-    public void setHandler(NetHandler newHandler) {
-        currentHandler = newHandler;
+    public void addHandler(NetHandler handler) {
+        // bad function since 2 instances of a class can be added
+        if(!currentHandlers.contains(handler)) currentHandlers.add(handler);
+    }
+    public void removeHandler(Class<? extends NetHandler> handler) {
+        currentHandlers.removeIf(netHandler -> netHandler.getClass() == handler);
     }
 
     @Override
@@ -103,8 +113,13 @@ public class ServerConnection implements Runnable {
 
             player = new Player();
             player.setNickname(nickname);
+            player.getPosition().set(16, MainServer.getWorld().getHeight() * 16 - 16);
+            player.setSmileyID(MainServer.getPlayers().size());
+            player.setAuraID(MainServer.getPlayers().size());
+            player.setAuraColor(Color.SKY);
+            player.setGolden(false);
 
-            ServerPlayerInfoPacket serverPlayerInfoPacket = new ServerPlayerInfoPacket(nickname, MainServer.getPlayers().size() * 16, 0, smileyID, auraID, false);
+            ServerPlayerInfoPacket serverPlayerInfoPacket = new ServerPlayerInfoPacket(player.getNickname(), player.getPosition().x, player.getPosition().y, player.getSmileyID(), player.getAuraID(), player.isGolden());
             sendPacket(serverPlayerInfoPacket);
             World world = MainServer.getWorld();
             ServerWorldDataPacket serverWorldDataPacket = new ServerWorldDataPacket(world.getLayers(), world.getOwner(), world.getWorldName(), world.getWidth(), world.getHeight(), world.getGravity(), world.getBackground(), world.getDescription(), world.getCampaign(), world.getCrewId(), world.getCrewName(), world.getCrewStatus(), world.getMinimap(), world.getOwnerID());
@@ -122,12 +137,12 @@ public class ServerConnection implements Runnable {
             boolean[] godMode = new boolean[plySize];
 
             for (int i = 0; i < MainServer.getPlayers().size(); i++) {
-                ServerConnection ply = MainServer.getPlayers().get(i);
+                PlayerConnection ply = MainServer.getPlayers().get(i);
                 nicknames[i] = ply.player.getNickname();
-                xPositions[i] = ply.player.getX();
-                yPositions[i] = ply.player.getY();
-                xVelocities[i] = ply.player.getVelX();
-                yVelocities[i] = ply.player.getVelY();
+                xPositions[i] = ply.player.getPosition().x;
+                yPositions[i] = ply.player.getPosition().y;
+                xVelocities[i] = ply.player.getVelocity().x;
+                yVelocities[i] = ply.player.getVelocity().y;
                 smileyIDs[i] = ply.player.getSmileyID();
                 auraIDs[i] = ply.player.getAuraID();
                 golden[i] = ply.player.isGolden();
@@ -140,16 +155,23 @@ public class ServerConnection implements Runnable {
             ServerLoginEndPacket serverLoginEndPacket = new ServerLoginEndPacket();
             sendPacket(serverLoginEndPacket);
 
-            setHandler(new LoginHandler());
+            addHandler(new LoginHandler());
             while (!client.isClosed()) {
                 if (closeConnection) {
                     client.close();
                     break;
                 }
-                currentHandler.serverHandle((Packet) in.readObject(), this);
+
+                Packet packet = (Packet) in.readObject();
+                for (NetHandler handler :
+                    currentHandlers) {
+                    if (handler.serverHandle(packet, this)) {
+                        break;
+                    }
+                }
             }
+            removePlayer(false, "Client left");
             log.info("Closing client");
-            MainServer.getPlayers().remove(this);
         } catch (ClassNotFoundException e) {
             log.error("Client sent unknown class. is class corrupted? is server/client somehow outdated? WHAT IS HAPPENING?");
         } catch (SocketTimeoutException e) {
@@ -159,10 +181,17 @@ public class ServerConnection implements Runnable {
             } catch (IOException e2) {
                 log.error(e2.getMessage());
             }
+            removePlayer(false, "Client not responding");
         } catch (IOException e) {
             log.error(e.getMessage());
+            removePlayer(false, "An unexpected IOException occurred");
         }
 
         log.info("Closed client connection.");
+    }
+    private void removePlayer(boolean suppress, String reason) {
+        MainServer.getPlayers().remove(this);
+        ServerPlayerLeftPacket leftPacket = new ServerPlayerLeftPacket(player.getNickname(), suppress, reason);
+        MainServer.broadcast(leftPacket);
     }
 }

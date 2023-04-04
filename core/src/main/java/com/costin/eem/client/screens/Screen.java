@@ -18,7 +18,7 @@ public class Screen implements InputProcessor {
     public void tick() {
     }
 
-    public void render(double elapsedTime) {
+    public void render(float elapsedTime) {
     }
 
     public void resize(int width, int height) {

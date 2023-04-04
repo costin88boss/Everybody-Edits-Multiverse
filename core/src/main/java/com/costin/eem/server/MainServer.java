@@ -19,7 +19,7 @@ public class MainServer implements Runnable {
     private static World world;
     private volatile static boolean running;
     private static ServerSocket server;
-    private static ArrayList<ServerConnection> players;
+    private static ArrayList<PlayerConnection> players;
     private static Thread thread;
 
     public MainServer(int port, String worldName) {
@@ -36,9 +36,11 @@ public class MainServer implements Runnable {
         return world;
     }
 
+    // broadcast will just return false if server is not running, meaning that calling this method clientside will not do anything.
+
     public static boolean broadcast(Packet packet) {
         if (server != null && running) {
-            for (ServerConnection playerConnection :
+            for (PlayerConnection playerConnection :
                 players) {
                 try {
                     playerConnection.sendPacket(packet);
@@ -66,7 +68,7 @@ public class MainServer implements Runnable {
         }
     }
 
-    public static ArrayList<ServerConnection> getPlayers() {
+    public static ArrayList<PlayerConnection> getPlayers() {
         if (players == null) players = new ArrayList<>();
         return players;
     }
@@ -93,7 +95,7 @@ public class MainServer implements Runnable {
         while (running) {
             try {
                 Socket client = server.accept();
-                new Thread(new ServerConnection(client)).start();
+                new Thread(new PlayerConnection(client)).start();
             } catch (IOException ignored) {
 
             }
@@ -102,7 +104,7 @@ public class MainServer implements Runnable {
             server.close();
         } catch (IOException ignored) {
         }
-        for (ServerConnection player :
+        for (PlayerConnection player :
             players) {
             player.closeConnection();
         }

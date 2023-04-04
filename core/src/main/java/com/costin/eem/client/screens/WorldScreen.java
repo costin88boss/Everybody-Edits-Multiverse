@@ -1,6 +1,8 @@
 package com.costin.eem.client.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.costin.eem.Config;
 import com.costin.eem.client.LocalConnection;
@@ -9,7 +11,7 @@ import com.costin.eem.game.items.ItemLayer;
 import com.costin.eem.game.items.ItemManager;
 import com.costin.eem.game.level.Block;
 import com.costin.eem.game.level.World;
-import com.costin.eem.net.protocol.world.server.KeepAlivePacket;
+import com.costin.eem.net.protocol.world.KeepAlivePacket;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -54,22 +56,40 @@ public class WorldScreen extends Screen {
     @Override
     public void start() {
         Gdx.input.setInputProcessor(this);
-        viewport.getCamera().position.set(player.getX(), player.getY(), 0);
+        viewport.getCamera().position.set(player.getPosition().x + 8, player.getPosition().y + 8, 0);
     }
 
     @Override
     public void tick() {
-        keepAlive -= Config.TIMERATE;
+        keepAlive -= 1f / 60;
         if (keepAlive <= 0) {
             LocalConnection.instance().sendPacket(new KeepAlivePacket());
             keepAlive = 5;
+            log.info("Keeping alive..");
         }
 
-        player.act();
+        player.act(false);
     }
 
     @Override
-    public void render(double elapsedTime) {
+    public void render(float elapsedTime) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+            player.horizontal = -1;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+            player.horizontal = 1;
+        } else player.horizontal = 0;
+        if(Gdx.input.isKeyPressed(Input.Keys.S)) {
+            player.vertical = -1;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.W)) {
+            player.vertical = 1;
+        } else player.vertical = 0;
+        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            player.jumping = true;
+        } else player.jumping = false;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            player.justJumped = true;
+        } else player.justJumped = false;
+
         batch.begin();
         // (empty background) > BACKGROUND > DECORATION > FOREGROUND > (player) > ABOVE > (ui)
 
@@ -102,12 +122,15 @@ public class WorldScreen extends Screen {
             }
         }
 
-        player.draw(batch);
-        viewport.getCamera().position.lerp(new Vector3(player.getX() + 26/2f, player.getY() + 26/2f, 0), Config.camera_lag);
+        player.draw(batch, elapsedTime);
+        Vector2 camPos = new Vector2(); //new Vector2(getPosition()).lerp(new Vector2(getPosition()).add(getVelocity()), interpolation);
+        camPos.set(player.getPosition());
+        camPos.lerp(player.getPosition().cpy().add(player.getVelocity()), elapsedTime);
+        viewport.getCamera().position.lerp(new Vector3(camPos.x + 8, camPos.y + 8, 0), Config.PlayerProperties.CAMERA_LAG);
 
         for (Player otherPlayer :
             players) {
-            otherPlayer.draw(batch);
+            otherPlayer.draw(batch, elapsedTime);
         }
 
         // ABOVE

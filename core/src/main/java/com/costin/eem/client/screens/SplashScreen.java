@@ -9,15 +9,13 @@ import com.costin.eem.utils.FontManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.Time;
-import java.time.Instant;
-
 public class SplashScreen extends Screen {
     private static final Logger log = LoggerFactory.getLogger(SplashScreen.class);
     private static SplashScreen singleton;
     private final Texture titlescreen;
     private boolean invert = false;
     private float waitTime;
+    private boolean pressed;
 
     private SplashScreen() {
         titlescreen = new Texture("media/titlescreen.png");
@@ -61,12 +59,14 @@ public class SplashScreen extends Screen {
     }
     @Override
     public boolean keyDown(int keycode) {
+        if(pressed) return false;
+        pressed = true;
         loadGame();
         MainClient.setScreen(MenuScreen.instance());
         return false;
     }
     @Override
-    public void render(double elapsedTime) {
+    public void render(float elapsedTime) {
         batch.begin();
         if (!invert || waitTime <= 0) {
             batch.setColor(1, 1, 1, MathUtils.lerp(0, 1, invert ? batch.getColor().a - 0.025f : batch.getColor().a + 0.025f));

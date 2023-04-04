@@ -1,4 +1,4 @@
-package com.costin.eem.net.protocol.world.server;
+package com.costin.eem.net.protocol.world;
 
 import com.costin.eem.net.Packet;
 

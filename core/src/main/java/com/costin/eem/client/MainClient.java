@@ -14,17 +14,19 @@ import com.costin.eem.utils.FontManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Date;
+
 public class MainClient extends ApplicationAdapter {
     private static final Logger log = LoggerFactory.getLogger(MainClient.class);
     private static Screen currentScreen;
     private static Viewport viewport;
     private static SpriteBatch mainBatch;
     private static volatile boolean isRunning;
-    private long lastTime = System.nanoTime();
-    private long time;
 
     public static void setScreen(Screen screen) {
-        if (currentScreen != null) currentScreen.dispose();
+        if (currentScreen != null) {
+            currentScreen.dispose();
+        }
         String screenClassName = screen.getClass().getName();
         int index = screenClassName.split("\\.").length;
         screenClassName = screenClassName.split("\\.")[index - 1];
@@ -40,6 +42,8 @@ public class MainClient extends ApplicationAdapter {
     public static boolean isRunning() {
         return isRunning;
     }
+    private float time;
+    private long lastTime;
 
     @Override
     public void create() {
@@ -47,8 +51,8 @@ public class MainClient extends ApplicationAdapter {
         viewport = new FitViewport(Config.WIDTH, Config.HEIGHT);
         Config.setCurrentSize(viewport.getWorldWidth(), viewport.getWorldHeight());
         setScreen(SplashScreen.instance());
-        time = System.currentTimeMillis();
         log.info("Client started");
+        lastTime = System.currentTimeMillis();
     }
 
     @Override
@@ -67,7 +71,6 @@ public class MainClient extends ApplicationAdapter {
     public void resume() {
         currentScreen.resume();
     }
-
     @Override
     public void render() {
         Gdx.graphics.setTitle("Everybody Edits Multiverse | " + Gdx.graphics.getFramesPerSecond());
@@ -75,15 +78,21 @@ public class MainClient extends ApplicationAdapter {
         viewport.apply(false);
         mainBatch.setProjectionMatrix(viewport.getCamera().combined);
 
-        // update physics
-        long currentTime = System.nanoTime();
-        double elapsedTime = (currentTime - lastTime) / 1000000000.0;
-        if (elapsedTime >= Config.TIMERATE) {
-            lastTime = currentTime;
+
+        long currentTime = System.currentTimeMillis();
+        float elapsedTime = (currentTime - lastTime) / 1000f;
+        time += elapsedTime;
+        lastTime = System.currentTimeMillis();
+
+        if(time >= 1 / 60f) {
             currentScreen.tick();
         }
+        if(time >= 1) {
+            time -= 1;
+        }
+
         ScreenUtils.clear(0, 0, 0, 1);
-        currentScreen.render((float) (elapsedTime / Config.TIMERATE));
+        currentScreen.render(time);
     }
 
     @Override

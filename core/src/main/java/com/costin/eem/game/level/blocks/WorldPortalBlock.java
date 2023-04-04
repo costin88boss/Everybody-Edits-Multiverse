@@ -6,8 +6,8 @@ public class WorldPortalBlock extends Block {
     public String targetWorld;
     public int targetSpawn;
 
-    public WorldPortalBlock(int id, String targetWorld, int targetSpawn) {
-        super(id);
+    public WorldPortalBlock(int id, String placedBy, String targetWorld, int targetSpawn) {
+        super(id, placedBy);
         this.targetWorld = targetWorld;
         this.targetSpawn = targetSpawn;
     }
