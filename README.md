@@ -1,6 +1,7 @@
 # EverybodyEditsMultiverse
 
 I abandoned this project too. the older Everybody Edits project (server & client) called EEOn were abandoned because I had to completely remake the entire movement system and implement tick-based logic, as I just realised EE is tick-based, not delta time based (which could even impact server-client relationship).
+(additionally, since they were 2 different IDE projects, it was hard and tedious to copy paste so much code)
 
 The reason I abandoned this one is because the code was obviously messy, and I had to remake the networking system, because I used Java's sockets, but I wanted to change to kryonetty (kryo serializer + netty.io networking)
 
