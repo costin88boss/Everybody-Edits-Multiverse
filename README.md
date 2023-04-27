@@ -1,36 +1,7 @@
 # EverybodyEditsMultiverse
 
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/tommyettinger/gdx-liftoff).
+I abandoned this project too. the older Everybody Edits project (server & client) called EEOn were abandoned because I had to completely remake the entire movement system and implement tick-based logic, as I just realised EE is tick-based, not delta time based (which could even impact server-client relationship).
 
-This project was generated with a template including simple application launchers and an `ApplicationAdapter` extension
-that draws libGDX logo.
+The reason I abandoned this one is because the code was obviously messy, and I had to remake the networking system, because I used Java's sockets, but I wanted to change to kryonetty (kryo serializer + netty.io networking)
 
-## Platforms
-
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3.
-
-## Gradle
-
-This project uses [Gradle](http://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
-
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `server:run`: runs the server application.
-- `test`: runs unit tests (if any).
-
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should
-be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.
+I 100% plan to make an EE remake and properly make it, however (as of 4/27/2023) I am going my path to C++, hence if I do a remake, I'll do it in C++. However, since I am a beginner at C++, I can't just jump straight into making an EE remake.
