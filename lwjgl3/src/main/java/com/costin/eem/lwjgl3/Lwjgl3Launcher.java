@@ -1,13 +1,12 @@
 package com.costin.eem.lwjgl3;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.costin.eem.Config;
-import com.costin.eem.client.MainClient;
-import com.costin.eem.server.MainServer;
+import com.costin.eem.Main;
+import com.costin.eem.net.server.Server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -58,30 +57,24 @@ public class Lwjgl3Launcher {
         }
 
         if (isServer) {
-            log.info("Starting server..");
             createServer(port, worldName);
         } else {
-            log.info("Starting client..");
             createApplication();
         }
     }
 
     private static void createServer(int port, String worldName) {
         HeadlessApplicationConfiguration configuration = new HeadlessApplicationConfiguration();
+        Server.setConfig(port, worldName);
         try {
-            new HeadlessApplication(new ApplicationAdapter() {
-                @Override
-                public void create() {
-                    new MainServer(port, worldName);
-                }
-            }, configuration);
+            new HeadlessApplication(new Main(true), configuration);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
     private static void createApplication() {
-        new Lwjgl3Application(new MainClient(), getDefaultConfiguration());
+        new Lwjgl3Application(new Main(false), getDefaultConfiguration());
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
