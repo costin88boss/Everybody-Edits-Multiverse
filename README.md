@@ -10,4 +10,4 @@ I 100% plan to make an EE remake and properly make it, however (as of 4/27/2023)
 
 
 
-> Update: check the `new` branch
+**Update: check the `new` branch**
