@@ -14,7 +14,6 @@ buildscript {
 
   }
 }
-
 allprojects {
   apply plugin: 'eclipse'
   apply plugin: 'idea'
@@ -30,7 +29,7 @@ configure(subprojects) {
 
 subprojects {
   version = '1.0.0'
-  ext.appName = 'EverybodyEditsMultiverse'
+  ext.appName = 'Everybody Edits Multiverse'
   repositories {
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }

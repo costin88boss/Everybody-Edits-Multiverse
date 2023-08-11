@@ -6,10 +6,12 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.costin.eem.Config;
 import com.costin.eem.Main;
-import com.costin.eem.net.server.Server;
+import com.costin.eem.net.Network;
+import com.costin.eem.net.server.GameServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Lwjgl3Launcher {
@@ -49,8 +51,8 @@ public class Lwjgl3Launcher {
         }
 
         if (isServer && port == -1) {
-            log.warn("port argument was not used. default port will be 33466.");
-            port = 33466;
+            log.warn("port argument was not used. default port will be {}.", Network.defaultPort);
+            port = Network.defaultPort;
         }
         if (!isServer && port != -1) {
             log.warn("port argument was used, but --server argument wasn't used. the client will run instead.");
@@ -59,13 +61,13 @@ public class Lwjgl3Launcher {
         if (isServer) {
             createServer(port, worldName);
         } else {
-            createApplication();
+            createApplication(args);
         }
     }
 
     private static void createServer(int port, String worldName) {
         HeadlessApplicationConfiguration configuration = new HeadlessApplicationConfiguration();
-        Server.setConfig(port, worldName);
+        GameServer.setConfig(port, worldName);
         try {
             new HeadlessApplication(new Main(true), configuration);
         } catch (Exception ex) {
@@ -73,13 +75,18 @@ public class Lwjgl3Launcher {
         }
     }
 
-    private static void createApplication() {
-        new Lwjgl3Application(new Main(false), getDefaultConfiguration());
+    private static void createApplication(String[] args) {
+        Lwjgl3ApplicationConfiguration conf = getDefaultConfiguration();
+
+        if(Arrays.asList(args).contains("-gl31")) {
+            conf.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.GL20, 3, 1);
+        }
+        new Lwjgl3Application(new Main(false), conf);
     }
 
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
-        configuration.setTitle("EverybodyEditsMultiverse");
+        configuration.setTitle("EE: Multiverse");
         configuration.useVsync(true);
         //// Limits FPS to the refresh rate of the currently active monitor.
         configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);

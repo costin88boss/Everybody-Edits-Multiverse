@@ -11,15 +11,19 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.costin.eem.Config;
 import com.costin.eem.Game;
-import com.costin.eem.net.client.Client;
-import com.costin.eem.net.server.Server;
+import com.costin.eem.game.world.World;
+import com.costin.eem.net.Network;
+import com.costin.eem.net.client.GameClient;
+import com.costin.eem.net.server.GameServer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 public class MenuScreen extends Screen {
+    private static final Logger log = LoggerFactory.getLogger(MenuScreen.class);
     private ScrollPane favoritedServersTab, historyServerTab, savedWorldsTab;
     private Window infoWindow, joinServerWindow;
     private Label infoWindowLabel;
@@ -48,7 +52,7 @@ public class MenuScreen extends Screen {
     private void refreshSaves() {
         VerticalGroup saveStack = (VerticalGroup) savedWorldsTab.getActor();
         saveStack.clearChildren();
-        String[] saveNames = new String[]{"AA", "BB", "CC"}; //LevelLoader.listSaves();
+        String[] saveNames = World.listSaves();
         for (String saveName : saveNames) {
             HorizontalGroup horizontalGroup = new HorizontalGroup();
 
@@ -59,11 +63,15 @@ public class MenuScreen extends Screen {
             joinBtn.addListener(new ClickListener() {
                 @Override
                 public void clicked(InputEvent event, float x, float y) {
-                    Server.setConfig(33466, Config.rootFolder + "saves/" + saveName + ".eelvl");
-                    Server.start();
-
-                    if(!Client.connectTo(InetAddress.getLoopbackAddress().getHostName(), 33466)) {
-                        throw new RuntimeException("Couldn't connect to localhost server?");
+                    try {
+                        GameServer.setConfig(Network.defaultPort, Config.rootFolder + "saves/" + saveName + ".eelvl");
+                        GameServer.start();
+                        GameClient.connectTo(InetAddress.getLoopbackAddress().getHostName(), Network.defaultPort);
+                    } catch (Exception e) {
+                        log.error(e.toString());
+                        GameServer.serverClose();
+                        showInfoWindow("An error has occurred", e.toString());
+                        Game.instance().changeScreen(Type.MENU);
                     }
                 }
             });
@@ -90,6 +98,7 @@ public class MenuScreen extends Screen {
     @Override
     public void postload() {
         stage = new Stage();
+        stage.setViewport(Game.instance().getViewport());
 
         skin = Game.instance().assetRootGet("skin/cloud-form-ui.json");
 
@@ -128,7 +137,7 @@ public class MenuScreen extends Screen {
         savedWorldsTab.setVisible(true);
         savedWorldsTab.setSize(bgWidthGap, Config.HEIGHT - 100);
 
-        Image tabsBackground = new Image(new Texture("pixel.png"));
+        Image tabsBackground = new Image(Game.instance().pixel());
         tabsBackground.setPosition(0, 0);
         tabsBackground.setSize(bgWidthGap, Config.HEIGHT);
         float colorVal = 0.8f;
@@ -154,7 +163,7 @@ public class MenuScreen extends Screen {
         historyTabButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                currentTabName.setText("Server history");
+                currentTabName.setText("GameServer history");
 
                 savedWorldsTab.setVisible(false);
                 favoritedServersTab.setVisible(false);
@@ -192,12 +201,12 @@ public class MenuScreen extends Screen {
         joinServerWindow.setTransform(true);
         joinServerWindow.setLayoutEnabled(false);
 
-        Label serverPortFieldTitle = new Label("Server Port", skin);
+        Label serverPortFieldTitle = new Label("GameServer Port", skin);
         serverPortFieldTitle.setPosition((joinServerWindow.getWidth() - 150) / 2, 125);
         serverPortFieldTitle.setSize(150, 25);
         serverPortFieldTitle.setAlignment(Align.center);
 
-        TextField serverPortField = new TextField("33466", skin);
+        TextField serverPortField = new TextField(String.valueOf(Network.defaultPort), skin);
         serverPortField.setPosition((joinServerWindow.getWidth() - 150) / 2, 100);
         serverPortField.setSize(150, 25);
 
@@ -253,8 +262,11 @@ public class MenuScreen extends Screen {
                     errorMessage.setText("Invalid port");
                     return;
                 }
-                if(!Client.connectTo(text, port)) {
+                try {
+                    GameClient.connectTo(text, port);
+                } catch (IOException e) {
                     errorMessage.setText("Couldn't connect to server.");
+                    Game.instance().changeScreen(Screen.Type.MENU);
                 }
             }
         });
@@ -311,21 +323,21 @@ public class MenuScreen extends Screen {
         stage.addActor(joinServerButton);
         stage.addActor(joinServerWindow);
         stage.addActor(infoWindow);
-
-        Gdx.input.setInputProcessor(stage);
-
-        refreshSaves();
     }
 
     @Override
     public void start() {
-
+        Gdx.input.setInputProcessor(stage);
+        refreshSaves();
     }
 
     @Override
     public void logic() {
-        stage.act();
 
+    }
+
+    //@Override
+    public void logic_() {
         bgTimer -= Gdx.graphics.getDeltaTime();
         if (bgTimer <= 2f) {
             bgAlpha = bgTimer / 2;
@@ -342,6 +354,10 @@ public class MenuScreen extends Screen {
 
     @Override
     public void render(SpriteBatch batch) {
+        logic_();
+
+        stage.act(); // can't put in logic as it's tick-based and limited
+
         batch.begin();
         batch.setColor(1, 1, 1, bgAlpha);
         switch (bgIndex) {

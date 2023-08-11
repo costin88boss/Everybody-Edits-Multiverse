@@ -6,7 +6,9 @@ public abstract class Screen {
     Screen() {
 
     }
+
     public abstract void preload();
+
     public abstract void postload();
 
     public abstract void start();
@@ -20,25 +22,30 @@ public abstract class Screen {
     public abstract void gameClose();
 
     public static class Type {
-        public static final Screen SPLASH = new SplashScreen();
-        public static final Screen MENU = new MenuScreen();
-        public static final Screen LOADING = new LoadingScreen();
+        public static final SplashScreen SPLASH = new SplashScreen();
+        public static final MenuScreen MENU = new MenuScreen();
+        public static final WorldScreen WORLD = new WorldScreen();
+        public static final LoadingScreen LOADING = new LoadingScreen();
         private static boolean preloaded, postloaded;
+
         public static void preload() {
             if (preloaded) return;
             preloaded = true;
 
             MENU.preload();
             LOADING.preload();
+            WORLD.preload();
 
             SPLASH.preload();
         }
+
         public static void postload() {
             if (postloaded) return;
             postloaded = true;
 
             MENU.postload();
             LOADING.postload();
+            WORLD.postload();
         }
     }
 }

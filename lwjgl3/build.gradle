@@ -47,7 +47,8 @@ jar {
 // sets the name of the .jar file this produces to the name of the game or app.
   archiveBaseName.set(appName)
 // using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
-  destinationDirectory = file("$project.buildDir/lib")
+  Object libDir = file("$project.buildDir/lib/")
+  destinationDirectory = libDir
 // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
@@ -61,6 +62,23 @@ jar {
   manifest {
     attributes 'Main-Class': project.mainClassName
   }
+
+  /*
+  Object eemData = file("$libDir/EEM_data/")
+  Object originalEEMData = file("$rootDir/EEM_data/")
+  boolean _copy = true;
+  if (eemData.exists()) {
+    if (originalEEMData.directorySize() == eemData.directorySize()) _copy = false;
+  }
+
+  if (_copy) {*/
+  copy {
+    from rootDir
+    into destinationDirectory
+    include 'EEM_data/**'
+    //}
+  }
+
 // this last step may help on some OSes that need extra instruction to make runnable JARs.
   doLast {
     file(archiveFile).setExecutable(true, false)
@@ -102,3 +120,6 @@ if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
 // Equivalent to the jar task; here for compatibility with gdx-setup.
 task dist(dependsOn: [jar]) {
 }
+
+
+dist.dependsOn classes
