@@ -9,4 +9,4 @@ I abandoned this project too. the older Everybody Edits project (server & client
 
 ~~**Update: check the `new` branch**~~
 
-Whatever. check the "EEOn-ABANDONED-" repos for the ACTUAL reasons I abandoned the idea of a flash game's revival and why I will NOT be coming back for.
+Whatever. check the "EEOn-old" repos for the ACTUAL reasons I abandoned the idea of a flash game's revival and why I will NOT be coming back for.
