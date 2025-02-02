@@ -2,4 +2,4 @@
 
 I have to say, having such a branch isn't really ideal and it would have been more logical to swap out these 2 branches.
 
-either way, as I've stated in the "EEOn-ABANDONED-" repos, I lost interest in this and I am not coming back.
+either way, as I've stated in the "EEOn-old" repos, I lost interest in this and I am not coming back.
